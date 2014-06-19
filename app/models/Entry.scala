@@ -7,16 +7,15 @@ import play.api.Play.current
 
 import org.joda.time.DateTime
 
-case class Entry (
-    id : Long,
-    title : String,
-    source : List[ String ],
-    content : String,
-    added : DateTime,
-    updated : DateTime,
-    tags : List[String],
-    rating : Int
-)
+case class Entry(
+  id: Long,
+  title: String,
+  source: List[String],
+  content: String,
+  added: DateTime,
+  updated: DateTime,
+  tags: List[String],
+  rating: Int)
 
 object Entry {
     def save(r : Entry) = {

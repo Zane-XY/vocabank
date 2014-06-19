@@ -10,5 +10,5 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.178",
   "joda-time" % "joda-time" % "2.3",
   "org.joda" % "joda-convert" % "1.6",
-  jdbc, anorm, cache, ws
+  filters, jdbc, anorm, cache, ws
 )
