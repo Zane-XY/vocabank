@@ -1,7 +1,15 @@
+package models
+
+import anorm._
+import anorm.SqlParser._
+import play.api.db.DB
+import play.api.Play.current
+
 import org.joda.time.DateTime
 
-class Entry (
-    name : String,
+case class Entry (
+    id : Long,
+    title : String,
     source : List[ String ],
     content : String,
     added : DateTime,
@@ -9,3 +17,29 @@ class Entry (
     tags : List[String],
     rating : Int
 )
+
+object Entry {
+    def save(r : Entry) = {
+        DB.withConnection { implicit connection => SQL("""
+            INSERT INTO entries (
+                title,
+                content,
+                added,
+                updated,
+                rating
+            ) VALUES (
+                {title},
+                {content},
+                {added},
+                {updated},
+                {rating}
+            ) """).on(
+                  title -> r.title,
+                  content -> r.content,
+                  added -> r.content,
+                  updated -> r.updated,
+                  rating -> r.rating
+            ).executeUpdate
+        }
+    }
+}
