@@ -9,7 +9,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /                           controllers.Application.index
 
 # entries
-GET     /entries                          controllers.Application.entries
+GET     /entries                    controllers.EntryController.entries
 
-GET     /entries/:id                          controllers.Application.entries
+#GET     /entries/:id                          controllers.Application.entries
 
