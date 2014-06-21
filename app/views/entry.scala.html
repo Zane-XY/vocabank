@@ -1,0 +1,13 @@
+@(entry : Form[Entry])(implicit token: play.filters.csrf.CSRF.Token)
+@import helper._
+
+@main("entry") {
+
+    @form(action = routes.EntryController.save) {
+        @CSRF.formField
+        @inputText(entry("title"))
+        @textarea(entry("content"))
+        @inputText(entry("rating"))
+        <input type="submit" value="submit">
+    }
+}

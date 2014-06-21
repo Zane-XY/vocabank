@@ -12,3 +12,5 @@ libraryDependencies ++= Seq(
   "org.joda" % "joda-convert" % "1.6",
   filters, jdbc, anorm, cache, ws
 )
+
+transitiveClassifiers := Seq(Artifact.SourceClassifier)

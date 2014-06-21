@@ -1,7 +1,20 @@
-@(message: String)
+@(entries : Iterable[models.Entry])(implicit flash:Flash)
 
-@main("Welcome to Play") {
-
-"entries"
-
+@main("All Entries") {
+<h1>All Entries</h1>
+@flash.get("success").map { msg =>
+<div class="flash">@msg</div>
+}
+@if(entries.isEmpty) {
+<p>No Entries</p>
+} else {
+<ul>
+@for(e <- entries) {
+   <li>  @e.id @e.title @e.source, @e.content @e.tags @e.rating
+   <a href="@routes.EntryController.edit(e.id.get)">Edit</a>
+   @helper.form(routes.EntryController.delete(e.id.get)){<button type="submit">Delete</button>}</li>
+}
+</ul>
+}
+<a href="@routes.EntryController.add">Add a new entry</a>
 }
