@@ -3,13 +3,18 @@ package controllers
 import play.api._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc._
 import models._
 
 import org.joda.time.DateTime
 
-
+import play.filters.csrf._
 import play.filters.csrf.CSRF.Token._
+
+//import play.api.libs.json._
+//import play.api.libs.json.Reads._
+//import play.api.libs.functional.syntax._
 
 object EntryController extends Controller {
 
@@ -33,6 +38,8 @@ object EntryController extends Controller {
     "tags" -> optional(list(text)),
     "rating" -> number(min = 1, max = 5))(formToEntry)(entryToForm))
 
+  //entryF("rating").value
+
   def entries = Action {
     implicit request =>
     Ok(views.html.entries(Entry.listAll))
@@ -50,9 +57,26 @@ object EntryController extends Controller {
     Ok(views.html.entry(entryF))
   }
 
-  //views.html.add_entry(formWithErrors)
-  def save = Action {
-    implicit request =>
+  /**
+   * take strict JSON format, jquery should pass stringfied json object.
+   * @return
+   */
+  def setRating = CSRFCheck {
+    Action(parse.json) { implicit req =>
+      import JsonValidators.ratingReads
+      req.body.validate[(Long, Int)].map {
+        case (id, value) => Ok(Json.obj( "status" -> "OK", "updated" -> Entry.setRating(id, value)))
+      }.recoverTotal{
+        e => BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toFlatJson(e)))
+      }
+   }
+  }
+
+  /**
+   * form post is filtered by CSRF
+    * @return
+   */
+  def save = Action { implicit request =>
       entryF.bindFromRequest.fold(
         formWithErrors => Ok(views.html.entry(formWithErrors)),
         entry => {
@@ -60,4 +84,15 @@ object EntryController extends Controller {
           Redirect(routes.EntryController.entries).flashing("success" -> "Entry saved")
         })
   }
+}
+
+object JsonValidators {
+  import play.api.libs.json._
+  import play.api.libs.json.Reads._
+  import play.api.libs.functional.syntax._
+
+  implicit val ratingReads : Reads[(Long, Int)] = (
+    (__ \ "id").read[Long] and
+    (__ \ "value").read[Int](min(1) keepAnd max(5))
+  ) tupled
 }

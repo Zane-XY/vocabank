@@ -23,18 +23,30 @@ object Entry {
     private val entryParser:RowParser[Entry] = {
         get[Option[Long]]("id") ~
         get[String]("title") ~
-        get[Option[String]]("source") ~
         get[String]("content") ~
         get[DateTime]("added") ~
         get[DateTime]("updated") ~
-        get[Option[String]]("tags") ~
-        get[Int]("rating") map { case id ~ title ~ source ~ content ~ added ~ updated ~ tags ~ rating =>
-            Entry(id , title , source.map(a => List(a)) , content , added , updated , tags.map(a => List(a)) , rating) }
+        get[Int]("rating") map { case id ~ title ~ content ~ added ~ updated ~ rating =>
+            Entry(id , title , None ,  content , added , updated , None, rating) }
     }
 
   def listAll():List[Entry] = {
     DB.withConnection { implicit connection =>
       SQL("SELECT * from ENTRIES").as(entryParser *)
+    }
+  }
+
+  /**
+   *
+   * @param id
+   * @param value
+   * @return the counts of updated rows
+   */
+  def setRating(id: Long, value: Int):Int = {
+    DB.withConnection { implicit connection =>
+      SQL("""
+         UPDATE ENTRIES SET RATING = {value} WHERE ID = {id} """).on(
+          'value -> value, 'id -> id).executeUpdate
     }
   }
 
@@ -56,7 +68,7 @@ object Entry {
             ) """).on(
         'title -> r.title,
         'content -> r.content,
-        'added -> r.content,
+        'added -> r.added,
         'updated -> r.updated,
         'rating -> r.rating).executeUpdate
     }

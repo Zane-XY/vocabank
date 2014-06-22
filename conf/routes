@@ -18,4 +18,6 @@ GET     /entry/:id/delete               controllers.EntryController.delete(id:Lo
 
 GET     /entry/:id/edit                 controllers.EntryController.edit(id:Long)
 
+POST    /entry/setRating                 controllers.EntryController.setRating
+
 POST   /entry/save                  controllers.EntryController.save
