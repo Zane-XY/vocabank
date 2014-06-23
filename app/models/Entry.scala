@@ -32,7 +32,7 @@ object Entry {
 
   def listAll():List[Entry] = {
     DB.withConnection { implicit connection =>
-      SQL("SELECT * from ENTRIES").as(entryParser *)
+      SQL("SELECT * from ENTRIES ORDER BY ADDED DESC").as(entryParser *)
     }
   }
 

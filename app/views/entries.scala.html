@@ -26,28 +26,5 @@
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/raty/jquery.raty.css")">
 <script src="@routes.Assets.at("libs/raty/jquery.raty.js")" type="text/javascript"></script>
-
-<script type="text/javascript">
-    $(function() {
-         $('div.rating').raty({
-              path: '@routes.Assets.at("libs/raty/images")',
-              score: function() {
-                return $(this).attr('data-score');
-              },
-              click: function(score, evt) {
-                 $.ajax({
-                    type: "POST",
-                    url:  "/entry/setRating",
-                    data: JSON.stringify({ "id": parseInt($(this).attr('data-id')) , "value": parseInt(score)}),
-                    dataType : "json",
-                    contentType: "application/json",
-                    complete: function (data) {
-                        console.log(data);
-                    }
-                 });
-              }
-          });
-    });
- </script>
-
+<script src="@routes.Assets.at("javascripts/entries.js")" type="text/javascript"></script>
 }
