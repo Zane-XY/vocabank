@@ -11,8 +11,11 @@ object CambridgeLearnerScraper {
   def scrape(word : String) : String = {
    val res = Jsoup.connect(dict + word).ignoreHttpErrors(true).execute
    res.statusCode match {
-      case 200 => res.parse().select("div.di").toString
-      case _ => ""
+      case 200 => val doc = res.parse().select("div.di")
+                  doc.select("div.share-this-entry").remove
+                  doc.select("div.di-title").remove
+                  doc.toString
+        case _ => ""
     }
   }
 

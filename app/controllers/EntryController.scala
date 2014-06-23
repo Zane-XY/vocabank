@@ -11,6 +11,7 @@ import org.joda.time.DateTime
 
 import play.filters.csrf._
 import play.filters.csrf.CSRF.Token._
+import utils.CambridgeLearnerScraper
 
 //import play.api.libs.json._
 //import play.api.libs.json.Reads._
@@ -84,6 +85,11 @@ object EntryController extends Controller {
           Redirect(routes.EntryController.entries).flashing("success" -> "Entry saved")
         })
   }
+
+  def lookupDef(word: String) = Action { implicit  req =>
+    Ok(CambridgeLearnerScraper.scrape(word))
+  }
+
 }
 
 object JsonValidators {

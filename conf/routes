@@ -21,3 +21,5 @@ GET     /entry/:id/edit                 controllers.EntryController.edit(id:Long
 POST    /entry/setRating                 controllers.EntryController.setRating
 
 POST   /entry/save                  controllers.EntryController.save
+
+GET     /entry/lookupDef/:word                 controllers.EntryController.lookupDef(word:String)
