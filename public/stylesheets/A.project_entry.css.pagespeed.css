@@ -1,0 +1,550 @@
+.gramtitle1,.gramtitle2,.activetitle{
+	cursor:pointer
+}
+
+img.proncar{
+	vertical-align:bottom
+}
+
+div.aspell-header{
+	font-family:Verdana,Helvetica,sans-serif;
+	font-style:normal;
+	font-weight:bold;
+	font-size:14pt;
+	color:#08204a;
+	margin-left:6px;
+	margin:0 0 20px 6px
+}
+
+a.aspell-suggest{
+	font-family:Verdana,Helvetica,sans-serif;
+	font-size:12pt;
+	color:#1c3a78;
+	text-decoration:none;
+	margin-left:6px;
+	border:none;
+	cursor:pointer
+}
+
+.wordclass>.POS{
+}
+
+HR{
+	display:none
+}
+
+.ABBR{
+	font-weight:bold
+}
+
+.AMEQUIV{
+	font-weight:bold;
+	color:#00008b
+}
+
+.AMEVARPRON{
+	font-family:AWLAscii
+}
+
+.BOOKFILM{
+	font-style:italic
+}
+
+.BREQUIV{
+	font-weight:bold;
+	color:#00008b
+}
+
+.COLLO{
+	font-weight:bold;
+	color:#00f
+}
+
+.COLLOINEXA{
+	font-style:italic;
+	font-weight:bold
+}
+
+.COMP{
+	font-weight:bold
+}
+
+.Crossrefto{
+	font-variant:small-caps;
+	font-weight:bold;
+	color:#00f
+}
+
+.CROSSREFTYPE{
+}
+
+.DEF{
+}
+
+.DERIV{
+	font-family:Arial\ Unicode\ MS;
+	font-weight:bold;
+	color:#00f
+}
+
+.EMPH{
+	font-style:italic;
+	color:#00f;
+	font-weight:bold
+}
+
+.Entry{
+	display:block;
+	padding-bottom:10px
+}
+
+.EXAMPLE{
+	font-style:italic;
+	display:block
+}
+
+.EXAMPLE img{
+	margin-right:5px
+}
+
+.GramExa,.ColloExa{
+	display:block
+}
+
+.FULLFORM{
+	font-weight:bold
+}
+
+.GEO{
+	font-style:italic;
+	font-weight:normal;
+	color:purple
+}
+
+.GLOSS{
+	font-style:normal;
+	font-variant:normal;
+	color:#000
+}
+
+.GRAM{
+	color:green
+}
+
+.UsePara{
+	display:block
+}
+
+.GRAMPAT{
+	color:#00f;
+	font-weight:bold
+}
+
+.HEAD1{
+	font-weight:bold
+}
+
+.HEAD2{
+	font-weight:bold;
+	color:#00f;
+	display:block
+}
+
+.HEADING{
+}
+
+.HINTBOLD{
+	font-weight:bold
+}
+
+.HINTITALIC{
+	font-style:italic
+}
+
+.HINTROMAN{
+}
+
+.HOMNUM{
+	display:none
+}
+
+h1{
+	display:inline;
+	font-size:100%
+}
+
+h2{
+	display:inline;
+	font-size:100%
+}
+
+.HWD{
+	font-size:100%;
+	font-weight:bold;
+	color:#00f
+}
+
+.HYPHENATION{
+	font-family:Arial\ Unicode\ MS;
+	font-size:110%;
+	font-weight:bold;
+	color:#00f
+}
+
+.inflectype{
+	font-family:Times\ New\ Roman,Helvetica,sans-serif;
+	font-style:italic
+}
+
+.JOGDEF{
+}
+
+.JOGGLOSS{
+}
+
+.JOGHEADING{
+	font-weight:bold
+}
+
+.JOGHWD{
+	font-weight:bold
+}
+
+.JOGLABEL{
+	font-style:italic
+}
+
+.JOGVAR{
+	font-weight:bold
+}
+
+.JOGVARLABEL{
+	font-family:Times\ New\ Roman,Helvetica,sans-serif;
+	font-style:italic
+}
+
+.JOGWORD{
+	text-transform:uppercase;
+	font-weight:bold
+}
+
+.LEXICALCHUNK{
+	font-weight:bold
+}
+
+.LEXREF{
+	font-weight:bold;
+	color:#00f
+}
+
+.LEXUNIT{
+	font-family:Arial\ Unicode\ MS;
+	font-weight:bold;
+	color:#00f;
+	margin-left:.3em;
+	margin-right:.3em
+}
+
+.PERSON{
+	font-style:italic
+}
+
+.PROPFORM{
+	font-weight:bold;
+	color:#00f
+}
+
+.PROPFORMPREP{
+	font-weight:bold;
+	color:#00f
+}
+
+.LEXVAR{
+	font-family:Arial\ Unicode\ MS;
+	font-weight:bold;
+	color:#00f
+}
+
+.LINKWORD{
+	font-family:Times\ New\ Roman,Helvetica,sans-serif;
+	font-style:italic
+}
+
+.NonDV{
+	font-variant:small-caps;
+	color:#00f
+}
+
+.OBJECT{
+	font-weight:bold
+}
+
+.OPP{
+	color:#00008b
+}
+
+.ORTHVAR{
+	font-family:Arial\ Unicode\ MS;
+	font-weight:bold;
+	color:#00f
+}
+
+.parahead{
+	display:block;
+	text-decoration:underline;
+	font-weight:bolder;
+	text-transform:uppercase
+}
+
+.Para{
+	display:block
+}
+
+.PASTPART{
+	font-weight:bold
+}
+
+.PASTTENSE{
+	font-weight:bold
+}
+
+.PHRVBHWD,.phrvbhwd{
+	font-weight:bold;
+	color:#00f
+}
+
+.PhrVbEntry{
+	display:block;
+	margin-left:10px
+}
+
+.PLURALFORM{
+	font-weight:bold
+}
+
+.POS{
+	font-style:italic
+}
+
+.PRESPART{
+	font-weight:bold
+}
+
+.PRON{
+	font-family:AWLAscii
+}
+
+.PTandPP{
+	font-weight:bold
+}
+
+.REFHOMNUM{
+	font-size:64%;
+	vertical-align:super
+}
+
+.REFHWD{
+}
+
+.REFSENSENUM{
+}
+
+.REGISTERLAB{
+	font-style:italic;
+	color:purple;
+	font-weight:normal
+}
+
+.RELATEDWD{
+	color:#00008b
+}
+
+.RunOn{
+	display:block
+}
+
+.Sense{
+	display:block;
+	margin-left:15px;
+	margin-bottom:5px;
+	line-height:130%
+}
+
+.Tail{
+	display:block
+}
+
+.BoxCollo{
+	display:block
+}
+
+.SIGNPOST{
+	font-weight:bold;
+	font-variant:small-caps
+}
+
+.SIGNPOST span{
+	margin-right:.3em
+}
+
+.SPECIALCHAR{
+}
+
+.STRONG{
+	font-family:Times\ New\ Roman,Helvetica,sans-serif
+}
+
+.Subsense{
+	display:block;
+	margin-left:5px
+}
+
+.SUFFIX{
+	font-variant:normal
+}
+
+.SUPERL{
+	font-weight:bold
+}
+
+.SYN{
+	color:#00008b
+}
+
+.T3PERSSING{
+	font-weight:bold
+}
+
+.TITLE{
+	font-weight:bold;
+	display:block
+}
+
+.UB{
+	font-weight:bold
+}
+
+.UEMPH{
+	font-style:italic
+}
+
+.UEXA{
+	font-style:italic;
+	display:block
+}
+
+.UI{
+	font-style:italic
+}
+
+.Unclassified{
+	font-weight:bold;
+	color:red
+}
+
+.UR{
+	font-style:normal
+}
+
+.FREQ,.PIC,.FIELD,.COMMENT,.ACTIV,.PICCAL,.USAGENOTE,.ENTRYNO,.zzanywh_2,.NEW,.ALPHASORT,.NOTE,.SENSENUM,.USAGE{
+	display:none
+}
+
+span.exasound{
+}
+
+span.numsense{
+	font-family:Tahoma,Helvetica,sans-serif;
+	font-weight:bold;
+	color:red;
+	margin-left:-15px
+}
+
+span.numsubsense{
+	font-family:Tahoma,Helvetica,sans-serif;
+	font-weight:bold
+}
+
+a.xref,a.nondvref,a.caption,a.button{
+	text-decoration:none
+}
+
+span.activebutton{
+	display:none;
+	margin:4px 0px 3px 0px;
+	padding:3px 3px 3px 3px
+}
+
+span.activetitle{
+	font-weight:bold;
+	font-family:Arial,Helvetica,sans-serif;
+	background-color:#00f;
+	color:#fff
+}
+
+span.gramtitle1{
+	font-weight:bold;
+	font-family:Arial,Helvetica,sans-serif;
+	background-color:red;
+	color:#fff
+}
+
+span.gramtitle2{
+	font-weight:bold;
+	font-family:Arial,Helvetica,sans-serif;
+	background-color:red;
+	color:#fff
+}
+
+span.grammarbox{
+	display:block;
+	margin:3px 0px 3px 15px;
+	padding:3px 3px 3px 3px;
+	border-width:1pt;
+	border-style:solid;
+	line-height:1em;
+	background-color:#ffc8c8
+}
+
+span.activebox{
+	display:block;
+	margin:3px 0px 3px 0px;
+	padding:3px 3px 3px 3px;
+	border-width:1pt;
+	border-style:solid;
+	border-color:#00f;
+	line-height:1em;
+	background-color:#e2f4fd
+}
+
+span.spokenhead{
+	font-variant:small-caps;
+	font-weight:bold;
+	background-color:#000;
+	color:#fff
+}
+
+span.spokenphrases{
+	display:block;
+	margin:3px 0px 3px 0px;
+	padding:3px 3px 3px 3px;
+	border-width:1pt;
+	border-style:solid;
+	border-color:#000;
+	line-height:1em
+}
+
+span.normalstyle{
+	color:#000;
+	font-variant:normal;
+	font-weight:normal
+}
+
+.collboxexas{
+	background-color:#fff
+}
+
+.homographsSelected {
+    vertical-align: super;
+    font-size: smaller;
+}

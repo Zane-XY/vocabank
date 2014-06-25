@@ -15,7 +15,9 @@ object LongmanContemporaryScraper {
   val entry = ""
 
   def scrapeEntry(link : String) =  {
-    Jsoup.clean(Jsoup.connect(link).get.select("div.Entry").toString, Whitelist.relaxed().addAttributes("div","class"))
+    val doc = Jsoup.connect(link).get.select("div.Entry")
+      doc.select("script, iframe").remove
+      doc.toString
   }
 
   def scrape(word : String) : String = {

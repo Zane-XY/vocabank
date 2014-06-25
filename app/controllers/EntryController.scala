@@ -3,6 +3,9 @@ package controllers
 import play.api._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.Comet
+import play.api.libs.concurrent.Promise
+import play.api.libs.iteratee.Enumerator
 import play.api.libs.json.{JsError, Json}
 import play.api.mvc._
 import models._
@@ -11,7 +14,10 @@ import org.joda.time.DateTime
 
 import play.filters.csrf._
 import play.filters.csrf.CSRF.Token._
-import utils.CambridgeLearnerScraper
+import utils.{LongmanContemporaryScraper, CambridgeLearnerScraper}
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 //import play.api.libs.json._
 //import play.api.libs.json.Reads._
@@ -86,10 +92,17 @@ object EntryController extends Controller {
         })
   }
 
-  def lookupDef(word: String) = Action { implicit  req =>
-    Ok(CambridgeLearnerScraper.scrape(word))
-  }
 
+  def lookupDefAsync(word: String) = Action { implicit  req =>
+    //Ok(CambridgeLearnerScraper.scrape(word))
+    val a = Enumerator( Await.result(Promise.timeout("A", 5 seconds), 1 minute))
+    val b = Enumerator( Await.result(Promise.timeout("B", 3 seconds), 1 minute))
+    val c = Enumerator( Await.result(Promise.timeout("C", 1 second), 1 minute))
+
+    val d = a >- b >- c
+
+    Ok.chunked(d &> Comet(callback = "console.log"))
+  }
 }
 
 object JsonValidators {

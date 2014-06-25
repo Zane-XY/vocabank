@@ -22,4 +22,4 @@ POST    /entry/setRating                 controllers.EntryController.setRating
 
 POST   /entry/save                  controllers.EntryController.save
 
-GET     /entry/lookupDef/:word                 controllers.EntryController.lookupDef(word:String)
+GET     /lookup/:dictid/:word                 controllers.DictController.lookupDef(dictid:String, word:String)

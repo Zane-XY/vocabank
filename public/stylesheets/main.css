@@ -77,3 +77,7 @@ body {
     border-bottom: 0;
   }
 }
+
+.spacer {
+    margin-top: 40px; /* define margin as you see fit */
+}
