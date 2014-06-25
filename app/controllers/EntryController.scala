@@ -14,7 +14,7 @@ import org.joda.time.DateTime
 
 import play.filters.csrf._
 import play.filters.csrf.CSRF.Token._
-import utils.{LongmanContemporaryScraper, CambridgeLearnerScraper}
+import utils.{OxfordLearnerScraper, LongmanContemporaryScraper, CambridgeLearnerScraper}
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -93,15 +93,22 @@ object EntryController extends Controller {
   }
 
 
-  def lookupDefAsync(word: String) = Action { implicit  req =>
-    //Ok(CambridgeLearnerScraper.scrape(word))
-    val a = Enumerator( Await.result(Promise.timeout("A", 5 seconds), 1 minute))
-    val b = Enumerator( Await.result(Promise.timeout("B", 3 seconds), 1 minute))
-    val c = Enumerator( Await.result(Promise.timeout("C", 1 second), 1 minute))
+  def lookupDefAsync(word:String) = Action {
 
-    val d = a >- b >- c
+/*    val a = Enumerator(Future {
+      LongmanContemporaryScraper.scrape(word)}
+    )
 
-    Ok.chunked(d &> Comet(callback = "console.log"))
+    val b = Enumerator(Future {
+      OxfordLearnerScraper.scrape(word)}
+    )
+
+    val c = Enumerator(Future {
+      CambridgeLearnerScraper.scrape(word)}
+    )
+
+    Ok.chunked(a >- b >- c &> Comet(callback = "console.log"))*/
+    Ok
   }
 }
 

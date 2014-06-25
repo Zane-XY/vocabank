@@ -1,33 +1,38 @@
 $(function() {
 
-var spinner = $("<div>").append($("<i>").addClass("fa fa-circle-o-notch fa-spin"));
+$(document).ajaxStart(function() {
+    $("#dicts").children().remove();
+    $("#dicts").append(
+        $("<div class=\"row center-block centered\"><li class=\"fa fa-refresh fa-spin\"></li> </div>")
+    );
+});
 
- $( "#search_form" ).submit(function(e) {
+$(document).ajaxStop(function() {
+    $("#dicts .fa-spin").remove();
+});
+
+function dPanel(heading, content) {
+    var p = $("<div class=\"panel panel-default\"> \
+                    <div class=\"panel-heading\">"+ heading + "</div> \
+               </div>");
+    var pbody = $("<div class=\"panel-body\"></div>").append(content);
+    return p.append(pbody);
+}
+
+$("#search_form").submit(function(e) {
     var term = $("#search_box").val();
-    if(term.match(/(\w|\s)+/)) {
+    if(term.match(/(\w|\s)+/) && term.length < 30) {
+        $.get("/lookup/longman/" + term, function (r) {
+            $("#dicts").append(dPanel("Longman D",r));
+        }, "html");
 
-        $("#longman_container").children().replaceWith(spinner);
-        $.load('/lookup/longman/' + term, function (res) {
-             $("#longman_container").remove(".fa-spin");
-             $("#longman_container").addClass("panel panel-default");
-             $("#longman_container")
-                 .append($("<div class=\"panel-heading\">Panel heading</div>"))
-                 .append($("<div class=\"panel-body\">").wrap(res));
-        });
+        $.get("/lookup/oxford/" + term, function (r) {
+            $("#dicts").append(dPanel("Oxford Learner",r));
+        }, "html");
 
-         $("#oxford_container").children().replaceWith(spinner);
-         $("#oxford_container").load('/lookup/oxford/' + term, function () {
-             $(this).remove(".fa-spin");
-             $(this).addClass("panel panel-default");
-             $(this).prepend("<div class=\"panel-heading\">Oxford</div>");
-         });
-
-         $("#cambridge_container").children().replaceWith(spinner);
-         $("#cambridge_container").load('/lookup/cambridge/' + term, function () {
-             $(this).remove(".fa-spin");
-             $(this).addClass("panel panel-default");
-             $(this).prepend("<div class=\"panel-heading\">Cambridge</div>");
-         });
+        $.get("/lookup/cambridge/" + term, function (r) {
+            $("#dicts").append(dPanel("Cambridge Learner",r));
+        }, "html");
     }
     e.preventDefault();
 });

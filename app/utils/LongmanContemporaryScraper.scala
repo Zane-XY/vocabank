@@ -21,7 +21,7 @@ object LongmanContemporaryScraper {
   }
 
   def scrape(word : String) : String = {
-   val res = Jsoup.connect(dict + search + word).ignoreHttpErrors(true).execute
+   val res = Jsoup.connect(dict + search + word).timeout(60*1000).ignoreHttpErrors(true).execute
    res.statusCode match {
       case 200 => val doc = res.parse().select("a:has(span:matchesOwn(^" + word + "$))")
                   val urls = doc.iterator.toList.map(dict + _.attr("href"))
