@@ -2,21 +2,20 @@ $(function() {
 
 $(document).ajaxStart(function() {
     $("#dicts").children().remove();
-    $("#dicts").append(
-        $("<div class=\"row center-block centered\"><li class=\"fa fa-refresh fa-spin\"></li> </div>")
-    );
+    $("#loadingStatus").removeClass("hide");
 });
 
 $(document).ajaxStop(function() {
-    $("#dicts .fa-spin").remove();
+    $("#top_spacer").children().remove();
+    $("#loadingStatus").addClass("hide");
 });
 
 function dPanel(heading, content) {
-    var p = $("<div class=\"panel panel-default\"> \
-                    <div class=\"panel-heading\">"+ heading + "</div> \
-               </div>");
-    var pbody = $("<div class=\"panel-body\"></div>").append(content);
-    return p.append(pbody);
+    return $("<div>").addClass("row")
+                     .append($("<div>").addClass("large-10 large-centered columns")
+                                       .prepend("<h6>" + heading + "</h6>")
+                                       .append($("<div>").addClass("panel")
+                                                         .append(content)));
 }
 
 $("#search_form").submit(function(e) {

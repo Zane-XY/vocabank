@@ -16,7 +16,7 @@ object LongmanContemporaryScraper {
 
   def scrapeEntry(link : String) =  {
     val doc = Jsoup.connect(link).get.select("div.Entry")
-      doc.select("script, iframe").remove
+      doc.select("script, iframe, table.toolbar").remove
       doc.toString
   }
 
