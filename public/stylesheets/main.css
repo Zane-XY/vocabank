@@ -5,3 +5,39 @@
 table td {
   padding: 0 0;
 }
+
+
+.panel {
+    background-color: #FFFFFF;
+}
+
+.panel .panel-heading {
+    background:#F0F8FF;
+    color:grey;
+    padding:3px;
+    font-size: 75.0%;
+    font-weight: bold;
+}
+
+.oxford h4 {
+ font-size: 100.0%;
+}
+.oxford .entry {
+ font-size: 81.3%;
+}
+
+.longman .h2 {
+ font-size: 100.0%;
+}
+
+.longman .DEF {
+ font-size: 81.3%;
+}
+
+.longman .EXAMPLE {
+ font-size: 81.3%;
+}
+
+#loadingStatus {
+    visibility:hidden;
+}

@@ -1,0 +1,1186 @@
+/** {
+border:0;
+margin:0;
+padding:0;
+}*/
+
+/*html {
+overflow-y:scroll;
+}
+
+input,textarea,button {
+border:solid 1px #aaa;
+}
+
+a,a:link,a:visited,a:active {
+color:inherit;
+text-decoration:none;
+-webkit-transition-property:background, border;
+-webkit-transition-duration:250ms;
+}
+
+li {
+list-style-type:none;
+}
+
+h1,h2,h3,h4,h5,h6 {
+font-size:1em;
+}*/
+
+/*body,select,input,textarea,optgroup,option {
+font-size:12px;
+font-family:sans-serif;
+}*/
+
+/*body {
+background-color:#eff4f7;
+}*/
+
+/*table {
+border-spacing:0;
+border-collapse:collapse;
+}*/
+
+h2.cdo-section-title-hw {
+border-bottom:1px solid #ccc;
+border:none;
+color:#000;
+font-size:23px;
+font-weight:400;
+margin:0;
+padding:5px 0 0;
+}
+
+.di-head {
+border-bottom:1px solid #ccc;
+overflow:hidden;
+padding-bottom:5px;
+margin-bottom:5px;
+}
+
+audio {
+width:0;
+height:0;
+}
+
+.pron-uk,.pron-us {
+    display:inline-block;
+    width:34px;
+    height:13px;
+    background-image:url(http://dictionary.cambridge.org/external/images/cdo-sprite-icons-multi.png?version=2014-06-19-0959);
+    cursor:pointer;
+    margin:2px;
+}
+
+.pron-uk {
+background-position:-34px -97px;
+}
+
+.pron-us {
+background-position:0 -97px;
+}
+
+.examp {
+display:block;
+}
+
+a.query:hover {
+text-decoration:underline;
+}
+
+img {
+max-width:100%;
+}
+
+.notification-area {
+width:100%;
+}
+
+@media screen and max-width 767px {
+html {
+-webkit-text-size-adjust:none;
+}
+}
+/* Override default font for h2 elements */
+.entrybox h1 {
+
+  color: #000;
+
+  margin: 0;
+
+  font-weight: normal;
+
+
+}
+
+
+
+.entrybox h4 {
+
+  margin: 0px;
+
+  display: inline;
+
+  color: #000;
+
+
+}
+
+
+.entrybox strong {
+
+  color: inherit;
+
+
+}
+
+
+
+.entrybox .sense-bullet {
+
+  float: left;
+
+
+}
+
+
+
+.entrybox .after_bullet {
+
+  margin-left: 1em;
+
+
+}
+
+
+
+/* for clearing sense-bullets */
+.entrybox .clear {
+
+  clear: both;
+
+
+}
+
+
+
+.cald3,
+.gwblock_h, .gwblock_b,
+.idiom, .idiom_h, .idiom_b, .idiom_t,
+.phraserec,
+.phrasal_verb, .phrasal_verb_b, .phrasal_verb_t,
+.posblock,
+.examp,
+.sense,
+.runon, .runon_h, .runon_b, .runon_t,
+.clepan, .clepan-body,
+.upan, .upan-body,
+.title,
+.xref,
+.text {
+
+  display: block;
+
+
+}
+
+
+
+.entrybox .hw{
+
+    color: #008;
+
+
+}
+
+
+
+.entrybox h1.hw{
+
+    border: none;
+
+    font-weight: bold;
+
+
+
+}
+
+
+.entrybox #definition-title
+{
+	 margin-top: 0.75em;
+ }
+
+
+
+.entrybox .gwblock_h .hw .BASE,
+.entrybox .gwblock_h .phrase .BASE,
+.entrybox .idiom_h .phrase .BASE
+{
+
+/*	color: #005C9C;
+	 */
+	font-size: 220%;
+
+	font-weight: normal;
+
+	display: block;
+
+
+
+}
+
+
+
+.entrybox .gwblock_b .phrase .BASE {
+
+  display: inline;
+
+  font-size: 1em !important;
+
+  color: #000;
+
+
+}
+
+
+
+.entrybox .w,
+.entrybox .phraserec .phrase {
+
+	font-size: 120%;
+
+	font-weight: bold;
+
+	text-decoration:none;
+
+	border:none;
+
+	display: inline;
+
+	background-color: transparent;
+
+	margin-left: 0em;
+
+	padding: 0em;
+
+	margin-right: 0em;
+
+	float:none;
+
+	color: #000080;
+
+
+}
+
+
+
+.entrybox .v, .entrybox .Ref, .entrybox .phraserec .phrase /* no 'w'*/
+{
+
+
+}
+
+
+
+.entrybox .sense
+{
+
+	margin: 0 0 0.5em 1em;
+
+  border: none;
+
+  background-color: #FFF;
+
+
+}
+
+
+
+.entrybox .sense, .entrybox .phraserec, .entrybox .phraserec .def:first-child, .entrybox .runon_b, .entrybox .runon .def:first-child
+{
+
+	margin-left: 1em;
+
+
+}
+
+
+
+.entrybox .phraserec .sense, .entrybox .runon .sense {
+	margin-left: 0em;
+}
+
+
+.entrybox .phraserec .sense {
+	margin-top: 0.125em;
+}
+
+
+.entrybox .phraserec .sense + .phraserec .sense {
+	margin-top: 1em;
+}
+
+
+
+.entrybox .usage {
+
+  font-variant: small-caps;
+
+  color: #000;
+
+
+}
+
+
+
+
+/* New GUI */
+.entrybox .def
+{
+	 font-weight: bold;
+	 color:#A8397A;
+ }
+
+
+
+.entrybox .eg, .entrybox .xeg, .entrybox .cle-eg, .entrybox .cle-xeg
+{
+
+	font-style: italic;
+
+	color: #808080;
+
+
+}
+
+
+
+.cald3.entry {
+
+
+    color: #000;
+
+    cursor: default;
+
+    background-color: #FFF;
+
+    white-space: normal;
+
+    margin-bottom: 0px;
+
+
+}
+
+
+
+.entrybox .examp {
+
+    margin: 0.25em 0 0.25em 1.5em;
+
+
+}
+
+
+
+.entrybox .examp + .examp {
+
+    margin-top: 0em;
+
+
+}
+
+
+
+.entrybox .include .extraexamps-btn {
+
+    display: none;
+
+
+}
+
+
+
+.entrybox .freq,
+.entrybox .epp-xref
+{
+
+    padding:0px 2px;
+
+    display:inline-block;
+
+    min-width:14px;
+
+    text-align:center;
+
+    color: #ffffff;
+
+    font-size: 80%;
+
+
+    background-color: #2060c0;
+
+    border-radius:4px;
+
+    -moz-border-radius:4px;
+
+    -webkit-border-radius:4px;
+
+
+}
+
+
+
+.entrybox .grams {
+	 font-size: 12px;
+ }
+
+
+
+.entrybox .gw {
+	font-size: 80%;
+	 text-transform: uppercase;
+	 display: inline-block;
+}
+
+
+
+.entrybox .gwblock_h, .entrybox .idiom_h, .entrybox .runon_h, .entrybox .title
+{
+
+  margin-bottom: 0.25em;
+
+  padding: 0 0 0.25em 0;
+
+
+}
+
+
+
+.entrybox .gwblock_t {
+	 margin-top:0.5em;
+	 display:none;
+}
+
+
+
+.entrybox .idiom {
+	 clear: both;
+ }
+
+
+
+/*----- Temporary (these elements will be removed in the original data soon) --------*/
+.entrybox .gwblock_b .include, .entrybox .posblock_t .include, .entrybox .runon_b .include {
+	 display: none;
+ }
+
+
+
+.entrybox .posblock_t .sense .include {
+	 display: none;
+ }
+
+
+
+.entrybox .sense .include {
+	 display: none;
+ }
+
+
+
+.entrybox .gwblock_b .sense .include {
+	 display: none;
+ }
+
+
+
+.entrybox .phrasal_verb .gwblock .include {
+	 display: block;
+ }
+
+
+
+.entrybox .phrasal_verb .gwblock_b .sense .include {
+	 display: none;
+ }
+
+
+
+ /* ex: go along */
+.entrybox .phraserec .include {
+	 display: none !important;
+ }
+
+
+
+/************** inf ****************/
+.entrybox .Ref, .entrybox .v, .entrybox .inf
+{
+
+	font-weight: bold;
+
+
+}
+
+
+
+.entrybox .lab {
+	 font-variant: small-caps;
+	 display: inline;
+}
+
+
+
+.entrybox .phrasal_verb {
+	 clear: both;
+ }
+
+
+
+.entrybox .pos {
+
+  display: inline-block;
+
+  font-style: italic;
+
+  margin-left: 0.25em;
+
+  font-size: 1.2em;
+
+
+}
+
+
+
+.entrybox .posabb {
+	 display: none;
+ }
+
+
+
+.entrybox .posblock_t {
+	 margin: 0 0 0 1.5em;
+ }
+
+
+
+/************** posgram **********/
+.entrybox .posgram {
+	 font-weight: normal;
+	 margin-top: 5px;
+}
+
+
+
+/************** IPA fonts **********/
+.entrybox .pron-uk, .entrybox .pron-us, .entrybox .stress, .entrybox .pron
+{
+
+	font-family: "Arial Unicode MS", "Lucida Sans Unicode", "DejaVu Sans", "Lucida Grande", sans-serif;
+
+
+}
+
+
+.entrybox .pron-uk, .entrybox .pron-us, .entrybox .pron
+{
+
+	font-size: 110%;
+
+	display: inline-block;
+
+
+}
+
+
+
+.entrybox .sense_b .parentof__prons__is__sense_b {
+	 font-size: 120%;
+ }
+
+
+
+.entrybox .Ref {
+	 cursor: pointer;
+	 text-decoration:none;
+}
+
+
+.entrybox .Ref:hover {
+	 border-bottom: thin solid #00a2e2;
+}
+
+
+
+.entrybox .runon_h
+{
+
+	padding-left: 0.25em;
+
+	padding-right: 0.25em;
+
+	margin-left: 2em;
+
+	margin-bottom: 0.25em;
+
+
+}
+
+
+
+.entrybox .sense_t {
+	 clear: both;
+	 margin-left: 1em;
+	 /*border: 1px solid red;
+	*/
+}
+
+
+.entrybox .phraserec .sense_t {
+	 margin-left: 0;
+ }
+
+
+
+.entrybox .type {
+
+  background-color: #fff;
+
+  border: 0;
+
+
+}
+
+
+
+.entrybox .v {
+
+  display: inline;
+
+
+}
+
+
+
+.entrybox .var {
+
+  display: inline;
+
+
+}
+
+
+
+.entrybox .xref {
+	 margin: .1em 0 0 1.5em;
+ }
+
+
+
+.entrybox .i {
+	font-style: italic;
+}
+
+
+.entrybox .gl {
+	font-style: normal;
+}
+
+
+.entrybox .lex {
+	text-transform: none;
+	 font-style: italic;
+}
+
+
+.entrybox .b {
+	font-weight: bold;
+}
+
+
+.entrybox .sp, .entrybox .nu {
+	font-size: 66%;
+	 position: relative;
+	 bottom: 0.5em;
+}
+
+
+.entrybox .sb, .entrybox .dn {
+	font-size: 66%;
+	 position: relative;
+	 top: 0.3em;
+}
+
+
+.entrybox .cle-xeg, .entrybox .xeg {
+	 text-decoration: line-through;
+ }
+
+
+.entrybox .u {
+	 text-decoration: underline;
+ }
+
+
+
+.entrybox .sound
+{
+
+	vertical-align: middle;
+
+	margin: 0em 0.2em 0em 0.2em;
+
+
+}
+
+
+
+/*
+ * Stylesheets declarations added by IDM
+ */
+
+.entrybox h1,
+.entrybox .additional_header {
+
+  display: inline;
+
+  font-size: 1em;
+
+
+}
+
+
+
+.entrybox h1 .search-term {
+	  font-weight: bold;
+	  color: #c0c0c0;
+}
+
+
+.entrybox h1 a {
+
+  color: #c0c0c0;
+
+
+}
+
+
+
+.entrybox h1 .results-subtitle {
+	  display: inline-block;
+	  text-align: right;
+}
+
+
+
+.entrybox .sense-separator {
+
+  clear: both;
+
+  height: 0;
+
+
+}
+
+
+
+.entrybox .smartt {
+
+  display: none;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.entrybox .di-title
+{
+
+    font-size: 150.0%;
+
+    font-weight: bold;
+
+    display: block;
+
+
+
+}
+
+
+.homnum {
+
+    vertical-align: top;
+
+
+}
+
+
+
+.entrybox .di-title .homnum {
+
+    font-size: 0.5em;
+
+
+}
+
+
+
+.entrybox .sense-title {
+
+    font-weight: bold;
+
+    color: #000080;
+
+
+}
+
+
+.entrybox .def-body > .trans {
+
+    margin-left: 1.5em;
+
+
+}
+
+
+.entrybox .examp .trans
+{
+
+    font-style: italic;
+
+
+}
+
+
+.entrybox .trans {
+
+    color: #000080;
+
+
+}
+
+
+.entrybox .trans[lang=zh-Hant],
+.entrybox .trans[lang=zh-Hans] {
+
+  font-style: normal;
+
+
+}
+
+
+.di-info .trans {
+	display: inline-block;
+}
+
+ /* hack for CALD only as it's a div by default */
+
+.entrybox .italic {
+
+    font-style: italic;
+
+
+}
+
+
+
+.entrybox .minicoll {
+
+    margin-top: 10px;
+
+
+}
+
+
+.entrybox .minicoll .content {
+
+    padding: 5px 0px 0px 10px;
+
+
+}
+
+
+
+.entrybox div.wordpart {
+
+    margin-bottom: 4px;
+
+
+}
+
+
+
+.entrybox .entry-xref {
+
+    display: block;
+
+    margin: 8px 0px 8px 0px;
+
+
+}
+
+
+
+.entrybox .query:hover {
+
+    border-bottom: 1px solid;
+
+    text-decoration: none;
+
+
+}
+
+
+
+.entrybox .def-head {
+
+    display: block;
+
+
+}
+
+
+
+.entrybox .def-head.has__no__def,
+.entrybox .def-head.has__no__def + .def-body {
+
+  display : inline-block;
+
+
+}
+
+
+
+.entrybox .def-head.has__no__def + .def-body .examp {
+
+    margin-left : 0.25em;
+
+
+}
+
+
+.entrybox .def-head.has__no__def {
+
+    vertical-align: top;
+
+    padding-top: 0.25em;
+
+
+}
+
+
+.entrybox .def-block
+{
+
+    display: block;
+
+    margin-bottom: 1em;
+
+
+}
+
+
+.entrybox .phrase-title{
+
+    font-weight: bold;
+
+
+}
+
+
+.entrybox .di-body
+{
+
+    margin-bottom: 1em;
+
+
+}
+
+
+.entrybox .pv-block
+{
+
+    margin-top: 1.5em;
+
+
+}
+
+
+.entrybox .SEP {
+
+    display: inline;
+
+
+}
+
+
+
+.entrybox .lu
+{
+
+    font-weight: bold;
+
+
+}
+
+
+.entrybox .domain
+{
+
+    padding: 1px 5px 1px 1px;
+
+    background-color: #F0F0F0;
+
+    border: 1px solid #c0c0c0;
+
+    -moz-border-radius-topright: 10px;
+
+    -moz-border-radius-bottomright: 10px;
+
+    border-top-right-radius: 10px;
+
+    border-bottom-right-radius: 10px;
+
+
+}
+
+
+
+.entrybox .x-h, .entrybox .x-p
+{
+
+    color: #2060C0;
+
+
+}
+
+
+.entrybox a:hover .x-h, .entrybox a:hover .x-p
+{
+
+    color: #60C0FF;
+
+
+}
+
+
+.entrybox .anc-info-head .hw
+{
+
+    font-weight:bold;
+
+
+}
+
+
+
+.entrybox .panel
+{
+
+    display: block;
+
+    background-color: #f0f0f0;
+
+    border: 1px solid #c0c0c0;
+
+    margin: 0.5em 0;
+
+
+}
+
+
+.entrybox .panel-head
+{
+
+    background-color: #e0e0e0;
+
+    padding: 0.25em;
+
+    display : block;
+
+
+}
+
+
+.entrybox .panel-title
+{
+
+    font-weight: bold;
+
+
+}
+
+
+.entrybox .panel-body
+{
+
+    display: block;
+
+    padding: 0.25em;
+
+
+}
+
+
+
+.entrybox .obj {
+
+    font-style: italic;
+
+
+}
+
+
+
+
+a.query:hover {
+
+    text-decoration: underline;
+
+
+}
+
+
+
+

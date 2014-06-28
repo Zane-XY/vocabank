@@ -1,0 +1,1804 @@
+/*
+ *********************************************
+ * Design new classes
+ *********************************************
+ */
+
+ /*
+ .    orange     #F85B32   TT 2011-08-24   changed globally from  #cf671d  
+.    mid blue #276E98
+.    light blue (tint, text) #78a7db
+.    dark blue (tint) #1f386f
+.    dark blue (text) #192d59
+.    dark grey (text) #333333
+.    pale yellow (tint) #fafae6
+.    pale orange (tint)   #FEF9DB 
+unbox rule: #E0B900
+.    green (phrasal verbs) #078d8f
+.    purple (idioms) #4f4e99
+*/
+
+
+/* 110623 ST hide inflected forms in idioms */
+.inflection {
+
+ display: none;
+}
+
+.z_r{
+    margin-left:0;
+}
+
+ .z_r, .z_g, .z_s {  /* moved .dc to its own rule TT 2011-07-11  */
+    color: #333333; /* 110624 ST change to dark grey  #276e98; */
+    
+    /* 110623 ST small caps/font issues 
+    font-family: "Times New Roman", Times, serif;
+    font-variant: small-caps;
+    */
+    font-style:italic; /* 110623 ST Added */
+   color: #555555;   /* changed to lighter grey TT 2011-07-11  */
+    /* font-size: 95%;  */ /* JB requested same size as definitions  TT 2011-07-11  */
+}
+
+/* 110623 ST z_gr split out from the above because of non-italics */
+.z_gr {
+    color: #555555; /* 110624 ST change to dark grey  #276e98; */ /* changed to lighter grey TT 2011-07-11  */
+    
+        /* font-size: 95%;  */ /* JB requested same size as definitions  TT 2011-07-11 .dc not requested, moved 95% size to new rule */
+}
+
+.h {
+    padding-bottom: 10px;
+}
+p{margin:0 10px 10px}
+
+a{ text-decoration:none;
+    color:#192D59;
+    cursor: pointer;
+}
+
+#generaltext a {
+    color: #276E98; /* make links on general text pages blue  TT 2011-08-26  */
+}
+
+a:hover{
+    text-decoration:underline;
+    cursor: pointer;
+}
+
+
+.pos, .z_p, .z_p_in_p-g, .xp{ /* added .xp selector TT 2011-07-11  */
+    
+    /* 110623 ST REMOVED font-family: "Times New Roman", Times, serif;
+    text-transform: uppercase;
+    color: #276e98; */
+    text-transform: lowercase;
+    font-style: italic;
+    color: #555555; /* lighter - JB requested TT 2011-07-11  */
+    /* 110623 ST New tags above */
+    font-size: 105%; /* JB requested larger  TT 2011-07-08  */
+}
+
+
+/*
+ *********************************************
+ * IDM new classes
+ *********************************************
+ */
+
+.sound {
+    vertical-align: text-bottom;
+    margin-top: 0;
+    margin-right: 5px;
+    margin-bottom: 0;
+    margin-left: 0px;
+}
+
+/* Icons (nb: there are 2 types of 'icons', images and divs) */
+
+img.icon {
+    vertical-align: text-bottom;
+    margin-top: 0;
+    margin-right: 2px;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+div.icon {
+    display: inline;
+    font-weight: lighter;
+    font-size: 7pt;
+    text-transform: uppercase;
+    color: #FFF;
+    padding: 0 .6em .2em .6em;
+}
+
+div.icon-helpsym {
+    /*background-color: #e0b900;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    color: #000;*/
+    background-color: transparent;
+    font-weight: bold;
+    color: #276E98;
+    font-variant: small-caps;
+}
+
+div.icon-pvsym {
+    font-weight: lighter;
+    color: #078d8f;
+    font-size: 18px;
+    text-indent: -1em;
+}
+
+div.icon-oppsym {
+    color: #C00B19;
+    background-color: transparent;
+    font-size: 11px;
+    padding: 0;
+    text-transform: lowercase;
+}
+
+div.icon-idsym {
+    font-weight: lighter;
+    color: #35338a;
+    font-size: 19px;
+}
+
+div.icon-synsym {
+    /*background-color: #173a59;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;*/
+    background-color: transparent;
+    font-weight: normal!important;
+    color: #C00B19;
+    text-transform: lowercase;
+    font-size: 11px;
+    padding: 0!important;
+}
+
+/*
+ *********************************************
+ * Style sheet for OAAD A-Z data on CD-ROM
+ *********************************************
+ */
+
+/* HIDE / DISPLAY - entire button/box set */
+.etymbox {
+    clear: both;
+    display: block;
+}
+.helpbox {
+    /* display: none; */
+    display: block;
+}
+.unbox {
+    /* display: none; */
+    display: block;
+}
+.wfbox {
+    /* display: none; */
+    display: block;
+}
+a.button {
+    text-decoration: none;
+}
+.speakeruk, .speakerus {
+    font-size: 120%;
+    color: #078d8f;
+    cursor: pointer !important;
+    vertical-align: bottom;
+}
+
+.ill {
+    margin: 10px;
+    margin-left: 1.6em;
+/*    cursor: pointer !important;*/
+    float: right;
+    clear: right; /*Use to display more than 1 image*/
+}
+.activebutton {
+    display: none;
+ /*   margin-left: 3em;
+    text-indent: 0em;
+    margin-top: 0.5em;*/
+}
+.wfbox .activebutton {
+  display: block;
+}
+
+.activetitle {
+    font-weight: bold;
+    background-color: #b4cde6;
+    color: white;
+}
+.activebox {
+    display: block;
+}
+
+/* new SYN, OPP */
+.revout {
+    font-size: 80%;
+    font-weight: bold;
+    background-color: #b4cde6;
+    color: white;
+}
+.unbox {
+    display: block;
+    margin-left: 19px;
+    text-indent: 0em;
+    margin-top: 10px;
+    background-color: #C8E2F0 ; /*   TT 2011-08-26  */
+    clear: both;
+    border-top-width: 2px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+    border-top-style: solid;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-top-color: #276E98;   /*   TT 2011-08-26  */
+    border-bottom-color: #276E98;  /*   TT 2011-08-26  */
+    color: #01223a;
+    padding-top: 0px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.activebox .unbox {
+  border: 0px;
+}
+
+.title {
+    font-weight: bold;
+    color: #173a59;
+}
+.tarial {
+    font-weight: normal;
+}
+.subhead {
+    display: block;
+    margin-top: 0.5em;
+    font-weight: bold;
+}
+.althead {
+    display: block;
+    margin-top: 1.0em;
+    font-weight: bold;
+}
+.unsyn {
+    font-weight: bold;
+}
+.unei {
+    font-style: italic;
+    font-weight: normal;
+}
+.ungi {
+    font-style: italic;
+    font-weight: normal;
+}
+.ungl {
+    font-style: normal;
+    font-weight: normal;
+}
+.notesym {
+    display: block;
+    margin-top: 0.5em;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.para {
+    display: block;
+    margin-top: 6px;
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/bullet-dblue.gif);
+    background-repeat: no-repeat;
+    background-position: left 5px;
+    padding-left: 15px;
+}
+
+.para[style="flush"], .para[bullet="n"]   /* first para in noteboxes, and paras beginning "note" (with attribute bullet="n") should be unbulleted, aligned left TT 2011-09-09  */
+{
+    background-image: none; /* first para in noteboxes, and paras beginning "note" (with attribute bullet="n") should be unbulleted, aligned left TT 2011-09-09  */
+    padding-left: 0; /* first para in noteboxes, and paras beginning "note" (with attribute bullet="n") should be unbulleted, aligned left TT 2011-09-09  */
+}
+
+
+
+.unbox[type~="AWL"]  .para[style="flush"] /* add bullet to parastyle = flush inside awl unboxes  TT 2011-09-09  */
+{
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/bullet-dblue.gif);
+        background-repeat: no-repeat;
+    background-position: left 4px;
+        padding-left: 15px;
+}
+    
+.subhead + .para[style="flush"]
+{
+      background-image: none !important; /* override the above for paras immediately after subhead  TT 2011-09-09  */
+}
+
+.unbox[type~="AWL"]  .para[style="flush"][idm_inline="y"] /* override the above where idm_inline = "y" TT 2011-09-09  */
+{
+    background-image: none;
+}
+
+
+.unbox[type~="AWL"] .uncl
+{
+    font-style: normal;
+
+}
+
+.qt .para {
+    display: block;
+    margin-top: 0px;
+    background-image: none;
+    padding-left: 15px;
+    font-style: italic;
+}
+
+.para[outdent=y] {
+    text-indent: 0.5em;
+}
+
+.arbd1 {
+    font-weight: bold;
+}
+.arit1 {
+    font-style: italic;
+    font-weight: normal;
+}
+.unx {
+    font-style: italic;
+    font-weight: normal;
+}
+
+.unx + .unx:before
+{
+
+    content: url(http://www.oxfordlearnersdictionaries.com/us/external/images/xsep.gif); /* added rule to insert example seperator images between examples TT 2011-09-09  */
+}
+
+.unwx {
+    font-style: italic;
+    font-weight: normal;
+    text-decoration: line-through;
+}
+.uncl {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.uneb
+{
+    font-weight: bold; /*  TT 2011-09-09  */
+}
+
+.unebi {
+    font-style: italic;
+    font-weight: bold;
+}
+.unxh {
+    color: #8f0610;
+    font-variant: small-caps;
+    font-weight: bold;
+}
+.unfm {
+    font-weight: bold;
+}
+
+.unp
+{
+    font-style: italic;  /* new rule - for part of speech in unbox subheadings  TT 2011-09-09  */
+    font-weight: normal;  /* new rule - for part of speech in unbox subheadings  TT 2011-09-09  */
+    font-size: 85%; /*   reduce size TT 2011-09-09  */
+}
+
+
+.patterns {
+    display: block;
+    margin-top: 0.3em;
+    margin-bottom: 0.1em;
+}
+
+/* START IDIOM and PHRASAL VERB */
+/* afar, ado */
+.h-g > .z .panel {
+    display: block;
+    margin-left: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+/* acorn */
+.h-g + .z .panel {
+    display: block;
+    margin-left: 1em;
+    text-indent: 0em;
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+/* ABC */
+.p-g > .z .panel {
+    display: block;
+    text-indent: -1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+
+/* acorn: 'see OAK', -acy */
+.h-g + .z {
+    margin-left: 2.5em;
+    text-indent: 0em;
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+.h-g + .xr {
+    margin-left: 2.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+
+/* 0044, 0088, 0098 */
+.h-g > .id-g{
+    display: block;
+    text-indent: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+
+.h-g > .pv-g {
+    display: block;
+    text-indent: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.1em;
+}
+
+.p-g > .pv-g {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #078d8f;
+    padding-bottom: 0.5em;
+}
+
+.p-g > .id-g{
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 19px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #35338a;
+    padding-bottom: 0.5em;
+}
+
+.pvarr {
+    font-size: 14pt; /* Increase size of phrasal verb arrow - mantis 31616 TT 2011-08-26  */
+}
+
+/* END IDIOM and PHRASAL VERB */
+
+.panel {
+    display: block;
+    margin-top: 0.3em;
+    margin-bottom: 0.1em;
+}
+.etympanel {
+    display: none;
+    /*  font-weight: bold;
+    font-family: Verdana;
+    background-color: #9876b4;
+    color: white;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+*/
+}
+.helppanel {
+    font-weight: bold;
+    background-color: #b4cde6;
+    color: white;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+}
+.unpanel {
+    font-weight: bold;
+    background-color: #b4cde6;
+    color: white;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+}
+/* able, accuse */
+.wfpanel {
+    font-weight: bold;
+    background-color: #b4cde6;
+    color: white;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding: 0.1em 0.3em 0.1em 0.3em;
+}
+.idpanel {
+    font-weight: bold;
+    background-color: #8f0610;
+    color: white;
+    padding: 0.1em 0em 0.1em 0em;
+}
+.pvpanel {
+    font-weight: bold;
+    background-color: #ce3100;
+    color: white;
+    padding: 0.1em 0em 0.1em 0em;
+}
+.exa {
+    /*  display: none;
+*/
+    display: inline
+}
+.label {
+    /*  display: none;
+*/
+    display: inline
+}
+/* Block displays: */
+.entry {
+    display: block;
+    margin-bottom: 2em;
+    font-size: 12px;
+    color: #000;
+}
+
+.h-g {
+    display: block;
+    margin-left: 0em;
+    text-indent: 0em;
+}
+
+.core_block {
+}
+
+.idsym-g {
+    display: block;
+    /* text-indent: -1em;  110622 ST */ 
+    border-bottom-width: 2px; /* 110624 ST comment Jen would like thinner but 1px or 2px only*/
+    border-bottom-style: solid;
+    border-bottom-color: #35338A; /* was: #192d59  TT 2011-07-11  */ 
+    margin-top: 30px;
+    margin-right: 0;
+    margin-bottom: 10px;
+    margin-left: 19px;
+    color: #192d59;  /* match text colour to rule 110624 ST */
+    font-weight: 600; /* 110624 ST was: normal; */    
+}
+
+/* 110624 ST forces idsym-g titles up to put more space between the text and rule */
+.z_idsym {
+    display:block; /*  TT 2011-09-27  */
+    margin-top: 2px; /*  TT 2011-09-28  */
+  vertical-align: 20% ;
+  color: #35338A; /* Match colour of idioms themselves. NB this is overriden when this is inside .pvsym-g  TT 2011-07-11  */
+  font-weight: bold; /*  TT 2011-09-08  */
+}
+
+
+
+.pvsym-g {
+    display: block;
+    /* text-indent: -1em; 110622 ST */
+    border-bottom-width: 2px; /* 110624 ST comment Jen would like thinner but 1px or 2px only*/
+    border-bottom-style: solid;
+    border-bottom-color: #078d8f;
+    margin-top: 30px;
+    margin-right: 0;
+    margin-bottom: 10px;
+    margin-left: 19px;
+    color: #192d59;  /* match text colour to rule 110624 ST */
+    font-weight: 600; /* 110624 ST was: normal; */    
+}
+
+.pvsym-g > .z_idsym,  .z_pvsym , .pvp-g    .z_idsym /*  NB phrasal verbs heading has class z_idsym TT 2011-07-11 Have added z_pvsym in case this gets corrected in data  */  /* added selector:  .pvp-g .z_idsym  TT 2011-09-09  */
+{
+     color: #078D8F !important; /*  match colour of Phrasal Verbs heading to PVs themselves.  TT 2011-07-11  */
+}
+
+.ipa_block {
+    vertical-align: middle;
+    width: 221px;
+    display: block;
+    height: 100%;
+    border: 2px solid #8f0610;
+    margin-right: 10px;
+    float: left;
+    margin-top: 2px;
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/usonly-audio.png);
+    background-repeat: no-repeat;
+    line-height: 12px;
+    font-size: 14px;
+    background-position: left top;
+    background-color: #ffffff;
+}
+
+.ipa_block:hover {
+    border: 2px solid #045983;
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/usonly-audio.png);
+    background-repeat: no-repeat;
+    background-position: left bottom !important;
+}
+
+.wordlist-oxford3000 .pron-uk:hover,
+.webtop-g .pron-uk:hover,
+.top-g .pron-uk:hover,
+.ei-g .pron-uk:hover,
+.if-g .pron-uk:hover {
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/uk-audio.png);
+    background-repeat: no-repeat;
+    background-position: left bottom !important;
+}
+
+.wordlist-oxford3000 .pron-uk,
+.webtop-g .pron-uk,
+.top-g .pron-uk,
+.ei-g .pron-uk,
+.if-g .pron-uk {
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/uk-audio.png);
+    background-repeat: no-repeat;
+    background-position: left top !important;
+    width:58px;
+}
+
+.wordlist-oxford3000 .pron-us:hover,
+.webtop-g .pron-us:hover,
+.top-g .pron-us:hover,
+.ei-g .pron-us:hover,
+.if-g .pron-us:hover {
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/us-audio.png);
+    background-repeat: no-repeat;
+    background-position: left bottom !important;     
+}
+
+.wordlist-oxford3000 .pron-us,
+.webtop-g .pron-us,
+.top-g .pron-us,
+.ei-g .pron-us,
+.if-g .pron-us {
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/us-audio.png);
+    background-repeat: no-repeat;
+    background-position: left top !important;     
+    width:67px;
+}
+
+.labelsAbout .pron-usonly:hover,
+.wordlist-oxford3000 .pron-usonly:hover,
+.webtop-g .pron-usonly:hover,
+.top-g .pron-usonly:hover,
+.ei-g .pron-usonly:hover,
+.if-g .pron-usonly:hover {
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/usonly-audio.png);
+    background-repeat: no-repeat;
+    background-position: left bottom !important;     
+}
+
+.labelsAbout {
+    text-align: left;
+    border: 0px none;
+    width: 100%;    
+}
+
+.labelsAbout .pron-usonly,
+.wordlist-oxford3000 .pron-usonly,
+.webtop-g .pron-usonly,
+.top-g .pron-usonly,
+.ei-g .pron-usonly,
+.if-g .pron-usonly {
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/documents/usonly-audio.png);
+    background-repeat: no-repeat;
+    background-position: left top !important;     
+    width:35px;
+}
+
+.labelsAbout .pron-usonly:hover {
+    background-image: url('http://www.oxfordlearnersdictionaries.com/us/external/images/documents/usonly-audio.png');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+.labelsAbout .pron-usonly {
+    width: 29px;
+    height: 30px;
+    border: 0;
+    background-image: url('http://www.oxfordlearnersdictionaries.com/us/external/images/documents/usonly-audio.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+}
+
+.wordlist-oxford3000 .sound,
+.webtop-g .sound,
+.top-g .sound,
+.ei-g .sound,
+.if-g .sound {
+    vertical-align: middle;
+    display: inline-block;
+    /* border: 1px solid #8f0610;   110622 ST*/
+    margin: 0 5px;
+    font-size: 14px;
+    background-position: left top;
+    /* background-color: #eee; 110622 ST */
+}
+
+.wordlist-oxford3000 li {
+    line-height: 29px;
+}
+
+.soundList {
+    display: inline;
+}
+
+.ipa_block img {
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    margin-top: 0;
+    margin-right: 5px; /* no units were given, which is invalid CSS - assume 5px intended TT 2011-07-11  */
+    margin-bottom: 0;
+    margin-left: 0;
+}
+.sound img {
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    margin-top: 0;
+    margin-right: 5px; /* no units were given, which is invalid CSS - assume 5px intended TT 2011-07-11  */
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.z_ei-g, .ei-g {
+    /*line-height: 14px;*/
+    display: block;
+    margin-top: 5px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    line-height: 30px;
+}
+
+.ei-g[slashes="n"]   /*  works but relies on invalid HTML (slashes="n" attrib) TT 2011-09-08  */
+{
+    display: inline;  /*  works but relies on invalid HTML (slashes="n" attrib) TT 2011-09-08 mantis 31850 */
+}
+
+.vs-g > .ei-g 
+{
+    display: inline; /* to fix "hanging" bracket problem  TT 2011-09-08  */
+}
+
+.block-g { }
+
+.p-g {
+    display: block;
+}
+.single {
+    display: block;
+    text-indent: 0em;
+    margin-top: 0.5em;
+}
+.x-g {
+    text-indent: 0px;
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/xsym.gif);
+    background-repeat: no-repeat;
+    background-position: 3px 2px;
+    padding-left: 18px;
+    display: block;
+    margin-top: 5px;
+    padding-bottom: 5px;
+}
+.n-g .x-g {
+    margin-left: -19px;
+    }
+.n-g{
+    display: block;
+    margin-top: 10px;
+    margin-left: 19px;
+    text-indent: -19px;
+    clear:both;
+}
+
+.n-g > .d , .n-g > .ud {
+    display: inline !important;   /*  definition should run on  TT 2011-08-26  */
+}
+
+.n-g + .n-g {
+    padding-top: 6px;
+}
+
+.x-g img.icon {
+    margin-right: 4px;
+    margin-bottom: 2px;
+    margin-left: 4px;
+}
+
+.z_n {
+  font-weight: bold;
+}
+
+.ids-g, .pvp-g {
+    display: block;
+    margin-top: 10px; /*  TT 2011-09-08  */
+}
+
+.id-g {
+    display: block;
+    margin-top: 5px;
+    margin-left: 19px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #35338a;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.pv-g {
+    display: block;
+    margin-top: 5px;
+    margin-left: 19px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #078d8f;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.id {
+    display: inline;
+    font-weight: bold;
+    color: #35338a;
+    margin: 0;
+}
+
+.pv {
+    display: inline;
+    font-weight: bold;
+    color: #078d8f;
+    margin: 0;
+}
+.dr-g {
+    display: block;
+    margin-left: 0em;
+    margin-top: 0.5em;
+    background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/arrow-mblue.png);
+    background-repeat: no-repeat;
+    background-position: left 3px; /* vertical position changed from "top" to 3px  TT 2011-09-08  */
+    padding-left: 1.5em;
+}
+.etym > .a {
+    display: none;
+}
+.etym {
+    display: block;
+    margin-left: 0em;
+    text-indent: 0em;
+    margin-top: 0.5em;
+    font-size: 8pt;
+}
+
+.wf-g {
+    display: block;
+    margin-left: 0em;
+    text-indent: 0em;
+    margin-top: 0.5em;
+    padding: 0.2em 0.5em 0.5em 0.5em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #276e98;
+    -moz-border-radius: 4px;
+    clear: both;
+}
+
+.help {
+    display: block;
+    margin-left: 0em;
+    text-indent: 0em;
+    margin-top: 10px;
+    -moz-border-radius: 4px;
+    background-color: #FEF9DB;    /*  TT 2011-08-26  */
+    clear: both;
+    border-bottom-color: #e0b900;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-color: #e0b900;
+    border-top-style: solid;
+    border-top-width: 1px;
+    margin-right: 0em;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+.listen {
+    display: block;
+    margin-left: 0em;
+    text-indent: 0em;
+    clear: both;
+    margin-right: 0em;
+}
+.sd-g {
+    display: block;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #b4cde6;
+    margin-top: 5px;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0em;
+}
+
+h3.sd
+{
+    display: inline; /* override display of h3 tags: sd-g (above) already generates block TT 2011-09-09  */
+}
+
+/* Font-level formatting: */
+.unicode {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Doulos SIL";
+}
+.core {
+    font-size: 120%;
+    color: #c00b19;    /*font-weight: bold;*/
+}
+/* "headwords" */
+.h, .h2, .he{
+    display: inline;
+    font-size: 150.0%;
+    font-weight: bold; /* 110622 ST was: normal; */
+    color: #8F0610;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    padding-right: 10px; /* space between headword and following part of speech  TT 2011-08-26  */
+}
+
+a + .h, a  + .h2, a + .he {
+    padding-left: 10px; /* space between headword and preceding icon  TT 2011-08-26  */
+}
+
+.w_in_h {
+    font-size: 10pt;
+}
+.hs {
+    font-size: 20pt;
+    color: #8F0610;
+    margin-bottom: 5px;
+}
+.hm {
+    vertical-align: super;
+    font-weight: bold;
+    font-size: 100%;
+}
+
+.h + .hm  /* homonym following headword  TT 2011-09-27  */
+{
+    color: #F85B32; /* should be orange  TT 2011-09-27  */
+    font-size: 110%;
+    margin-left: -10px;
+}
+
+.ab, .vc, .ve, .vs {
+    font-weight: bold;
+    color: #276e98;
+}
+
+ .vc, .vs { /* removed .ab - size should match .d etc  TT 2011-09-08  */
+    font-size: 140%;   /*  TT 2011-08-26  */
+}
+
+.v{
+    color: #35338a;
+}
+
+.id-g >  .v, .id-g > .vc, .id-g >  .vs  , .dr-g >  .v, .dr-g > .vc, .dr-g >  .vs  , .pv-g >  .v, .pv-g > .vc, .pv-g >  .vs /* variants in idioms, derivatives, phrasal verbs too big TT 2011-09-27  */
+{
+    font-size: 100%; /*     TT 2011-09-27  */
+}
+
+.n-g   .v, .n-g   .v
+{
+    font-size: 100%; /*  TT 2011-09-08  */
+}
+
+.vs-g
+{
+    display: block;     /*  TT 2011-08-26  */
+    margin-top: 1em;   /*  TT 2011-08-26  */
+}
+
+.n-g > .vs-g
+{
+    display: inline; /* display inline when inside n-g  TT 2011-09-08  */
+}
+
+
+.dr, .dre, .alt, .zd { /* added .zd to list  TT 2011-07-11  */
+    font-weight: bold;
+    color: #276e98;
+}
+.sym, .wfw, .wfo {
+    font-weight: bold;
+    color: #276e98;
+}
+.wfp {
+    font-style: italic;
+    font-weight: normal;
+}
+
+.ndv {
+    color: #276E98 ; /*    TT 2011-08-26  */
+
+}
+
+.co, .if {
+    font-weight: bold;
+    color: #276e98;
+    font-size: 110%;
+    display: inline;
+    clear: both;
+}
+/* IPA */
+.eph, .i, .y {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-family: "Lucida Sans Unicode", "Lucida Grande";
+}
+/* grammar */
+.gr {
+    font-style: normal;
+    font-weight: normal;
+}
+.zgct {
+    font-size: 75%;
+}
+.zgpl {
+    font-size: 90%;
+}
+.z_spc_pre {
+  display: block;
+  height: .5em;
+}
+.zq {
+    font-style: normal;
+}
+/* labels */
+.sd {
+    font-size: 125%;
+ 
+   font-weight: bold; /* was:  font-weight: lighter;  JB to confirm if this is preferable  TT 2011-07-11  */
+    color: #8F0610;
+    margin: 0 !important;
+    font-variant: small-caps;
+   /* 110624 ST removed bottom border
+    border-bottom-color: #78A7DB;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+   */
+
+}
+.pit, .geo, .subj, .reg {
+    font-weight: normal;
+    color: #078d8f;
+}
+
+.bpt {
+    font-weight: bold;
+}
+.gi {
+    font-style: italic;
+}
+.q {
+    font-style: normal;
+}
+/* running text, definitions */
+.d, .dc, .dh, .dhs, .ds {
+    font-style: normal;
+    font-weight: normal;
+    color: #333;
+}
+
+.dc
+{
+    font-style: italic; /* moved from rule defining various other tags as 95% that JB requested to be 100%  TT 2011-07-11  */
+     font-size:95%; /* moved from rule defining various other tags as 95% that JB requested to be 100%  TT 2011-07-11  */
+}
+
+.dhb {
+    font-style: normal;
+    font-weight: bold;
+}
+.ud, .u {
+    font-style: normal;
+    font-weight: normal;
+}
+/* running text, examples */
+.cl {
+    font-style: italic;
+    color: #000000;
+}
+
+.cl strong{
+    margin-right:5px;	
+}
+
+.wx {
+    font-style: italic;
+    text-decoration: line-through;
+}
+.x {
+    font-style: italic;
+    font-weight: normal;
+}
+/* running text, phrases */
+.cf, .cc {
+    display: block; /* display CC & CF text as block - mantis 32092  TT 2011-09-30  */
+    font-weight: bold;
+    color: #276e98;
+    font-size: 100%;
+    
+}
+
+
+
+/* 110624 ST removed - merged with cf 
+.cc{
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+    color: #8f0610;
+    font-size: 120%;
+}
+*/
+
+/* variants */
+.v-id, .v-pv, .v_in_dr-g, .vc_in_dr-g, .vc_in_id-g, .vc_in_pv-g, .vs_in_dr-g, .vs_in_id-g, .vs_in_pv-g {
+    font-weight: bold;
+    color: #276e98;
+}
+/* running text */
+.b, .eb {
+    font-weight: bold;
+}
+.ei {
+    font-style: italic;
+    font-weight: normal;
+    display: inline;
+}
+.cm, .cm2, .ff, .gl {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.cm:before, .cm:after  /* add spaces around .cm - ultimately should be fixed in data. e.g. at entries fiasco, thorax TT 2011-09-30  */
+{
+    content:" ";    
+}
+
+.esu, .su {
+    vertical-align: super;
+    font-size: 65%;
+}
+.fm {
+    font-weight: bold;
+}
+.it, .it2, .itpt {
+    font-style: italic;
+    font-weight: normal;
+}
+.ngnum {
+    font-style: normal;
+    font-weight: bold;
+    padding-right: 0.75em;
+}
+.ro {
+    font-style: normal;
+    font-weight: normal;
+}
+.sc, .scpt {
+    font-variant: small-caps;
+}
+/* cross-references */
+.xh {
+    font-variant: small-caps;
+    font-weight: bold;
+    color: #327CB2; /* 110624 ST changed to orange  #c00b19; */
+    cursor: pointer;
+    font-size: 90%;
+}
+.xhm {
+    vertical-align: super;
+    font-size: 65%;
+    font-weight: bold;
+}
+.xp {
+    font-style: italic;
+}
+/* Cultural Guide */
+
+.guide_dt {
+    font-style: italic;
+}
+
+.entry > .xh {
+    padding-top: 1em;
+    display: block;
+}
+.xr {
+    color: #f85b32;/* changed from red  TT 2011-07-11  */
+    font-size: 110%;
+    padding-left: 3px; /* add space after orange arrow icon (which is background image of .xr-g)  TT 2011-09-08  */
+}
+
+.z_xr_esc
+{    
+    font-size: 90%;
+    color: #276E98; /*  changed from black to blue TT 2011-08-26  */
+    font-style: italic;
+}
+
+/* ST new tag added 140611 because 'synonym' looked awful! */
+
+.z_xr {
+    color: #C00B19; /* 110624 ST changed to orange  #c00b19; */
+    /*font-size: 90%;*/ /* 110624 ST font size dropped to match xh   110% */
+    font-size:11px;
+ }
+
+.help .z_xr , .z_origin   /*  new style definition  TT 2011-08-26  */  /* added .z_origin  TT 2011-09-09  */
+{    /*  new style definition  TT 2011-08-26  */
+    color: #276E98;     /*  new style definition  TT 2011-08-26  */
+    font-weight: bold;    /*  new style definition  TT 2011-08-26  */
+    font-variant: small-caps;    /*  new style definition  TT 2011-08-26  */
+    font-size:110%;    /*  new style definition  TT 2011-08-26  */
+}        /*  new style definition  TT 2011-08-26  */
+
+
+.para .z_xr
+{
+    text-transform: uppercase; /*   TT 2011-09-09  */
+    font-weight: bold; /*   TT 2011-09-09  */
+    color:#1223a;
+}
+
+
+.xs {
+    font-size: 80%;
+    font-weight: bold;
+}
+.xt {
+    font-style: normal;
+    font-weight: normal;
+}
+.xw {
+    font-style: normal;
+    font-weight: bold;
+    color: #000;
+}
+/* added punctuation */
+.z, .z2, .zpt {
+    font-style: normal;
+    font-weight: normal;
+}
+/* Added definitions for Etymology data */
+.etym .it {
+    font-style: italic;
+    font-size: 8pt;
+}
+.etym .b {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 8pt;
+}
+.e_d {
+    font-size: 8pt;
+}
+.e_h {
+    display: block;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #173a59;
+}
+.e_hm-g {
+    display: block;
+}
+.e_ehm {
+    vertical-align: super;
+    font-size: 8pt;
+}
+.e_hm {
+    vertical-align: super;
+    font-size: 8pt;
+}
+.e_esu {
+    vertical-align: super;
+    font-size: 8pt;
+}
+.e_htr {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8pt;
+}
+.e_lang {
+    font-size: 8pt;
+    color: #078d8f;
+}
+.e_pos {
+    font-style: italic;
+    font-weight: normal;
+    font-size: 8pt;
+}
+.e_sc {
+    font-size: 8pt;
+    font-variant: small-caps;
+}
+.e_sense {
+    display: block;
+    font-weight: bold;
+    font-size: 8pt;
+}
+.e_tr, .e_xg, .e_xs {
+    font-size: 8pt;
+}
+.e_z {
+}
+.e_xr {
+    color: #c00b19;
+    font-size: 8pt;
+}
+.e_xh {
+    font-variant: small-caps;
+    font-size: 8pt;
+}
+.e_xhm {
+    vertical-align: super;
+    font-size: 65%;
+}
+.e_q {
+    font-style: italic;
+    font-weight: normal;
+    font-size: 8pt;
+}
+.e_pv {
+    color: #276e98;
+    font-size: 8pt;
+}
+.e_n {
+    font-weight: bold;
+    color: #173a59;
+    font-size: 8pt;
+}
+.e_ff, .e_i {
+    color: #173a59;
+    font-size: 8pt;
+}
+.e_id {
+    font-style: italic;
+    color: #173a59;
+    font-size: 8pt;
+}
+/* End etym */
+.sup {
+    vertical-align: super;
+    font-size: 65%;
+}
+.sub {
+    vertical-align: sub;
+    font-size: 65%;
+}
+
+button.key {
+  /*background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/img/key.gif);*/
+  height:15px;
+  width: 8px;
+  padding: 0px;
+  margin: 0px;
+  cursor: normal;
+  padding: 0px;
+  border: 0px;
+  margin-right: 5px;
+  margin-top: 5px;
+  background-repeat: no-repeat;
+  vertical-align: top;
+}
+#ox-container #ox-footer img {
+    margin-left: 34px;
+    margin-top: 5px;
+}
+#paging {
+    font-size: 15px;
+    font-variant: small-caps;
+    color: #FFF;
+    /*background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/header/nav-btn-bk0.png);*/
+    background: #8F0610;
+    height: 24px;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    padding-top: 3px;
+}
+#entrylist1 .result-list1 {
+    /*width: 313px;*/
+    color: #8f0610;
+    list-style-image: url("http://www.oxfordlearnersdictionaries.com/us/external/images/bullet-red.gif");
+}
+.block-g {
+  float: right;
+}
+
+.top-container {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #8F0610;
+  padding-top: 5px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  clear: both;
+}
+
+.clear {
+    clear: both;
+    height: 2px;
+}
+
+.z_phon-gb, .z_phon-us  {  /* deleted trailing comma, causing CSS parse error  TT 2011-09-08  */
+    font-family: "Lucida Sans Unicode","Lucida Grande", "Times New Roman", Times, serif;  /* added Lucida fonts  TT 2011-08-26  */
+    color: #860610;
+    margin-right: 5px;
+}
+
+.phon-gb, .phon-us, .ipachar   {
+     font-family: "Lucida Sans Unicode","Lucida Grande", "Times New Roman", Times, serif;  /* added Lucida fonts  TT 2011-08-26  */
+     font-size: 14px; /* increase IPA font size - requested by JB.R  TT 2011-09-08  */
+}
+
+.phon-us  >   .flapped_t, ipachar >   .flapped_t  /* removed trailing comma, was causing CSS parse error  TT 2011-09-08  */
+{
+    font-family: "Times New Roman", Times, serif; /*   TT 2011-08-26  */
+    font-size: 120%; /*   TT 2011-08-26  */
+
+}
+
+#entryContent .side{
+    float: right;
+    width: 164px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#ox-enlarge {
+  display: inline-block;
+  float: right;
+}
+#ox-enlarge img {
+  border: 0;
+}
+#ox-enlarge img.thumb {
+  clear: both;
+}
+#ox-enlarge img.enlarge-icon {
+  margin-left: auto;
+}
+#ox-enlarge a.topic {
+  display: block;
+  text-align: right;
+  padding: 2px;
+  margin: 0;
+  background-color: #860610;   /*  TT 2011-08-26  */
+}
+
+#ox-enlarge a.topic:hover {
+    background-color: #173a59;   /* blue chosen to match rollover of orange symbols  TT 2011-08-26  */
+}
+
+#main_column #main-container #entryContent .h-g .top-g .h {
+    display: inline;
+    margin: 0px;
+}
+#main-container #entryContent .h-g .top-g .block-g .thumb {
+}
+.h-g .sn, .h-g .d, .id-g > .ud {  /*  added .id-g > .ud selector  TT 2011-07-11  */
+    display: block;
+}
+.np {
+    display: block;
+    margin-bottom: 10px;
+}
+
+h4 {
+    padding-right: 5px;
+}
+.unbox .title {
+    display: block;
+    padding-bottom: 4px;
+    font-size: 150%;
+    font-weight: normal;  /*  TT 2011-08-26  */
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #FFF;
+    margin-top: 0px;
+    margin-right: -10px;
+    margin-bottom: 0px;
+    margin-left: -10px;
+    text-indent: 10px;
+    background-color: #C8E2F0;  /*  TT 2011-08-26  */
+    padding-top: 4px;
+}
+.unbox .collsubhead, .unbox .langbanksubhead, .unbox .subhead, .z_pathd  {  /*  added z_pathd ("patterns" heading) TT 2011-09-09  */
+    font-size: 145%; /* made subheads bigger (was 105% TT 2011-09-09  */
+    padding-top: 12px;
+    display: block;
+    margin: 0px;
+    padding-bottom: 2px;
+    color: #01223a;
+    font-weight: bold;
+}
+
+.z_pathd 
+{
+    text-transform:uppercase;  /* display "patterns" heading correctly TT 2011-09-09  */
+    font-size: 110%; /* make smaller than other subheads TT 2011-09-09  */
+}
+
+
+
+.unbox .althead {
+    font-size: 105%;
+    padding-top: 12px;
+    display: block;
+    margin: 0px;
+    padding-bottom: 2px;
+    color: #276e98;
+    font-weight: bold;
+}
+.unbox .eb {
+    color: #276e98;
+}
+
+a + .usage_note_header
+{
+    padding-left: 10px; /*  TT 2011-08-26  */
+}
+
+.ei-g .y {
+    margin-left: 20px;
+    vertical-align: top; /* changed from "middle" to fix #25502 */
+}
+.a {
+ font-weight: bold;
+    color: #276e98;
+}
+.qt .para .para {
+    display: inline;
+    margin-left: 0px;
+    padding-left: 0px;
+    font-weight: bold;
+}
+.ifs-g .if-g .ei-g {
+    margin-top: 2px;
+}
+
+
+
+.z_xr .icon.icon-idsym strong  {
+    font-size: 8pt;
+    background-color: #35338a;
+    font-weight: bold;
+    color: #FFF;
+    padding-right: 5px;
+    padding-left: 5px;
+    display: inline;
+    text-indent: 0px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    margin-top: 0px;
+    margin-right: -5px;
+    margin-bottom: 0px;
+    margin-left: -10px;
+}
+
+
+
+.xr-g {
+    display: block;
+    margin-top: 5px;
+    /*background-repeat: no-repeat;*/
+    /*background-position: 3px 2px;*/ /* WAS  left 2px 110623 ST */
+    /*background-image: url(http://www.oxfordlearnersdictionaries.com/us/external/images/xref-arrow-red.png);*/  /* changed from arrow-red.png  TT 2011-08-26  */
+    padding-left: 19px;
+    padding-right: 3px; /*  TT 2011-09-08  */
+    margin-bottom: 5px;
+}
+
+.sd-g .xr-g{
+    text-indent: 0px;
+}
+.pvp-g .xr-g {
+    text-indent: 0px;
+}
+.xr-g  .z_xr .z_spc_pre {
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+}
+#entryContent  .pvp-g  .xr-g {
+}
+
+
+#entryContent{
+    line-height: 20px; /* increase leading TT 2011-08-26  */
+}
+
+.n-g .xr-g{
+    text-indent: 0px;
+    padding-left: 18px;
+    margin-left: -19px;
+}
+
+/* put the cross ref arrow on the xr-g first child */
+.xr-g > .xr{
+    background:url(http://www.oxfordlearnersdictionaries.com/us/external/images/xref-arrow-red.png) no-repeat left;
+    background-position: 0px 2px;
+    padding-left:20px;
+}
+
+.xr-g > .xr ~ .xr{
+    background:none;
+    padding-left:0;
+}
+/* end */
+
+.n-g  .d {
+    text-indent: 0px;
+}
+.sd-g .help {
+    margin-left: 0px;
+}
+.help .x-g {
+    margin-left: 0px;
+}
+.unbox .table {
+    border: 1px solid #276E98;  /* changed colour from blue to match unbox TT 2011-09-09  */
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 0px;
+    background-color: #C8E2F0;
+}
+.unbox .table .th {
+    background-color: #87C2E2; /* changed colour from blue to match unbox TT 2011-09-09  */
+    border-bottom-color: #E0B900;  /* changed colour from blue to match unbox TT 2011-09-09  */
+    border-bottom-width: 2px;
+    margin: 0px;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+}
+.unbox .table .td {
+    padding: 4px;
+    margin: 0px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-bottom-width: 1px;
+    border-bottom-color: #FFF;
+    background-color: #FFF;
+}
+.top-g {
+    display: block;
+}
+
+.z_vs-g
+{
+    display: inline; /*  TT 2011-07-11  */
+}
+
+
+dl.dl_as_table { border-bottom: 1px solid #999; align:left; }
+
+dl.dl_as_table dt
+{
+    clear: left;
+    float: left;
+    width: 190px;
+    margin: 0;
+    padding: 5px;
+    border-top: 1px solid #999;
+    font-weight: bold;
+
+}
+
+dl.dl_as_table dd
+{
+    margin-left: 200px;
+    padding: 5px;
+    border-top: 1px solid #999;
+}
+
+dl.dl_as_table dd.first { border-top: 1px solid #999; }
+
+img.advert {border:none; text-decoration:none;}
+
+.trans-g
+{
+   display: none;
+}
+
+.ipachar {color: #58ACFA; }
+
+
+/************* Sketch content section *************/
+.ColloPanel, .ThesPanel{
+  font-size: 80%;
+  text-align:left;
+  display:block;
+  border-radius: 9px 9px 9px 9px;
+  border-style: solid;
+  border-color:blue;
+  margin:15px;
+  border-width:1px;
+  padding:3px;
+  column-count:3;
+  column-gap : 0em; 
+  -moz-column-count:3; /* Firefox */
+  -moz-column-gap : 0em; 
+  -webkit-column-count:3; /* Safari and Chrome */
+  -webkit-column-gap : 0em;
+  background-color:#FFF;
+}
+
+ul.sketch{
+    margin-top:0px;
+    margin-left:-20px;
+}
+
+.ColloPanel .xr, .ThesPanel .xr{
+    font-weight:bold;
+    font-size:130%;
+    display:list-item;
+    list-style-type:square;
+    color:#5BA7DA;
+    margin-left:20px;
+}
+
+.CorpusHeader {
+    display:block;
+    padding:3px;
+    font-size:120%;
+    background-color:#00315A;
+    color:white;
+    border-top-left-radius:9px;
+}
+
+.ColloHeader{
+    display:block;
+    color:white;
+    font-weight:bold;
+    background-color:#5BA7DA;
+    font-size:100%;
+    text-transform:uppercase;
+    margin-left:2px;
+    margin-top:2px;
+    padding:3px;
+}

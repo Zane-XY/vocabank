@@ -7,7 +7,6 @@ img.proncar{
 }
 
 div.aspell-header{
-	font-family:Verdana,Helvetica,sans-serif;
 	font-style:normal;
 	font-weight:bold;
 	font-size:14pt;
@@ -17,7 +16,6 @@ div.aspell-header{
 }
 
 a.aspell-suggest{
-	font-family:Verdana,Helvetica,sans-serif;
 	font-size:12pt;
 	color:#1c3a78;
 	text-decoration:none;
@@ -82,7 +80,6 @@ HR{
 }
 
 .DERIV{
-	font-family:Arial\ Unicode\ MS;
 	font-weight:bold;
 	color:#00f
 }
@@ -179,20 +176,18 @@ h2{
 }
 
 .HWD{
-	font-size:100%;
+	font-size:150%;
 	font-weight:bold;
 	color:#00f
 }
 
 .HYPHENATION{
-	font-family:Arial\ Unicode\ MS;
 	font-size:110%;
 	font-weight:bold;
 	color:#00f
 }
 
 .inflectype{
-	font-family:Times\ New\ Roman,Helvetica,sans-serif;
 	font-style:italic
 }
 
@@ -219,7 +214,6 @@ h2{
 }
 
 .JOGVARLABEL{
-	font-family:Times\ New\ Roman,Helvetica,sans-serif;
 	font-style:italic
 }
 
@@ -238,7 +232,6 @@ h2{
 }
 
 .LEXUNIT{
-	font-family:Arial\ Unicode\ MS;
 	font-weight:bold;
 	color:#00f;
 	margin-left:.3em;
@@ -260,13 +253,11 @@ h2{
 }
 
 .LEXVAR{
-	font-family:Arial\ Unicode\ MS;
 	font-weight:bold;
 	color:#00f
 }
 
 .LINKWORD{
-	font-family:Times\ New\ Roman,Helvetica,sans-serif;
 	font-style:italic
 }
 
@@ -284,7 +275,6 @@ h2{
 }
 
 .ORTHVAR{
-	font-family:Arial\ Unicode\ MS;
 	font-weight:bold;
 	color:#00f
 }
@@ -391,7 +381,6 @@ h2{
 }
 
 .STRONG{
-	font-family:Times\ New\ Roman,Helvetica,sans-serif
 }
 
 .Subsense{
@@ -454,14 +443,12 @@ span.exasound{
 }
 
 span.numsense{
-	font-family:Tahoma,Helvetica,sans-serif;
 	font-weight:bold;
 	color:red;
 	margin-left:-15px
 }
 
 span.numsubsense{
-	font-family:Tahoma,Helvetica,sans-serif;
 	font-weight:bold
 }
 
@@ -477,21 +464,18 @@ span.activebutton{
 
 span.activetitle{
 	font-weight:bold;
-	font-family:Arial,Helvetica,sans-serif;
 	background-color:#00f;
 	color:#fff
 }
 
 span.gramtitle1{
 	font-weight:bold;
-	font-family:Arial,Helvetica,sans-serif;
 	background-color:red;
 	color:#fff
 }
 
 span.gramtitle2{
 	font-weight:bold;
-	font-family:Arial,Helvetica,sans-serif;
 	background-color:red;
 	color:#fff
 }
