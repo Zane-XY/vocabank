@@ -7,21 +7,3 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Home page
 GET     /                           controllers.Application.index
-
-# entries
-GET     /entries                    controllers.EntryController.entries
-
-#GET     /entries/:id                          controllers.Application.entries
-GET     /entry/add                  controllers.EntryController.add
-
-GET     /entry/:id/delete               controllers.EntryController.delete(id:Long)
-
-GET     /entry/:id/edit                 controllers.EntryController.edit(id:Long)
-
-POST    /entry/setRating                 controllers.EntryController.setRating
-
-POST   /entry/save                  controllers.EntryController.save
-
-GET     /lookup/:dictid/:word                 controllers.DictController.lookupDef(dictid:String, word:String)
-
-GET /lookupDefAsync/:word                 controllers.EntryController.lookupDefAsync(word:String)
