@@ -41,3 +41,8 @@ table td {
 #loadingStatus {
     visibility:hidden;
 }
+
+#recaptcha_area input[type="text"] {
+  display: inline-block;
+  height: auto;
+}
