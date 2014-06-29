@@ -1,27 +1,24 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
+GET      /assets/*file                  controllers.Assets.at(path="/public", file)
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET      /                              controllers.Application.index
 
-# Home page
-GET     /                           controllers.Application.index
+GET      /entries                       controllers.EntryController.entries
 
-# entries
-GET     /entries                    controllers.EntryController.entries
+#GET     /entries/:id                   controllers.Application.entries
+GET      /entry/add                     controllers.EntryController.add
 
-#GET     /entries/:id                          controllers.Application.entries
-GET     /entry/add                  controllers.EntryController.add
+GET      /entry/:id/delete              controllers.EntryController.delete(id:Long)
 
-GET     /entry/:id/delete               controllers.EntryController.delete(id:Long)
+GET      /entry/:id/edit                controllers.EntryController.edit(id:Long)
 
-GET     /entry/:id/edit                 controllers.EntryController.edit(id:Long)
+POST     /entry/setRating               controllers.EntryController.setRating
 
-POST    /entry/setRating                 controllers.EntryController.setRating
+POST     /entry/save                    controllers.EntryController.save
 
-POST   /entry/save                  controllers.EntryController.save
+GET      /lookup/:dictid/:word          controllers.DictController.lookupDef(dictid:String, word:String)
 
-GET     /lookup/:dictid/:word                 controllers.DictController.lookupDef(dictid:String, word:String)
+GET      /lookupDefAsync/:word          controllers.EntryController.lookupDefAsync(word:String)
 
-GET /lookupDefAsync/:word                 controllers.EntryController.lookupDefAsync(word:String)
+GET      /user/signUp                   controllers.UserController.signUp
+
+POST     /user/save                     controllers.UserController.save
