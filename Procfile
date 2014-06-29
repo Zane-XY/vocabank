@@ -1,1 +1,1 @@
-web: target/start -Dhttp.port=${PORT} ${JAVA_OPTS} -DapplyEvolutions.default=true  -Dconfig.resource=application.prod.conf  -Ddb.default.driver=db.default.driver=org.h2.Driver -Ddb.default.url="jdbc:h2:mem:vocab;MODE=MySQL"
+web: target/universal/stage/bin/vocabank -Dhttp.port=${PORT} ${JAVA_OPTS} -DapplyEvolutions.default=true  -Dconfig.resource=application.prod.conf  -Ddb.default.driver=db.default.driver=org.h2.Driver -Ddb.default.url="jdbc:h2:mem:vocab;MODE=MySQL"
