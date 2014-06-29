@@ -8,7 +8,7 @@ import utils.{CambridgeLearnerScraper, OxfordLearnerScraper, LongmanContemporary
  */
 object DictController extends Controller {
 
-  def lookupDef(dictid: String, word: String) = Action { implicit  req =>
+  def lookupDef(dictid: String, word: String) = Action {
     dictid match {
       case "longman" => Ok(LongmanContemporaryScraper.scrape(word))
       case "cambridge" => Ok(CambridgeLearnerScraper.scrape(word))
@@ -18,15 +18,15 @@ object DictController extends Controller {
 
   }
 
-  def lookupCambridge(word: String) = Action { implicit  req =>
+  def lookupCambridge(word: String) = Action {
     Ok(CambridgeLearnerScraper.scrape(word))
   }
 
-  def lookupOxford(word: String) = Action { implicit  req =>
+  def lookupOxford(word: String) = Action {
     Ok(OxfordLearnerScraper.scrape(word))
   }
 
-  def lookupLongman(word: String) = Action { implicit  req =>
+  def lookupLongman(word: String) = Action {
     Ok(LongmanContemporaryScraper.scrape(word))
   }
 }
