@@ -1,0 +1,53 @@
+.spacer {
+    margin-top: 30px;
+}
+
+table td {
+  padding: 0 0;
+}
+
+
+.panel {
+    background-color: #FFFFFF;
+}
+
+.panel .panel-heading {
+    background:#F0F8FF;
+    color:grey;
+    padding:3px;
+    font-size: 75.0%;
+    font-weight: bold;
+}
+
+.oxford h4 {
+ font-size: 100.0%;
+}
+.oxford .entry {
+ font-size: 81.3%;
+}
+
+.longman .h2 {
+ font-size: 100.0%;
+}
+
+.longman .DEF {
+ font-size: 81.3%;
+}
+
+.longman .EXAMPLE {
+ font-size: 81.3%;
+}
+
+#loadingStatus {
+    visibility:hidden;
+}
+
+#recaptcha_area input[type="text"] {
+  display: inline-block;
+  height: auto;
+}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
