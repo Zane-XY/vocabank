@@ -41,5 +41,22 @@ $("#search_form").submit(function(e) {
     e.preventDefault();
 });
 
+/*$('#search_box').autocomplete({
+    serviceUrl: '/autocomplete',
+    minChars: 2,
+    autoSelectFirst: false,
+    transformResult: function(r) {
+        console.log(r);
+        return {suggestions: $.parseJSON(r)};
+    }
+})*/
+YUI().use('autocomplete', function (Y) {
+    // AutoComplete is available and ready for use. Add implementation
+    // code here.
+    Y.one('#search_box').plug(Y.Plugin.AutoComplete, {
+      requestTemplate: '?q={query}',
+      source: '/autocomplete'
+    });
+});
 
 });
