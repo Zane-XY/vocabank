@@ -17,6 +17,8 @@ POST     /entry/save                    controllers.EntryController.save
 
 GET      /lookup/:dictid/:word          controllers.DictController.lookupDef(dictid:String, word:String)
 
+GET      /autocomplete               controllers.DictController.autocomplete
+
 GET      /lookupDefAsync/:word          controllers.EntryController.lookupDefAsync(word:String)
 
 GET      /user/signUp                   controllers.UserController.signUp

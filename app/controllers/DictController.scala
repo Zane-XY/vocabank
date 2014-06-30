@@ -1,7 +1,11 @@
 package controllers
 
+import play.api.Logger
+import play.api.libs.concurrent.Promise
+import play.api.libs.json.Json
 import play.api.mvc._
-import utils.{CambridgeLearnerScraper, OxfordLearnerScraper, LongmanContemporaryScraper}
+import utils.{AutocompleteAdapter, CambridgeLearnerScraper, OxfordLearnerScraper, LongmanContemporaryScraper}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 /**
  * Created by zane.wang on 6/25/2014.
@@ -29,4 +33,9 @@ object DictController extends Controller {
   def lookupLongman(word: String) = Action {
     Ok(LongmanContemporaryScraper.scrape(word))
   }
+
+  def autocomplete = Action.async { req =>
+    AutocompleteAdapter.query(req.getQueryString("q").getOrElse("")).map(Ok(_))
+  }
+
 }
