@@ -9,10 +9,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
  */
 object AutocompleteAdapter {
    val oxfordService = "http://www.oxforddictionaries.com/autocomplete/american_english/?multi=1"
-   val cambridgeService = " http://dictionary.cambridge.org/autocomplete/american-english/?q= "
+   val cambridgeService = "http://dictionary.cambridge.org/autocomplete/learner-english/"
 
   def query(t: String) = {
-    WS.url(oxfordService).withQueryString("q" -> t).get.map(r => Json.toJson(r.json \\ "searchtext"))
+    WS.url(cambridgeService).withQueryString("q" -> t).get.map(r => Json.toJson(r.json \\ "searchtext"))
   }
 
 }
