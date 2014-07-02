@@ -41,28 +41,17 @@ $("#search_form").submit(function(e) {
     e.preventDefault();
 });
 
-$('#search_box').typeahead([{
-    hint: true,
-    highlight: true,
-    remote: '/autocomplete?q=%QUERY',
-    minLength: 2
-}]);
 
-/*$('#search_box').autocomplete({
+
+$('#search_box').autocomplete({
+    paramName: 'q',
     serviceUrl: '/autocomplete',
+    triggerSelectOnValidInput: false,
     minChars: 2,
-    autoSelectFirst: false,
     transformResult: function(r) {
-        console.log(r);
         return {suggestions: $.parseJSON(r)};
-    }
-})*/
-/*YUI().use('autocomplete', function (Y) { // AutoComplete is available and ready for use. Add implementation
-    // code here.
-    Y.one('#search_box').plug(Y.Plugin.AutoComplete, {
-      requestTemplate: '?q={query}',
-      source: '/autocomplete'
-    });
-});*/
+    },
+    onSelect: function(e){ $("#search_form").submit();}
+})
 
 });
