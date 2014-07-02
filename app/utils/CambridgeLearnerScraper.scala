@@ -11,6 +11,7 @@ object CambridgeLearnerScraper {
 
   def scrape(word : String) : String = {
    val t = word.replaceAll("[\\s|']+", "-").toLowerCase
+   //Logger.debug(t)
    val res = Jsoup.connect(dict + t).timeout(60*1000).ignoreHttpErrors(true).execute
    res.statusCode match {
       case 200 => val doc = res.parse().select("div.di").addClass("entrybox learner-english")
