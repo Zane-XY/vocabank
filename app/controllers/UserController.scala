@@ -10,14 +10,17 @@ import models.User
 import utils.ReCaptchaUtils
 import play.filters.csrf._
 import play.filters.csrf.CSRF.Token._
+
 object UserController extends Controller {
 
-val captchaF = Form[(String, String)](
- tuple(
-    "recaptcha_challenge_field" -> nonEmptyText,
-    "recaptcha_response_field" -> nonEmptyText
+  def captchaF(implicit req: Request[AnyContent]) = Form[(String, String)](
+    tuple(
+      "recaptcha_challenge_field" -> nonEmptyText,
+      "recaptcha_response_field" -> nonEmptyText
+    ) verifying("validation error", fields => fields match {
+      case (q, a) => ReCaptchaUtils.check(req.remoteAddress, q, a)
+    })
   )
- )
 
   val userF = Form[User](
     mapping(
@@ -25,7 +28,7 @@ val captchaF = Form[(String, String)](
       "password" -> nonEmptyText,
       "email" -> email)(
         (name, password, email) => User(name, email, password, new DateTime))
-        ((u:User) => Some(u.name, "",  u.email)))
+      ((u: User) => Some(u.name, "", u.email)))
 
   def signUp = Action { implicit req =>
     Ok(views.html.signUp(userF))
@@ -33,21 +36,17 @@ val captchaF = Form[(String, String)](
 
 
   def save = Action { implicit req =>
-    val cF = captchaF.bindFromRequest
-    val uF = userF.bindFromRequest
-
-    cF.fold(
-      err => ( BadRequest("Captcha Param Error")),
-      { case (q, a) => {
-          if (ReCaptchaUtils.check(req.remoteAddress, q, a)) {
-            Logger.debug(uF.value.toString)
-            Ok
-          } else {
-            BadRequest("Captcha Validation Error")
-          }
-        }
+    val uf = userF.bindFromRequest
+    uf.fold(
+      _ => (Ok(views.html.signUp(uf))),
+      { case user: User =>
+          captchaF.bindFromRequest.fold(
+            _ => (Ok(views.html.signUp(userF.fill(user)))),
+            _ => Redirect(routes.EntryController.entries).flashing("success" -> "Entry saved")
+          )
       }
     )
+
   }
 
 }
