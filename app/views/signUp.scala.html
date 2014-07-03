@@ -2,37 +2,53 @@
 @import utils.ReCaptchaUtils
 @(user: Form[User])(implicit token: play.filters.csrf.CSRF.Token)
 
-@main("signup") {
-
-    @form(action = routes.UserController.save) {
-        @CSRF.formField
+@main("sign up") {
+<div class="spacer"/>
+<div class="row">
+<form action="@routes.UserController.save" data-abide method="post">
     <div class="row">
-        <div class="small-4">
-        @inputText(user("name"))
+        <div class="large-4 large-centered columns">
+            <label>Your name <small>required</small>
+                <input type="text" required pattern="[a-zA-Z]+" name="name" value="@user("name").value">
+            </label>
+            <small class="error">Name is required and must be a string.</small>
         </div>
     </div>
 
-<div class="row">
-    <div class="small-4">
-        @inputText(user("email"))
-        </div></div>
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <label>Email <small>required</small>
+                <input type="email" required name="email" value="@user("email").value">
+            </label>
+            <small class="error">An email address is required.</small>
+        </div>
+    </div>
 
-<div class="row">
-    <div class="small-4">
-        @inputPassword(user("password"))
-        </div></div>
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <label>Password <small>required</small>
+                <input type="password" required name="password" value="@user("password").value">
+            </label>
+            <small class="error server">Your password must match the requirements</small>
+        </div>
+    </div>
 
-<div class="row">
-    <div class="small-4">
-        @Html(ReCaptchaUtils.render())
-        </div></div>
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            @Html(ReCaptchaUtils.render())
+        </div>
+    </div>
 
-<div class="row">
-    <div class="small-4">
-        <input type="submit" value="submit">
-        </div></div>
-    }
-   <div></div>
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <input type="submit" class="button tiny right" value="Submit" >
+        </div>
+    </div>
+
+    @CSRF.formField
+</form>
+</div>
 }{
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/signUp.css")">
+<script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.abide.js")"></script>
 }
