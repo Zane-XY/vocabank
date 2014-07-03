@@ -27,7 +27,7 @@ object UserController extends Controller {
       "name" -> nonEmptyText,
       "password" -> nonEmptyText,
       "email" -> email)(
-        (name, password, email) => User(name, email, password, new DateTime))
+        (name, password, email) => User(None, name, email, password, new DateTime))
       ((u: User) => Some(u.name, "", u.email)))
 
   def signUp = Action { implicit req =>
@@ -35,18 +35,20 @@ object UserController extends Controller {
   }
 
 
-  def save = Action { implicit req =>
+  def save = CSRFCheck { Action { implicit req =>
     val uf = userF.bindFromRequest
     uf.fold(
-      _ => (Ok(views.html.signUp(uf))),
-      { case user: User =>
-          captchaF.bindFromRequest.fold(
-            _ => (Ok(views.html.signUp(userF.fill(user)))),
-            _ => Redirect(routes.EntryController.entries).flashing("success" -> "Entry saved")
-          )
-      }
+    _ => (Ok(views.html.signUp(uf))), { case user: User =>
+      captchaF.bindFromRequest.fold(
+        _ => (Ok(views.html.signUp(userF.fill(user)))),
+        _ => {
+          User.save(user)
+          Redirect(routes.EntryController.entries).flashing("success" -> "Entry saved")
+        }
+      )
+    }
     )
-
+   }
   }
 
 }
