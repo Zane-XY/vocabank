@@ -2,3 +2,10 @@
   display: inline-block;
   height: auto;
 }
+#recaptcha_widget_div {
+  margin: 0px 0px 1rem;
+}
+
+small.server{
+    display: inline ;
+}
