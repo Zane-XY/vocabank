@@ -9,4 +9,9 @@ vocabulary fun!
   - ~~use cambridge ajax source~~
 3.  ~~simple registration~~
 4. simple login
+  - login page
+    - ~~login server side auth~~
+    - flashing message
+    - merge server side validation errors with UI validation
+  - stateful templates
 5. vocabulary picker
