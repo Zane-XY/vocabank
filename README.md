@@ -15,3 +15,4 @@ vocabulary fun!
     - merge server side validation errors with UI validation
   - stateful templates
 5. vocabulary picker
+6. ~~I18N~~
