@@ -15,7 +15,7 @@ case class User(
                  name: String,
                  email: String,
                  password: String,
-                 registerDate: DateTime = new DateTime
+                 registerDate: DateTime
                  )
 
 object User {
@@ -31,11 +31,22 @@ object User {
     }
   }
 
-  def auth(pStr: String, email: String) = {
+  /**
+   * return auth status and messages
+   * @param pStr
+   * @param email
+   * @return
+   */
+  def auth(pStr: String, email: String):(Boolean, String) = {
     val pHash = DB.withConnection { implicit connection =>
-        SQL("SELECT PASSWORD FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(scalar[String].single)
+        SQL("SELECT PASSWORD FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(scalar[String].singleOpt)
     }
-    BCrypt.checkpw(pStr, pHash)
+    pHash.fold(false -> "User Not Found")(
+      p => BCrypt.checkpw(pStr, p) match {
+        case true => true -> "Signed In!"
+        case false => false -> "Your Password Is Incorrect!"
+      }
+    )
   }
 
   def save(r: User) {
