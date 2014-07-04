@@ -1,6 +1,7 @@
 package controllers
 
 import org.joda.time.DateTime
+import play.api._
 import play.api.mvc._
 
 import play.api.data._
@@ -28,6 +29,7 @@ object UserController extends Controller {
     )
   )
 
+
   val userF = Form[User](
     mapping(
       "name" -> nonEmptyText,
@@ -51,7 +53,7 @@ object UserController extends Controller {
           _ => BadRequest(views.html.signUp(form.withError("recaptcha", "error.recaptcha.invalid"))),
           _ => {
             User.save(user)
-            Redirect(routes.UserController.signIn).flashing("success" -> "Entry saved")
+            Redirect(routes.UserController.signIn).flashing("info" -> "info.signUp.success")
           }
         )}
       )
