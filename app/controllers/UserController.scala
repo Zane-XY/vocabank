@@ -1,7 +1,6 @@
 package controllers
 
 import org.joda.time.DateTime
-import play.api._
 import play.api.mvc._
 
 import play.api.data._
@@ -17,7 +16,7 @@ object UserController extends Controller {
     tuple(
       "recaptcha_challenge_field" -> nonEmptyText,
       "recaptcha_response_field" -> nonEmptyText
-    ) verifying("validation error", fields => fields match {
+    ) verifying(fields => fields match {
       case (q, a) => ReCaptchaUtils.check(req.remoteAddress, q, a)
     })
   )
@@ -25,7 +24,7 @@ object UserController extends Controller {
   val signInF = Form(
     tuple(
       "email" -> email,
-      "password" -> nonEmptyText
+      "password" -> nonEmptyText(minLength = 6, maxLength = 18)
     )
   )
 
@@ -42,44 +41,47 @@ object UserController extends Controller {
     Ok(views.html.signUp(userF))
   }
 
+  def signUpSubmit = CSRFCheck {
+    Action { implicit req =>
+      val form = userF.bindFromRequest
+      form.fold(
+        _ => BadRequest(views.html.signUp(form)), {
+        case user: User =>
+        captchaF.bindFromRequest.fold(
+          _ => BadRequest(views.html.signUp(form.withError("recaptcha", "error.recaptcha.invalid"))),
+          _ => {
+            User.save(user)
+            Redirect(routes.UserController.signIn).flashing("success" -> "Entry saved")
+          }
+        )}
+      )
+    }
+  }
+
   def signIn = Action { implicit req =>
     Ok(views.html.signIn(signInF))
   }
 
-  def signInAuth = CSRFCheck {
+  def signInSubmit = CSRFCheck {
     Action { implicit req =>
-      val signInForm = signInF.bindFromRequest
-      signInForm.fold(
-        _ => (Ok(views.html.signIn(signInForm))),
-        { case t @ (e, p) =>
-            captchaF.bindFromRequest.fold(
-              _ => Ok(views.html.signIn(signInForm)),
-              _ => {
-                val (signedIn, msg) = User.auth(e, p)
-                if (signedIn)
-                  Redirect(routes.EntryController.entries).flashing("msg" -> msg)
-                else
-                  Redirect(routes.UserController.signIn).flashing(Flash(signInForm.data) + ("msg" -> msg))
-              }
-            )
-        })
+      val form = signInF.bindFromRequest
+      form.fold(
+        _ => (BadRequest(views.html.signIn(form))), {
+        case t @ (e, p) =>
+          captchaF.bindFromRequest.fold(
+            _ => BadRequest(views.html.signIn(form.withError("recaptcha", "error.recaptcha.invalid"))),
+            _ => {
+              val (signedIn, msg) = User.auth(e, p)
+              if (signedIn)
+                Redirect(routes.EntryController.entries).flashing("msg" -> msg)
+              else
+                BadRequest(views.html.signIn(form.withError("password", msg)))
+            }
+          )
+        }
+      )
     }
   }
 
-  def save = CSRFCheck {
-    Action { implicit req =>
-      val uf = userF.bindFromRequest
-      uf.fold(
-        _ => (Ok(views.html.signUp(uf))),
-        { case user: User =>
-              captchaF.bindFromRequest.fold(
-                _ => Ok(views.html.signUp(userF)),
-                _ => {
-                  User.save(user)
-                  Redirect(routes.EntryController.entries).flashing("success" -> "Entry saved")
-                })
-        })
-    }
-  }
 
 }
