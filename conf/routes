@@ -23,9 +23,10 @@ GET      /lookupDefAsync/:word          controllers.EntryController.lookupDefAsy
 
 GET      /user/signUp                   controllers.UserController.signUp
 
+POST     /user/signUp                   controllers.UserController.signUpSubmit
+
 GET      /user/signIn                   controllers.UserController.signIn
 
-POST     /user/signIn                   controllers.UserController.signInAuth
+POST     /user/signIn                   controllers.UserController.signInSubmit
 
-POST     /user/save                     controllers.UserController.save
 
