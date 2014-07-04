@@ -38,14 +38,13 @@ object User {
    * @return
    */
   def auth(pStr: String, email: String):(Boolean, String) = {
-    val pHash = DB.withConnection { implicit connection =>
+    DB.withConnection { implicit connection =>
         SQL("SELECT PASSWORD FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(scalar[String].singleOpt)
-    }
-    pHash.fold(false -> "User Not Found")(
-      p => BCrypt.checkpw(pStr, p) match {
-        case true => true -> "Signed In!"
-        case false => false -> "Your Password Is Incorrect!"
-      }
+    }.fold(false -> "error.user.not.found")(
+      p => if (BCrypt.checkpw(pStr, p))
+             true -> "info.user.signedIn"
+           else
+             false -> "error.user.password.incorrect"
     )
   }
 
