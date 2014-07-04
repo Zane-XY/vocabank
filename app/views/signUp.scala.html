@@ -3,9 +3,19 @@
 @(user: Form[User])(implicit token: play.filters.csrf.CSRF.Token)
 
 @main("sign up") {
+@if(user.hasErrors) {
+<div data-alert class="alert-box alert">
+    <ul>
+        @for(e<-user.errors) {
+        <li>@Messages(e.message, e.args: _*)</li>
+        }
+    </ul>
+</div>
+}
+
 <div class="spacer"/>
 <div class="row">
-<form action="@routes.UserController.save" data-abide method="post">
+<form action="@routes.UserController.signUpSubmit" data-abide method="post">
     <div class="row">
         <div class="large-4 large-centered columns">
             <label>Your name <small>required</small>

@@ -3,15 +3,19 @@
 @(user: Form[(String, String)])(implicit flash:Flash, token: play.filters.csrf.CSRF.Token)
 
 @main("sign in") {
-    @if(flash.get("msg").isDefined){
-        <div data-alert class="alert-box"> 
-            @flash.get("msg")
-        </div>
-    }
+@if(user.hasErrors) {
+    <div data-alert class="alert-box alert">
+        <ul>
+            @for(e<-user.errors) {
+                <li>@Messages(e.message, e.args: _*)</li>
+            }
+        </ul>
+    </div>
+}
 
 <div class="spacer"/>
 <div class="row">
-<form action="@routes.UserController.signInAuth" data-abide method="post">
+<form action="@routes.UserController.signInSubmit" data-abide method="post">
 
     <div class="row">
         <div class="large-4 large-centered columns">
