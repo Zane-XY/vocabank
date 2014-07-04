@@ -1,0 +1,5 @@
+error.required = This field is required
+error.recaptcha.invalid = The recaptcha code you entered is invalid
+error.user.not.found = User is not found
+error.user.password.incorrect = The password you entered is not correct
+info.signUp.success=You have been successfully signed up.
