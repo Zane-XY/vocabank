@@ -1,0 +1,52 @@
+@import helper._
+@import utils.ReCaptchaUtils
+@(user: Form[(String, String)])(implicit flash:Flash, token: play.filters.csrf.CSRF.Token)
+
+@main("sign in") {
+    @if(flash.get("msg").isDefined){
+        <div data-alert class="alert-box"> 
+            @flash.get("msg")
+        </div>
+    }
+
+<div class="spacer"/>
+<div class="row">
+<form action="@routes.UserController.signInAuth" data-abide method="post">
+
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <label>Email <small>required</small>
+                <input type="email" required name="email" value="@user("email").value">
+            </label>
+            <small class="error">An email address is required.</small>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <label>Password <small>required</small>
+                <input type="password" required name="password" value="@user("password").value">
+            </label>
+            <small class="error server">Your password must match the requirements</small>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            @Html(ReCaptchaUtils.render())
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-4 large-centered columns">
+            <input type="submit" class="button tiny right" value="Submit" >
+        </div>
+    </div>
+
+    @CSRF.formField
+</form>
+</div>
+}{
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/signUp.css")">
+<script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.abide.js")"></script>
+}
