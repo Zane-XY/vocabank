@@ -48,21 +48,29 @@ object User {
     )
   }
 
-  def save(r: User) {
+  def save(r: User):(Option[Long], String) = {
     DB.withConnection { implicit connection =>
-      SQL( """
-              INSERT INTO USERS (
-                  NAME,
-                  EMAIL,
-                  PASSWORD,
-                  REGISTERDATE
-              ) VALUES ({name}, {email}, {password},{registerDate})
-           """).on(
-          'name -> r.name,
-          'email -> r.email,
-          'password -> BCrypt.hashpw(r.password, BCrypt.gensalt()),
-          'registerDate -> r.registerDate
-        ).executeInsert()
+      val u = SQL(
+        """
+          SELECT COUNT(*) FROM USERS WHERE EMAIL = {email}
+        """).on('email -> r.email).as(scalar[Long].single)
+      if (u == 0L) {
+        (SQL( """
+                INSERT INTO USERS (
+                    NAME,
+                    EMAIL,
+                    PASSWORD,
+                    REGISTERDATE
+                ) VALUES ({name}, {email}, {password},{registerDate})
+             """).on(
+            'name -> r.name,
+            'email -> r.email,
+            'password -> BCrypt.hashpw(r.password, BCrypt.gensalt()),
+            'registerDate -> r.registerDate
+          ).executeInsert(scalar[Long].singleOpt), "info.user.register.success")
+     } else (None, "error.user.exists")
     }
+
   }
+
 }
