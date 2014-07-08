@@ -10,8 +10,19 @@
                 <li>@Messages(e.message, e.args: _*)</li>
             }
         </ul>
+        <a href="#" class="close">&times;</a>
     </div>
 }
+
+@if(!flash.isEmpty) {
+<div data-alert class="alert-box success">
+    <ul>
+        <li>@flash.get("info").map{s => @Messages(s)}</li>
+    </ul>
+    <a href="#" class="close">&times;</a>
+</div>
+}
+
 
 <div class="spacer"/>
 <div class="row">
@@ -53,4 +64,5 @@
 }{
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/signUp.css")">
 <script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.abide.js")"></script>
+<script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.alert.js")"></script>
 }
