@@ -37,7 +37,7 @@ object User {
    * @param email
    * @return
    */
-  def auth(pStr: String, email: String):(Boolean, String) = {
+  def auth(email: String, pStr: String):(Boolean, String) = {
     DB.withConnection { implicit connection =>
         SQL("SELECT PASSWORD FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(scalar[String].singleOpt)
     }.fold(false -> "error.user.not.found")(
