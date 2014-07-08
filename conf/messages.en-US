@@ -3,3 +3,5 @@ error.recaptcha.invalid = The recaptcha code you entered is invalid
 error.user.not.found = User is not found
 error.user.password.incorrect = The password you entered is not correct
 info.signUp.success=You have been successfully signed up.
+info.user.register.success=Your account has been created successfully, now please sign in.
+error.user.exists=the email has already been used.
