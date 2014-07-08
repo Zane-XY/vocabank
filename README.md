@@ -12,8 +12,8 @@ vocabulary fun!
 4. simple login
   - login page
     - ~~login server side auth~~
-    - flashing message
-    - merge server side validation errors with UI validation
+    - ~~flashing message~~
+    - ~~merge server side validation errors with UI validation~~
     - logout
   - stateful templates
 5. vocabulary picker
