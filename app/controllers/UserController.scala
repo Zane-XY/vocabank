@@ -51,12 +51,10 @@ object UserController extends Controller {
         case user: User =>
         captchaF.bindFromRequest.fold(
           _ => BadRequest(views.html.signUp(form.withError("recaptcha", "error.recaptcha.invalid"))),
-          _ => {
-            User.save(user) match {
-              case (None, m) => BadRequest(views.html.signUp(form.withError("error", m)))
-              case (_, m) => Redirect(routes.UserController.signIn).flashing("info" -> m)
-            }
-          }
+          _ =>  User.save(user) match {
+                  case (None, m) => BadRequest(views.html.signUp(form.withError("error", m)))
+                  case (_, m) => Redirect(routes.UserController.signIn).flashing("info" -> m)
+                }
         )}
       )
     }
@@ -74,13 +72,10 @@ object UserController extends Controller {
         case t @ (e, p) =>
           captchaF.bindFromRequest.fold(
             _ => BadRequest(views.html.signIn(form.withError("recaptcha", "error.recaptcha.invalid"))),
-            _ => {
-              val (signedIn, msg) = User.auth(e, p)
-              if (signedIn)
-                Redirect(routes.EntryController.entries).flashing("msg" -> msg)
-              else
-                BadRequest(views.html.signIn(form.withError("password", msg)))
-            }
+            _ => User.auth(e, p) match {
+                   case (true , msg) => Redirect(routes.EntryController.entries).flashing("msg" -> msg)
+                   case (_, msg) => BadRequest(views.html.signIn(form.withError("password", msg)))
+                 }
           )
         }
       )
