@@ -14,7 +14,10 @@ vocabulary fun!
     - ~~login server side auth~~
     - ~~flashing message~~
     - ~~merge server side validation errors with UI validation~~
-    - logout
-  - stateful templates
+    - ~~logout~~
+  - ~~stateful templates~~
 5. vocabulary picker
+  - entry text parser
+  - entry RPC
 6. ~~I18N~~
+7. connect to remote DB
