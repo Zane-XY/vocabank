@@ -1,29 +1,27 @@
-@(entries : Iterable[models.Entry])(implicit flash:Flash, token: play.filters.csrf.CSRF.Token)
+@(entries : Iterable[models.Entry])(implicit flash:Flash, token: play.filters.csrf.CSRF.Token, session: play.api.mvc.Session)
 @import helper._
 @main("All Entries") {
-@flash.get("success").map { msg =>
-<div class="flash">@msg</div>
-}
-@if(entries.isEmpty) {
-<p>No Entries</p>
-} else {
+    @flash.get("success").map { msg =>
+        <div class="flash">@msg</div>
+    }
+    @if(entries.isEmpty) {
+        <p>No Entries</p>
+    }else{
+        <ul>
+        @for(e <- entries) {
+           <li> <div> @e.title <div class="rating" data-score="@e.rating" data-id="@e.id"></div> <br>
+               @e.source, @e.content @e.tags
+               <a href="@routes.EntryController.edit(e.id.get)">Edit</a>
+               @helper.form(routes.EntryController.delete(e.id.get)){<button type="submit">Delete</button>}
+               </div>
 
-<ul>
-@for(e <- entries) {
-   <li> <div> @e.title <div class="rating" data-score="@e.rating" data-id="@e.id"></div> <br>
-       @e.source, @e.content @e.tags
-       <a href="@routes.EntryController.edit(e.id.get)">Edit</a>
-       @helper.form(routes.EntryController.delete(e.id.get)){<button type="submit">Delete</button>}
-       </div>
-
-   </li>
-}
-</ul>
-}
-<a href="@routes.EntryController.add">Add a new entry</a>
+           </li>
+        }
+        </ul>
+    }
+    <a href="@routes.EntryController.add">Add a new entry</a>
 
 }{
-
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/raty/jquery.raty.css")">
 <script src="@routes.Assets.at("libs/raty/jquery.raty.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/entries.js")" type="text/javascript"></script>

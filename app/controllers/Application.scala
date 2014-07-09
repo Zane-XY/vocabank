@@ -5,7 +5,7 @@ import play.api.mvc._
 
 object Application extends Controller {
 
-  def index = Action {
+  def index = Action { implicit req =>
     Ok(views.html.search("search your word!"))
   }
 

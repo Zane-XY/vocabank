@@ -1,4 +1,4 @@
-@(entry : Form[Entry])(implicit token: play.filters.csrf.CSRF.Token)
+@(entry : Form[Entry])(implicit token: play.filters.csrf.CSRF.Token, session: play.api.mvc.Session)
 @import helper._
 
 @main("entry") {

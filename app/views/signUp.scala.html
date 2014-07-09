@@ -1,6 +1,6 @@
 @import helper._
 @import utils.ReCaptchaUtils
-@(user: Form[User])(implicit token: play.filters.csrf.CSRF.Token)
+@(user: Form[User])(implicit token: play.filters.csrf.CSRF.Token, session: play.api.mvc.Session)
 
 @main("sign up") {
 @if(user.hasErrors) {
