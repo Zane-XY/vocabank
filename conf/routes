@@ -29,4 +29,6 @@ GET      /user/signIn                   controllers.UserController.signIn
 
 POST     /user/signIn                   controllers.UserController.signInSubmit
 
+GET      /user/signOut                  controllers.UserController.signOut
+
 
