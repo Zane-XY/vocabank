@@ -10,6 +10,7 @@ import models.User
 import utils.ReCaptchaUtils
 import play.filters.csrf._
 import play.filters.csrf.CSRF.Token._
+import play.api.Play.current
 
 object UserController extends Controller {
 
@@ -18,7 +19,7 @@ object UserController extends Controller {
       "recaptcha_challenge_field" -> nonEmptyText,
       "recaptcha_response_field" -> nonEmptyText
     ) verifying(fields => fields match {
-      case (q, a) => ReCaptchaUtils.check(req.remoteAddress, q, a)
+      case (q, a) => if (Play.isDev) true else ReCaptchaUtils.check(req.remoteAddress, q, a)
     })
   )
 
@@ -28,7 +29,6 @@ object UserController extends Controller {
       "password" -> nonEmptyText(minLength = 6, maxLength = 18)
     )
   )
-
 
   val userF = Form[User](
     mapping(
@@ -64,6 +64,10 @@ object UserController extends Controller {
     Ok(views.html.signIn(signInF))
   }
 
+  def signOut = Action { implicit req =>
+    Redirect(routes.Application.index()).removingFromSession("signedIn")
+  }
+
   def signInSubmit = CSRFCheck {
     Action { implicit req =>
       val form = signInF.bindFromRequest
@@ -73,7 +77,7 @@ object UserController extends Controller {
           captchaF.bindFromRequest.fold(
             _ => BadRequest(views.html.signIn(form.withError("recaptcha", "error.recaptcha.invalid"))),
             _ => User.auth(e, p) match {
-                   case (true , msg) => Redirect(routes.EntryController.entries).flashing("msg" -> msg)
+                   case (true , msg) => Redirect(routes.EntryController.entries).flashing("msg" -> msg).withSession("signedIn" -> e)
                    case (_, msg) => BadRequest(views.html.signIn(form.withError("password", msg)))
                  }
           )
@@ -81,6 +85,5 @@ object UserController extends Controller {
       )
     }
   }
-
 
 }
