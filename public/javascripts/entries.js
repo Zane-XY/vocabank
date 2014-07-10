@@ -1,6 +1,7 @@
 $(function() {
      $('div.rating').raty({
           path: 'assets/libs/raty/images',
+          starType : 'i' ,
           score: function() {
             return $(this).attr('data-score');
           },
