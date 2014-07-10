@@ -21,3 +21,9 @@ vocabulary fun!
   - entry RPC
 6. ~~I18N~~
 7. connect to remote DB
+8. entry listing page
+  - ~~font awesome icons integration~~
+  - session dynamic menus
+  - associate entries with user
+  - entry tags
+  - entry sources
