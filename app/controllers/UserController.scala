@@ -77,7 +77,9 @@ object UserController extends Controller {
           captchaF.bindFromRequest.fold(
             _ => BadRequest(views.html.signIn(form.withError("recaptcha", "error.recaptcha.invalid"))),
             _ => User.auth(e, p) match {
-                   case (true , msg) => Redirect(routes.EntryController.entries).flashing("msg" -> msg).withSession("signedIn" -> e)
+                   case (Some(u @ user) , msg) =>
+                     Redirect(routes.EntryController.entries).flashing("msg" -> msg)
+                                                             .withSession("signedIn" -> u.email, "userId" -> u.id.fold("")(_.toString))
                    case (_, msg) => BadRequest(views.html.signIn(form.withError("password", msg)))
                  }
           )
