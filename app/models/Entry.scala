@@ -16,23 +16,25 @@ case class Entry(
   added: DateTime,
   updated: DateTime,
   tags: Option[List[String]],
-  rating: Int)
+  rating: Int,
+  userId: Long)
 
 object Entry {
 
     private val entryParser:RowParser[Entry] = {
-        get[Option[Long]]("id") ~
-        get[String]("title") ~
-        get[String]("content") ~
-        get[DateTime]("added") ~
-        get[DateTime]("updated") ~
-        get[Int]("rating") map { case id ~ title ~ content ~ added ~ updated ~ rating =>
-            Entry(id , title , None ,  content , added , updated , None, rating) }
+        get[Option[Long]]("ID") ~
+        get[String]("TITLE") ~
+        get[String]("CONTENT") ~
+        get[DateTime]("ADDED") ~
+        get[DateTime]("UPDATED") ~
+        get[Int]("RATING") ~
+        get[Long]("USER_ID") map { case id ~ title ~ content ~ added ~ updated ~ rating ~ userId =>
+            Entry(id , title , None ,  content , added , updated , None, rating, userId) }
     }
 
   def listAll():List[Entry] = {
     DB.withConnection { implicit connection =>
-      SQL("SELECT * from ENTRIES ORDER BY ADDED DESC").as(entryParser *)
+      SQL("SELECT * FROM ENTRIES ORDER BY ADDED DESC").as(entryParser *)
     }
   }
 
@@ -54,23 +56,16 @@ object Entry {
     DB.withConnection { implicit connection =>
       SQL("""
             INSERT INTO ENTRIES (
-                title,
-                content,
-                added,
-                updated,
-                rating
-            ) VALUES (
-                {title},
-                {content},
-                {added},
-                {updated},
-                {rating}
-            ) """).on(
+              TITLE, CONTENT, ADDED, UPDATED, RATING, USER_ID)
+            VALUES (
+              {title}, {content}, {added}, {updated}, {rating}, {userId})
+          """).on(
         'title -> r.title,
         'content -> r.content,
         'added -> r.added,
         'updated -> r.updated,
-        'rating -> r.rating).executeUpdate
+        'rating -> r.rating,
+        'userId -> r.userId).executeUpdate
     }
   }
 }
