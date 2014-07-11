@@ -3,6 +3,8 @@ package controllers
 import play.api._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.Messages
+import play.api.i18n.Messages.Message
 import play.api.libs.Comet
 import play.api.libs.concurrent.Promise
 import play.api.libs.iteratee.Enumerator
@@ -18,6 +20,7 @@ import utils.{OxfordLearnerScraper, LongmanContemporaryScraper, CambridgeLearner
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.util.Try
 
 //import play.api.libs.json._
 //import play.api.libs.json.Reads._
@@ -25,14 +28,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object EntryController extends Controller {
 
-  def formToEntry(id: Option[Long],
-                  title: String,
-                  source: Option[List[String]],
-                  content: String,
-                  tags: Option[List[String]],
-                  rating: Int): Entry = {
+  def formToEntry(id: Option[Long], title: String, source: Option[List[String]], content: String, tags: Option[List[String]], rating: Int): Entry = {
     val now = new DateTime
-    Entry(None, title, source, content, now, now, tags, rating)
+    Entry(None, title, source, content, now, now, tags, rating, 0L)
   }
 
   def entryToForm(e: Entry) = Some( e.id, e.title, e.source, e.content, e.tags, e.rating)
@@ -83,13 +81,21 @@ object EntryController extends Controller {
    * form post is filtered by CSRF
     * @return
    */
-  def save = Action { implicit request =>
-      entryF.bindFromRequest.fold(
-        formWithErrors => Ok(views.html.entry(formWithErrors)),
-        entry => {
-          Entry.save(entry)
-          Redirect(routes.EntryController.entries).flashing("success" -> "Entry saved")
-        })
+  def save = CSRFCheck {
+    Action (parse.json) { implicit req =>
+      import JsonValidators.entryReads
+      req.session.get("userId").flatMap(s => Try{s.toLong}.toOption).fold(
+        BadRequest(Json.obj("status" -> "KO" , "error" -> Messages("error.user.not.signedIn")))
+      )(
+        userId =>
+          entryF.bindFromRequest.fold(
+            err => BadRequest(err.errorsAsJson),
+            entry => {
+              Entry.save(entry.copy(userId = userId))
+              Ok(Json.obj("status" -> "OK"))}
+          )
+      )
+    }
   }
 
 
@@ -121,4 +127,9 @@ object JsonValidators {
     (__ \ "id").read[Long] and
     (__ \ "value").read[Int](min(1) keepAnd max(5))
   ) tupled
+
+  implicit val entryReads : Reads[(String, String)] = (
+    (__ \ "title").read[String] and
+      (__ \ "content").read[String]
+    ) tupled
 }
