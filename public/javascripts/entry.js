@@ -6,8 +6,5 @@
           score: $("input#rating_target").val()
       });
 
-     $( "#lookupBtn" ).click(function() {
-        $("#def").load("/entry/lookupDef/" + $("input#title").val());
-     });
 
  });

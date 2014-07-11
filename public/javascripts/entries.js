@@ -16,4 +16,22 @@ $(function() {
              });
           }
       });
+      $("#entryForm").submit(function (e) {
+          $.ajax({
+              contentType : 'application/json',
+              type: "POST",
+              url: "/entry/save",
+              dataType: 'json',
+              data:JSON.stringify({
+                  title: "some title",
+                  content: "some content",
+                  rating: 1
+              }),
+              success: function (d) {
+                 console.log(d);
+              },
+              xhrFields: {withCredentials: true}
+          });
+        e.preventDefault();
+      });
 });
