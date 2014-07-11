@@ -20,7 +20,7 @@ case class User(
 
 object User {
 
-  private val rowParser: RowParser[User] = {
+  private val userRowParser: RowParser[User] = {
     get[Option[Long]]("id") ~
       get[String]("name") ~
       get[String]("email") ~
@@ -37,14 +37,14 @@ object User {
    * @param email
    * @return
    */
-  def auth(email: String, pStr: String):(Boolean, String) = {
+  def auth(email: String, pStr: String):(Option[User], String) = {
     DB.withConnection { implicit connection =>
-        SQL("SELECT PASSWORD FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(scalar[String].singleOpt)
-    }.fold(false -> "error.user.not.found")(
-      p => if (BCrypt.checkpw(pStr, p))
-             true -> "info.user.signedIn"
+        SQL("SELECT * FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(userRowParser.singleOpt)
+    }.fold((None:Option[User]) -> "error.user.not.found")(
+      u => if (BCrypt.checkpw(pStr, u.password))
+             Some(u) -> "info.user.signedIn"
            else
-             false -> "error.user.password.incorrect"
+             None -> "error.user.password.incorrect"
     )
   }
 
