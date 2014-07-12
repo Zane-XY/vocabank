@@ -7,82 +7,96 @@
 
 <div class="spacer"/>
 
-<div class="row">
-    <div class="small-12 columns">
-        <div class="row">
-            <div class="small-12 columns">
-                <button class="button" data-reveal-id="newEntry">Add a new entry</button>
+<div class="small-12 columns">
+    <div class="row">
+        <div class="small-12 columns">
+            <div class="small-3 small-offset-9 columns">
+                <button class="button right" id="newEntry">Add a new entry</button>
             </div>
         </div>
+    </div>
 
-    @if(entries.isEmpty) {
-        <p class="text-center">No Entries</p>
-    }else{
-        @for(e <- entries) {
-          <div class="row">
-              <div class="small-10 columns">
-                  <div class="panel">
-                      <div class="row">
-                           <div class="small-6 columns"><span class="entry-title">@e.title</span></div>
-                           <div class="small-2 columns text-right">
-                               <div class="rating" data-score="e.rating" data-id="@e.id"></div>
-                           </div>
-                      @if(session.get("signedIn").isDefined){
-                          <div class="small-1 columns text-right"><a href="@routes.EntryController.edit(e.id.get)"><i class="fa fa-pencil-square-o"></i></a></div>
-                          <div class="small-1 columns text-right"><a href="@routes.EntryController.delete(e.id.get)"><i class="fa fa-trash-o"></i></a></div>
-                      }else{
-                          <div class="small-2 columns"></div>
-                      }
+@if(entries.isEmpty) {
+    <p class="text-center">No Entries</p>
+}else{
+    <section id="entrylistContainer">
+    <section id="entrylist">
+    @for(e <- entries) {
+      <div class="row">
+          <div class="small-12 columns">
+              <div class="panel entry">
+                  <div class="row">
+                      <div class="small-6 columns"><span class="entry-title">@e.title</span></div>
+                      <div class="small-6 columns ">
+                          <div class="row">
+                              <div class="small-12 columns ">
+                                   <div class="small-3 small-offset-7 columns text-right">
+                                       <div class="rating" data-score="@e.rating" data-id="@e.id"></div>
+                                   </div>
+                                   <div class="small-1 columns text-right"><a href="#"><i class="fa fa-pencil-square-o entryEdit" data="@e.id"></i></a></div>
+                                   <div class="small-1 columns text-right"><a href="#"><i class="fa fa-trash-o entryDel" data="@e.id"></i></a></div>
+                               </div>
+                          </div>
                       </div>
-                      <div class="row">
-                          <div class="small-10 columns">@e.content</div>
-                      </div>
-                      <div class="row">
-                          <div class="small-4 columns"></div>
-                          <div class="small-2 columns">@e.source</div>
-                          <div class="small-2 columns">@e.tags</div>
-                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="small-12 columns entry-content">@e.content</div>
+                  </div>
+                  <div class="row">
+                      <div class="small-8 columns"></div>
+                      <div class="small-2 columns">@e.source</div>
+                      <div class="small-2 columns">@e.tags</div>
                   </div>
               </div>
           </div>
-        }
+      </div>
     }
-    </div>
+    </section>
+    </section>
+}
+</div>
 
-    <div id="newEntry" class="reveal-modal" data-reveal>
-        <h2>Add a new entry:</h2>
-       <!-- <p class="lead">Your couch.  It is mine.</p>-->
+<div id="entryModal" class="reveal-modal small" data-reveal>
+    <h2>entry:</h2>
+    <div class="row">
+        <div class="small-12 columns">
+            <form id="entryForm" data-abide>
+                @CSRF.formField
+                <input id="rating_target" type="hidden" name="rating" value='1'>
+                <input type="hidden" name="id">
 
-        <div class="row">
-            <div class="small-12 columns">
-                <form id="entryForm" data-abide>
-                        @CSRF.formField
-                    <div class="row">
-                        <div class="small-8 columns">
-                            <label>Title <small>required</small>
-                                <input name="title" type="text" required/>
-                            </label>
-                            <small class="error">title can't be empty</small>
-                        </div>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <label>Title <small>required</small>
+                            <input name="title" type="text" required/>
+                        </label>
+                        <small class="error">title can't be empty</small>
                     </div>
-                    <div class="row">
-                        <div class="small-8 columns">
-                            <label>Content
-                                <textarea name="content"></textarea>
-                            </label>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <label>Content
+                            <textarea name="content"></textarea>
+                        </label>
                     </div>
-                    <div class="row">
-                        <div class="small-8 columns">
-                            <input class="button" type="submit" value="submit">
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <input class="button" type="submit" value="submit">
                     </div>
-                </form>
-            </div>
-
-            <a class="close-reveal-modal">&#215;</a>
+                </div>
+            </form>
         </div>
+
+        <a class="close-reveal-modal">&#215;</a>
     </div>
+</div>
+
+
+<div id="infoModal" class="reveal-modal small" data-reveal>
+    <h2>Info</h2>
+    <p id="infoModalContent"></p>
+    <a class="close-reveal-modal">&#215;</a>
 </div>
 
 }{
