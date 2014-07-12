@@ -47,15 +47,16 @@ object UserController extends Controller {
     Action { implicit req =>
       val form = userF.bindFromRequest
       form.fold(
-        _ => BadRequest(views.html.signUp(form)), {
-        case user: User =>
-        captchaF.bindFromRequest.fold(
-          _ => BadRequest(views.html.signUp(form.withError("recaptcha", "error.recaptcha.invalid"))),
-          _ =>  User.save(user) match {
-                  case (None, m) => BadRequest(views.html.signUp(form.withError("error", m)))
-                  case (_, m) => Redirect(routes.UserController.signIn).flashing("info" -> m)
-                }
-        )}
+        _ => BadRequest(views.html.signUp(form)),
+        {case user: User =>
+            captchaF.bindFromRequest.fold(
+              _ => BadRequest(views.html.signUp(form.withError("recaptcha", "error.recaptcha.invalid"))),
+              _ =>  User.save(user) match {
+                    case (None, m) => BadRequest(views.html.signUp(form.withError("error", m)))
+                    case (_, m) => Redirect(routes.UserController.signIn).flashing("info" -> m)
+              }
+            )
+        }
       )
     }
   }
@@ -65,23 +66,24 @@ object UserController extends Controller {
   }
 
   def signOut = Action { implicit req =>
-    Redirect(routes.Application.index()).removingFromSession("signedIn")
+    Redirect(routes.Application.index()).removingFromSession("signedIn", "userId")
   }
 
   def signInSubmit = CSRFCheck {
     Action { implicit req =>
       val form = signInF.bindFromRequest
       form.fold(
-        _ => (BadRequest(views.html.signIn(form))), {
-        case t @ (e, p) =>
+        _ => BadRequest(views.html.signIn(form)),
+        {case t @ (e, p) =>
           captchaF.bindFromRequest.fold(
             _ => BadRequest(views.html.signIn(form.withError("recaptcha", "error.recaptcha.invalid"))),
             _ => User.auth(e, p) match {
                    case (Some(u @ user) , msg) =>
-                     Redirect(routes.EntryController.entries).flashing("msg" -> msg)
-                                                             .withSession("signedIn" -> u.email, "userId" -> u.id.fold("")(_.toString))
+                     Redirect(routes.EntryController.entries)
+                       .flashing("msg" -> msg)
+                       .withSession("signedIn" -> u.email, "userId" -> u.id.fold("")(_.toString))
                    case (_, msg) => BadRequest(views.html.signIn(form.withError("password", msg)))
-                 }
+            }
           )
         }
       )
