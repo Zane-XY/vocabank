@@ -17,7 +17,8 @@ vocabulary fun!
     - ~~logout~~
   - ~~stateful templates~~
 5. vocabulary picker
-  - entry text parser
+  - entry text parser 
+    - auto title parser
   - ~~entry JSON RPC~~
 6. ~~I18N~~
 7. connect to remote DB
