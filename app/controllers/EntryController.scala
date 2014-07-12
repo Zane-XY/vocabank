@@ -23,8 +23,7 @@ object EntryController extends Controller {
     )(Entry.assemble)(Entry.disassemble))
 
   def entries = Action { implicit req =>
-    userIdFromSession.fold(
-      BadRequest(views.html.errors("error.user.not.signedIn")))(userId =>
+    userIdFromSession.fold(NotSignedInPage)(userId =>
       Ok(views.html.entries(Entry.listAll(userId)))
     )
   }

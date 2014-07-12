@@ -18,7 +18,9 @@ object Common extends  Controller {
 
   def userEmailFromSession[A](implicit req:Request[A]):Option[String] = fromSession("email", _.toString)
 
-  val NotSignedIn = BadRequest(Json.obj("status" -> "KO" , "error" -> Messages("error.user.not.signedIn")))
+  val NotSignedIn = BadRequest(Json.obj("status" -> "KO" , "error" -> Messages("error.user.not.signed.in")))
+
+  def NotSignedInPage(implicit session: play.api.mvc.Session) = BadRequest(views.html.errors("error.user.not.signed.in"))
 
   def BadRequestJSON (e: JsError) = BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toFlatJson(e)))
 }

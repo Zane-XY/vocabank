@@ -5,4 +5,4 @@ error.user.password.incorrect = The password you entered is not correct
 info.signUp.success=You have been successfully signed up.
 info.user.register.success=Your account has been created successfully, now please sign in.
 error.user.exists=the email has already been used.
-error.user.not.signedIn=You're not signed in.
+error.user.not.signed.in=You are not signed in.
