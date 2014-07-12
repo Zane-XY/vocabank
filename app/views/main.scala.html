@@ -18,7 +18,7 @@
 <body> <!-- body content here -->
 <nav class="top-bar" data-topbar>
     <ul class="title-area">
-        <li class="name"><h1><a href="#">VocaBank</a></h1></li>
+        <li class="name"><h1><a href="/"><i class="fa fa-bank"></i>&nbsp; VocaBank</a></h1></li>
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
     </ul>
@@ -26,11 +26,11 @@
     <section class="top-bar-section">
             <ul class="right">
             @session.get("signedIn").fold{
-                <li class="active"><a href="@routes.UserController.signIn">Sign In</a>
+                <li class="active"><a href="@routes.UserController.signIn"><i class="fa fa-sign-in fa-light"></i>&nbsp; Sign In</a>
             }{ e =>
-                <li class="active has-dropdown"><a href="#">@e</a>
+                <li class="active has-dropdown"><a href="#"><i class="fa fa-user fa-lg fa-lg fa-light"></i>&nbsp; @e</a>
                     <ul class="dropdown">
-                        <li><a href="@routes.UserController.signOut">signout</a></li>
+                        <li><a href="@routes.UserController.signOut"><i class="fa fa-sign-out fa-lg fa-light"></i>&nbsp; Sign Out</a></li>
                     </ul>
                 </li>
             }
