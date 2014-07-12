@@ -107,4 +107,11 @@ $(function () {
     e.preventDefault();
   });
 
+  $(document).foundation({
+    abide : {
+      live_validate : true,
+       focus_on_invalid : true
+     }
+  });
+
 });
