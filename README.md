@@ -18,12 +18,14 @@ vocabulary fun!
   - ~~stateful templates~~
 5. vocabulary picker
   - entry text parser
-  - entry RPC
+  - ~~entry JSON RPC~~
 6. ~~I18N~~
 7. connect to remote DB
 8. entry listing page
   - ~~font awesome icons integration~~
-  - session dynamic menus
-  - associate entries with user
+  - ~~session dynamic menus~~
+  - ~~user specific listing pages~~
+  - ~~modal edit~~
+  - pagination
   - entry tags
   - entry sources
