@@ -1,6 +1,8 @@
 @(err: String)(implicit session: play.api.mvc.Session)
-
 @main("errors") {
- @err
+        <div class="spacer"/>
+        <div class="row text-center">
+            @Messages(err)
+        </div>
 }{ }
 
