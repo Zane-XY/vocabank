@@ -23,7 +23,6 @@
 </div>
 }
 
-
 <div class="spacer"/>
 <div class="row">
 <form action="@routes.UserController.signInSubmit" data-abide method="post">
@@ -54,10 +53,12 @@
 
     <div class="row">
         <div class="large-4 large-centered columns">
-            <input type="submit" class="button tiny right" value="Submit" >
+                <input type="submit" class="button tiny right" value="Submit" >
         </div>
     </div>
-
+    <div class="row">
+        <div class="large-4 large-centered columns"><a href="/user/signUp"><i class="fa fa-arrow-circle-right"></i>&nbsp; Not a user yet? Sign Up here!</a> </div>
+    </div>
     @CSRF.formField
 </form>
 </div>
