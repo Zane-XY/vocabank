@@ -5,11 +5,8 @@ GET      /                              controllers.Application.index
 GET      /entries                       controllers.EntryController.entries
 
 #GET     /entries/:id                   controllers.Application.entries
-GET      /entry/add                     controllers.EntryController.add
 
-GET      /entry/:id/delete              controllers.EntryController.delete(id:Long)
-
-GET      /entry/:id/edit                controllers.EntryController.edit(id:Long)
+POST     /entry/delete                  controllers.EntryController.delete
 
 POST     /entry/setRating               controllers.EntryController.setRating
 
