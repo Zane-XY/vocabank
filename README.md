@@ -19,7 +19,6 @@ vocabulary fun!
 5. vocabulary picker
   - entry text parser 
     - auto title parser
-  - ~~entry JSON RPC~~
 6. ~~I18N~~
 7. connect to remote DB
 8. entry listing page
@@ -30,3 +29,6 @@ vocabulary fun!
   - pagination
   - entry tags
   - entry sources
+9. entry RPC service
+  - ~~session based entry JSON RPC~~
+  - HTTP Basic Authentication based JSON RPC
