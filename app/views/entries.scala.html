@@ -1,12 +1,11 @@
 @(entries : Iterable[models.Entry])(implicit flash:Flash, token: play.filters.csrf.CSRF.Token, session: play.api.mvc.Session)
 @import helper._
 @main("All Entries") {
-    @flash.get("success").map { msg =>
-        <div class="flash">@msg</div>
-    }
+@flash.get("success").map { msg =>
+<div class="flash">@msg</div>
+}
 
-<div class="spacer"/>
-
+<div class="spacer"></div>
 <div class="small-12 columns">
     <div class="row">
         <div class="small-12 columns">
@@ -16,44 +15,44 @@
         </div>
     </div>
 
-@if(entries.isEmpty) {
+    @if(entries.isEmpty) {
     <p class="text-center">No Entries</p>
-}else{
+    }else{
     <section id="entrylistContainer">
-    <section id="entrylist">
-    @for(e <- entries) {
-      <div class="row">
-          <div class="small-12 columns">
-              <div class="panel entry">
-                  <div class="row">
-                      <div class="small-6 columns"><span class="entry-title">@e.title</span></div>
-                      <div class="small-6 columns ">
-                          <div class="row">
-                              <div class="small-12 columns ">
-                                   <div class="small-3 small-offset-7 columns text-right">
-                                       <div class="rating" data-score="@e.rating" data-id="@e.id"></div>
-                                   </div>
-                                   <div class="small-1 columns text-right"><a href="#"><i class="fa fa-pencil-square-o entryEdit fa-dark" data="@e.id"></i></a></div>
-                                   <div class="small-1 columns text-right"><a href="#"><i class="fa fa-trash-o entryDel fa-dark" data="@e.id"></i></a></div>
-                               </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="small-12 columns entry-content">@e.content</div>
-                  </div>
-                  <div class="row">
-                      <div class="small-8 columns"></div>
-                      <div class="small-2 columns">@e.source</div>
-                      <div class="small-2 columns">@e.tags</div>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <section id="entrylist">
+            @for(e <- entries) {
+            <div class="row">
+                <div class="small-12 columns">
+                    <div class="panel entry">
+                        <div class="row">
+                            <div class="small-6 columns"><span class="entry-title">@e.title</span></div>
+                            <div class="small-6 columns ">
+                                <div class="row">
+                                    <div class="small-12 columns ">
+                                        <div class="small-3 small-offset-7 columns text-right">
+                                            <div class="rating" data-score="@e.rating" data-id="@e.id"></div>
+                                        </div>
+                                        <div class="small-1 columns text-right"><a href="#"><i class="fa fa-pencil-square-o entryEdit fa-dark" data="@e.id"></i></a></div>
+                                        <div class="small-1 columns text-right"><a href="#"><i class="fa fa-trash-o entryDel fa-dark" data="@e.id"></i></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-12 columns entry-content">@e.content</div>
+                        </div>
+                        <div class="row">
+                            <div class="small-8 columns"></div>
+                            <div class="small-2 columns">@e.source</div>
+                            <div class="small-2 columns">@e.tags</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </section>
+    </section>
     }
-    </section>
-    </section>
-}
 </div>
 
 <div id="entryModal" class="reveal-modal small" data-reveal>
@@ -107,3 +106,4 @@
 <script src="@routes.Assets.at("javascripts/entries.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.reveal.js")"></script>
 }
+
