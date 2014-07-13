@@ -48,6 +48,15 @@ object User {
     )
   }
 
+  def getUserByName(username:String):Option[User] = {
+    DB.withConnection{ implicit conn =>
+      SQL(
+        """
+         SELECT * FROM USERS WHERE USERNAME = {username} LIMIT 1
+        """.stripMargin).on('username -> username).as(userRowParser.singleOpt)
+    }
+  }
+
   def save(r: User):(Option[Long], String) = {
     DB.withConnection { implicit connection =>
       val u = SQL(
