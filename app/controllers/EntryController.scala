@@ -9,8 +9,9 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import play.filters.csrf.CSRF.Token._
 import play.filters.csrf._
+import security.Secured
 
-object EntryController extends Controller {
+object EntryController extends Controller with Secured {
 
   val entryF = Form(
     mapping(
@@ -68,6 +69,22 @@ object EntryController extends Controller {
           )
       )
     }
+  }
+
+  def remoteSave = Action(parse.json) { implicit req =>
+    req.headers.get("Authorization").map { basicAuth =>
+      (User.auth _).tupled(decodeBasicAuth(basicAuth)) match {
+        case (Some(u), m) =>
+          entryF.bindFromRequest.fold(
+            err => BadRequest(err.errorsAsJson),
+            entry => {
+              Entry.save(entry.copy(userId = 1))
+              Ok(Json.obj("status" -> "OK"))
+            }
+          )
+        case (_, m) => Unauthorized
+      }
+    }.getOrElse(Unauthorized)
   }
 
 

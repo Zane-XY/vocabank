@@ -12,6 +12,8 @@ POST     /entry/setRating               controllers.EntryController.setRating
 
 POST     /entry/save                    controllers.EntryController.save
 
+POST     /entry/remoteSave                    controllers.EntryController.remoteSave
+
 GET      /lookup/:dictid/:word          controllers.DictController.lookupDef(dictid:String, word:String)
 
 GET      /autocomplete                  controllers.DictController.autocomplete
