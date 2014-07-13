@@ -66,7 +66,7 @@ object UserController extends Controller {
   }
 
   def signOut = Action { implicit req =>
-    Redirect(routes.Application.index()).removingFromSession("signedIn", "userId")
+    Redirect(routes.Application.index()).withNewSession
   }
 
   def signInSubmit = CSRFCheck {
