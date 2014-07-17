@@ -5,6 +5,7 @@ import models._
 import play.api._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.i18n.Messages
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.filters.csrf.CSRF.Token._
@@ -71,8 +72,18 @@ object EntryController extends Controller with Secured {
     }
   }
 
+  def remoteSaveGet = Action { implicit req =>
+    req.headers.get("Authorization").map { basicAuth =>
+      (User.auth _).tupled(decodeBasicAuth(basicAuth)) match {
+        case (Some(u), m) => Ok(Messages("info.user.auth.success"))
+        case (_, m) => HTTPBasicAuthFailed
+      }
+    }.getOrElse(HTTPBasicAuthFailed)
+  }
+
   def remoteSave = Action(parse.json) { implicit req =>
     req.headers.get("Authorization").map { basicAuth =>
+      Logger.debug(basicAuth)
       (User.auth _).tupled(decodeBasicAuth(basicAuth)) match {
         case (Some(u), m) =>
           entryF.bindFromRequest.fold(

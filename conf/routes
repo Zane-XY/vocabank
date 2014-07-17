@@ -12,7 +12,9 @@ POST     /entry/setRating               controllers.EntryController.setRating
 
 POST     /entry/save                    controllers.EntryController.save
 
-POST     /entry/remoteSave                    controllers.EntryController.remoteSave
+POST     /entry/remoteSave              controllers.EntryController.remoteSave
+
+GET      /entry/remoteSave              controllers.EntryController.remoteSaveGet
 
 GET      /lookup/:dictid/:word          controllers.DictController.lookupDef(dictid:String, word:String)
 

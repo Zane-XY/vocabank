@@ -21,6 +21,8 @@ object Common extends  Controller {
   val NotSignedIn = BadRequest(Json.obj("status" -> "KO" , "error" -> Messages("error.user.not.signed.in")))
 
   def NotSignedInPage(implicit session: play.api.mvc.Session) = BadRequest(views.html.errors("error.user.not.signed.in"))
+  
+  val HTTPBasicAuthFailed = Unauthorized.withHeaders("WWW-Authenticate" -> "Basic realm=\"vocabank\"")
 
   def BadRequestJSON (e: JsError) = BadRequest(Json.obj("status" ->"KO", "message" -> JsError.toFlatJson(e)))
 }
