@@ -17,9 +17,9 @@ object EntryController extends Controller with Secured {
   val entryF = Form(
     mapping(
       "id" -> optional(longNumber),
-      "title" -> nonEmptyText,
+      "headword" -> nonEmptyText,
       "source" -> optional(list(text)),
-      "content" -> text,
+      "context" -> text,
       "tags" -> optional(list(text)),
       "rating" -> number(min = 1, max = 5)
     )(Entry.assemble)(Entry.disassemble))
@@ -83,7 +83,6 @@ object EntryController extends Controller with Secured {
 
   def remoteSave = Action(parse.json) { implicit req =>
     req.headers.get("Authorization").map { basicAuth =>
-      Logger.debug(basicAuth)
       (User.auth _).tupled(decodeBasicAuth(basicAuth)) match {
         case (Some(u), m) =>
           entryF.bindFromRequest.fold(
@@ -130,9 +129,9 @@ object JsonValidators {
 
   implicit  val entryReads:Reads[Entry] = (
       (__ \ "id").read[Option[Long]] and
-      (__ \ "title").read[String] and
+      (__ \ "headword").read[String] and
       (__ \ "source").read[Option[List[String]]] and
-      (__ \ "content").read[String] and
+      (__ \ "context").read[String] and
       (__ \ "tags").read[Option[List[String]]] and
       (__ \ "rating").read[Int]
     )(Entry.assemble _)
