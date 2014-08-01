@@ -15,7 +15,7 @@ $(function () {
             "value": parseInt(score)
           }),
           dataType: "json",
-          contentType: "application/json",
+          contextType: "application/json",
           complete: function (data) {}
         });
       }
@@ -56,7 +56,7 @@ $(function () {
 
   $("#entryForm").submit(function (e) {
     $.ajax({
-      contentType: 'application/json',
+      contextType: 'application/json',
       type: "POST",
       url: "/entry/save",
       dataType: 'json',
@@ -85,7 +85,7 @@ $(function () {
       data: JSON.stringify({
         id: parseInt($(this).attr("data"))
       }),
-      contentType: "application/json",
+      contextType: "application/json",
       dataType: "json",
       context: this,
       success: function () {
@@ -99,8 +99,8 @@ $(function () {
     var entry = $(this).closest("div.entry");
     var entryData = {
       id: parseInt($(this).attr("data")),
-      title: entry.find(".entry-title").text(),
-      content: entry.find(".entry-content").text()
+      headword: entry.find(".entry-headword").text(),
+      context: entry.find(".entry-context").text()
     };
     bindForm("#entryForm", entryData);
     $('#entryModal').foundation('reveal', 'open');

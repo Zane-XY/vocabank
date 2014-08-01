@@ -25,7 +25,7 @@
                 <div class="small-12 columns">
                     <div class="panel entry">
                         <div class="row">
-                            <div class="small-6 columns"><span class="entry-title">@e.title</span></div>
+                            <div class="small-6 columns"><span class="entry-headword">@e.headword</span></div>
                             <div class="small-6 columns ">
                                 <div class="row">
                                     <div class="small-12 columns ">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="small-12 columns entry-content">@e.content</div>
+                            <div class="small-12 columns entry-context">@e.context</div>
                         </div>
                         <div class="row">
                             <div class="small-8 columns"></div>
@@ -67,15 +67,15 @@
                 <div class="row">
                     <div class="small-12 columns">
                         <label>Title <small>required</small>
-                            <input name="title" type="text" required/>
+                            <input name="headword" type="text" required/>
                         </label>
-                        <small class="error">title can't be empty</small>
+                        <small class="error">headword can't be empty</small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="small-12 columns">
                         <label>Content
-                            <textarea name="content"></textarea>
+                            <textarea name="context"></textarea>
                         </label>
                     </div>
                 </div>
