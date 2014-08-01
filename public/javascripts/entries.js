@@ -15,7 +15,7 @@ $(function () {
             "value": parseInt(score)
           }),
           dataType: "json",
-          contextType: "application/json",
+          contentType: "application/json",
           complete: function (data) {}
         });
       }
@@ -56,7 +56,7 @@ $(function () {
 
   $("#entryForm").submit(function (e) {
     $.ajax({
-      contextType: 'application/json',
+      contentType: 'application/json',
       type: "POST",
       url: "/entry/save",
       dataType: 'json',
@@ -85,7 +85,7 @@ $(function () {
       data: JSON.stringify({
         id: parseInt($(this).attr("data"))
       }),
-      contextType: "application/json",
+      contentType: "application/json",
       dataType: "json",
       context: this,
       success: function () {
