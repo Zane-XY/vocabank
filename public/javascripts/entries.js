@@ -1,4 +1,5 @@
 $(function () {
+
   function initRaty() {
     $('div.rating').raty({
       path: 'assets/libs/raty/images',
@@ -51,6 +52,9 @@ $(function () {
 
   $("#newEntry").click(function () {
     resetEntryForm();
+
+    CKEDITOR.replace('entryContext');
+
     $('#entryModal').foundation('reveal', 'open');
   });
 
@@ -95,15 +99,15 @@ $(function () {
     e.preventDefault();
   });
 
-  $(document).on("click", ".entryEdit", function (e) {
+  $(document).on("click", ".entryUpdate", function (e) {
     var entry = $(this).closest("div.entry");
     var entryData = {
       id: parseInt($(this).attr("data")),
       headword: entry.find(".entry-headword").text(),
-      context: entry.find(".entry-context").text()
+      context: entry.find(".entry-context").html()
     };
     bindForm("#entryForm", entryData);
-    $('#entryModal').foundation('reveal', 'open');
+    $("#entryForm").submit();
     e.preventDefault();
   });
 
