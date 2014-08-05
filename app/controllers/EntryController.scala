@@ -88,7 +88,7 @@ object EntryController extends Controller with Secured {
           entryF.bindFromRequest.fold(
             err => BadRequest(err.errorsAsJson),
             entry => {
-              Entry.save(entry.copy(userId = 1))
+              Entry.save(entry.copy(userId = u.id.get))
               Ok(Json.obj("status" -> "OK"))
             }
           )
