@@ -21,7 +21,7 @@ object EntryController extends Controller with Secured {
       "source" -> optional(list(text)),
       "context" -> text,
       "tags" -> optional(list(text)),
-      "rating" -> number(min = 1, max = 5)
+      "rating" -> optional(number(min = 1, max = 5))
     )(Entry.assemble)(Entry.disassemble))
 
   def entries = Action { implicit req =>
@@ -133,7 +133,7 @@ object JsonValidators {
       (__ \ "source").read[Option[List[String]]] and
       (__ \ "context").read[String] and
       (__ \ "tags").read[Option[List[String]]] and
-      (__ \ "rating").read[Int]
+      (__ \ "rating").read[Option[Int]]
     )(Entry.assemble _)
 
 

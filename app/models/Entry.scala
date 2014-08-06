@@ -21,10 +21,10 @@ case class Entry(
 
 object Entry {
 
-  def assemble(id: Option[Long], headword: String, source: Option[List[String]], context: String, tags: Option[List[String]], rating: Int):Entry =
-    Entry(id, headword, source, context, new DateTime(), new DateTime(), tags, rating, 0L)
+  def assemble(id: Option[Long], headword: String, source: Option[List[String]], context: String, tags: Option[List[String]], rating: Option[Int]):Entry =
+    Entry(id, headword, source, context, new DateTime(), new DateTime(), tags, rating.getOrElse(1), 0L)
 
-  def disassemble(e: Entry) = Some(e.id, e.headword, e.source, e.context, e.tags, e.rating)
+  def disassemble(e: Entry) = Some(e.id, e.headword, e.source, e.context, e.tags, Some(e.rating))
 
   private val entryParser:RowParser[Entry] = {
         get[Option[Long]]("ID") ~
