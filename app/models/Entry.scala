@@ -3,6 +3,8 @@ package models
 import anorm._
 import anorm.jodatime.Extension._
 import anorm.SqlParser._
+import org.jsoup.Jsoup
+import org.jsoup.safety.Whitelist
 import play.api.db.DB
 import play.api.Play.current
 
@@ -66,7 +68,14 @@ object Entry {
    }
   }
 
-  def save(r: Entry) {
+  def sanitize(e: Entry): Entry = {
+    val whiteList = Whitelist.basic().addTags("span", "font").addAttributes("span", "style").addAttributes("p", "style")
+    val cont = Jsoup.clean(e.context, whiteList)
+    e.copy(context = cont)
+  }
+
+  def save(e: Entry) {
+    val r = sanitize(e)
     DB.withConnection { implicit connection =>
       r.id.fold(
         SQL(
