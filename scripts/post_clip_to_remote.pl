@@ -4,8 +4,7 @@ use LWP::UserAgent;
 use JSON;
 use Config::Tiny;
 
-#my @lines = <STDIN>;
-my @lines = ("headword", "content");
+my @lines = <STDIN>;
 
 my $config = Config::Tiny->read('config.ini');
 my $email = $$config{_}{email};
@@ -18,7 +17,7 @@ sub send_to_remote {
   my $json = {headword => $headword, context => join('', @context), rating => 1};
   my $req = HTTP::Request->new('POST', $uri);
   $req->header('Content-Type' => 'application/json');
-  $req->context(JSON->new->encode($json));
+  $req->content(JSON->new->encode($json));
   $req->authorization_basic($email, $pass);
 
   my $lwp = LWP::UserAgent->new;
