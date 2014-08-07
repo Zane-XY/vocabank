@@ -5,6 +5,8 @@
    font-weight:bold;
 }
 
+entry-data [contenteditable="true"] { padding: 10px; outline: 1px dashed #CCC; }
+entry-data [contenteditable="true"]:hover { outline: 1px dashed #0090D2; }
 
 
 textarea { height: auto; }
