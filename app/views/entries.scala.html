@@ -24,28 +24,31 @@
             <div class="row">
                 <div class="small-12 columns">
                     <div class="panel entry">
+                        <entry-data entryId="@e.id">
                         <div class="row">
-                            <div class="small-6 columns"><span class="entry-headword">@e.headword</span></div>
+                            <div class="small-6 columns"><div class="entry-headword editable">@e.headword</div></div>
                             <div class="small-6 columns ">
                                 <div class="row">
                                     <div class="small-12 columns ">
-                                        <div class="small-3 small-offset-7 columns text-right">
+                                        <div class="small-3 small-offset-6 columns text-right">
                                             <div class="rating" data-score="@e.rating" data-id="@e.id"></div>
                                         </div>
-                                        <div class="small-1 columns text-right"><a href="#"><i class="fa fa-save entryUpdate fa-dark" data="@e.id"></i></a></div>
-                                        <div class="small-1 columns text-right"><a href="#"><i class="fa fa-trash-o entryDel fa-dark" data="@e.id"></i></a></div>
+                                        <div class="small-1 columns text-right entryEditIcon"><a href="#"><i class="fa fa-edit entryEdit fa-dark"></i></a></div>
+                                        <div class="small-1 columns text-right"><a href="#"><i class="fa fa-trash-o entryDel fa-dark"></i></a></div>
+                                        <div class="small-1 columns text-right hide entrySaveIcon"><a href="#"><i class="fa fa-save entrySave fa-dark"></i></a></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="small-12 columns entry-context" contenteditable="true">@Html(e.context)</div>
+                            <div class="small-12 columns"><div class="entry-context editable">@Html(e.context)</div></div>
                         </div>
                         <div class="row">
                             <div class="small-8 columns"></div>
                             <div class="small-2 columns">@e.source</div>
                             <div class="small-2 columns">@e.tags</div>
                         </div>
+                        </entry-data>
                     </div>
                 </div>
             </div>
