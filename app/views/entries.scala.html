@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="small-12 columns entry-context" contenteditable="true">@e.context</div>
+                            <div class="small-12 columns entry-context" contenteditable="true">@Html(e.context)</div>
                         </div>
                         <div class="row">
                             <div class="small-8 columns"></div>
@@ -66,7 +66,7 @@
 
                 <div class="row">
                     <div class="small-12 columns">
-                        <label>Title <small>required</small>
+                        <label>Headword<small>required</small>
                             <input name="headword" type="text" required/>
                         </label>
                         <small class="error">headword can't be empty</small>
@@ -74,37 +74,37 @@
                 </div>
                 <div class="row">
                     <div class="small-12 columns">
-                        <label>Content
-                            <textarea id="entryContext" name="context"></textarea>
+                        <label>Context
+                           <div id='entryContextHtml' contenteditable="true"></div>
                         </label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="small-12 columns">
-                        <input class="button tiny right" type="submit" value="submit">
-                    </div>
+                        <div class="small-12 columns">
+                            <input class="button tiny right" type="submit" value="submit">
+                        </div>
                 </div>
-            </form>
-        </div>
+             </form>
+            </div>
 
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+    </div>
+
+
+    <div id="infoModal" class="reveal-modal small" data-reveal>
+        <h2>Info</h2>
+        <p id="infoModalContent"></p>
         <a class="close-reveal-modal">&#215;</a>
     </div>
-</div>
 
-
-<div id="infoModal" class="reveal-modal small" data-reveal>
-    <h2>Info</h2>
-    <p id="infoModalContent"></p>
-    <a class="close-reveal-modal">&#215;</a>
-</div>
-
-}{
+    }{
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/raty/jquery.raty.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/entries.css")">
 
 <script src="@routes.Assets.at("libs/raty/jquery.raty.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("javascripts/entries.js")" type="text/javascript"></script>
-<script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.reveal.js")"></script>
-<script src="//cdn.ckeditor.com/4.4.3/basic/ckeditor.js"></script>
+<script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.reveal.js")" type="text/javascript"></script>
+
 }
 

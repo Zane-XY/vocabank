@@ -26,8 +26,8 @@ $(function () {
   initRaty();
 
   function bindForm(formSelector, json) {
-    $.each(json, function (k, v) {
-      $(formSelector).find(":input[name='" + k + "']").val(v);
+        $.each(json, function (k, v) {
+          $(formSelector).find(":input[name='" + k + "']").val(v);
     });
   }
 
@@ -36,7 +36,7 @@ $(function () {
     $(formSelector).serializeArray().map(function (x) {
       r[x.name] = x.value;
     });
-    return JSON.stringify(r);
+    return r;
   }
 
   function reloadEntryList () {
@@ -50,21 +50,23 @@ $(function () {
     ef[0].reset();
   }
 
+
   $("#newEntry").click(function () {
     resetEntryForm();
-
-    CKEDITOR.replace('entryContext');
-
+    $("#entryContextHtml").html("");
     $('#entryModal').foundation('reveal', 'open');
   });
 
   $("#entryForm").submit(function (e) {
+    var data = flattenForm("#entryForm");
+    data['context'] = $("#entryContextHtml").html();
+    console.log($("#entryContextHtml").text());
     $.ajax({
       contentType: 'application/json',
       type: "POST",
       url: "/entry/save",
       dataType: 'json',
-      data: flattenForm("#entryForm"),
+      data: JSON.stringify(data),
       context: this,
       success: function () {
         $('a.close-reveal-modal').trigger('click');
@@ -106,8 +108,20 @@ $(function () {
       headword: entry.find(".entry-headword").text(),
       context: entry.find(".entry-context").html()
     };
-    bindForm("#entryForm", entryData);
-    $("#entryForm").submit();
+    $.ajax({
+      contentType: 'application/json',
+      type: "POST",
+      url: "/entry/save",
+      dataType: 'json',
+      data: JSON.stringify(entryData),
+      success: function () {
+      },
+      error: function (jqXHR) {
+        $("#infoModalContent").text(JSON.stringify(jqXHR.responseJSON));
+        $('#infoModal').foundation('reveal', 'open');
+      }
+    });
+
     e.preventDefault();
   });
 
