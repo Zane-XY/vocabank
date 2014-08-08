@@ -69,9 +69,12 @@ object Entry {
   }
 
   def sanitize(e: Entry): Entry = {
-    val whiteList = Whitelist.basic().addTags("span", "font").addAttributes("span", "style").addAttributes("p", "style")
-    val cont = Jsoup.clean(e.context, whiteList)
-    e.copy(context = cont)
+    val whiteList = Whitelist.basic()
+      .addTags("span", "font")
+      .addAttributes("span", "style")
+      .addAttributes("p", "style")
+      .addAttributes("font", "face", "color")
+    e.copy(context = Jsoup.clean(e.context, whiteList))
   }
 
   def save(e: Entry) {
