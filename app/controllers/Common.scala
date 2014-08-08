@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.data.FormError
 import play.api.i18n.Messages
 import play.api.libs.json.{JsError, Json}
 import play.api.mvc.{Controller, Request}
@@ -20,7 +21,7 @@ object Common extends  Controller {
 
   val NotSignedIn = BadRequest(Json.obj("status" -> "KO" , "error" -> Messages("error.user.not.signed.in")))
 
-  def NotSignedInPage(implicit session: play.api.mvc.Session) = BadRequest(views.html.errors("error.user.not.signed.in"))
+  def NotSignedInPage(implicit session: play.api.mvc.Session) = BadRequest(views.html.errors(Seq(FormError("error", "error.user.not.signed.in"))))
   
   val HTTPBasicAuthFailed = Unauthorized.withHeaders("WWW-Authenticate" -> "Basic realm=\"vocabank\"")
 

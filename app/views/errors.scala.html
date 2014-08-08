@@ -1,8 +1,10 @@
-@(err: String)(implicit session: play.api.mvc.Session)
+@(errs: Seq[FormError])(implicit session: play.api.mvc.Session)
 @main("err ...") {
         <div class="spacer"/>
         <div class="row text-center">
-            @Messages(err)
+            @for(e <- errs) {
+                @Messages(e.key): @Messages(e.message)
+            }
         </div>
 }{ }
 
