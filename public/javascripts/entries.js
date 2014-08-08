@@ -57,30 +57,8 @@ $(function () {
     });
 
     $("#entryForm").submit(function (e) {
-        var data = flattenForm("#entryForm");
-        data['context'] = $("#entryContextHtml").html();
-        console.log($("#entryContextHtml").text());
-        $.ajax({
-                contentType: 'application/json',
-                type: "POST",
-                url: "/entry/save",
-                dataType: 'json',
-                data: JSON.stringify(data),
-                context: this,
-                success: function () {
-                    $('a.close-reveal-modal').trigger('click');
-                    reloadEntryList();
-                },
-                error: function (jqXHR) {
-                    $('a.close-reveal-modal').trigger('click');
-                    $("#infoModalContent").text(JSON.stringify(jqXHR.responseJSON));
-                    $('#infoModal').foundation('reveal', 'open');
-                },
-                complete: function () {
-                    resetEntryForm();
-                }
-        });
-        e.preventDefault();
+        $("textarea[name='context']").val($("#entryContextHtml").html());
+        return true;
     });
 
     $(document).on("click", ".entryDel", function (e) {
@@ -103,9 +81,14 @@ $(function () {
 
     $(document).on("click", ".entryEdit", function (e) {
         var entry = $(this).closest("entry-data");
-        entry.find(".entrySaveIcon").removeClass("hide");
-        entry.find(".entryEditIcon").addClass("hide");
-        entry.find(".editable").attr("contenteditable", "true");
+        entry.find(".editable").attr("contenteditable", function (i, v) {
+            if(v == "true") {
+                entry.find(".entrySaveIcon").addClass("hide");
+            } else {
+                entry.find(".entrySaveIcon").removeClass("hide");
+            }
+            return v == "true" ? false : true;
+        });
     });
 
     $(document).on("click", ".entrySave", function (e) {
@@ -122,9 +105,8 @@ $(function () {
                 dataType: 'json',
                 data: JSON.stringify(entryData),
                 success: function () {
-                    entry.find(".editable").attr("contenteditable", "false");
+                    entry.find(".editable").prop("contenteditable", "false");
                     entry.find(".entrySaveIcon").addClass("hide");
-                    entry.find(".entryEditIcon").removeClass("hide");
                 },
                 error: function (jqXHR) {
                     $("#infoModalContent").text(JSON.stringify(jqXHR.responseJSON));
