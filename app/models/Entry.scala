@@ -68,13 +68,26 @@ object Entry {
    }
   }
 
+  /**
+   * only keep color and font-weight
+   * @param s
+   * @return
+   */
+  def cleanStyle(s:String):String = {
+    val keepR = """((?<!-)color|font-weight):.+?;""".r
+    val styleR = """(?<=\sstyle=")(.+?)(?=")""".r
+    styleR.replaceAllIn(s, m => keepR.findAllIn(m.group(0)).mkString)
+  }
+
   def sanitize(e: Entry): Entry = {
     val whiteList = Whitelist.basic()
       .addTags("span", "font")
       .addAttributes("span", "style")
       .addAttributes("p", "style")
       .addAttributes("font", "face", "color")
-    e.copy(context = Jsoup.clean(e.context, whiteList))
+
+    val ctx = Jsoup.clean(e.context, whiteList)
+    e.copy(context = cleanStyle(ctx))
   }
 
   def save(e: Entry) {
