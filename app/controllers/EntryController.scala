@@ -72,6 +72,24 @@ object EntryController extends Controller with Secured {
     }
   }
 
+  /**
+   * new entry form submit
+   * @return
+   */
+  def submit = CSRFCheck {
+    Action { implicit req =>
+      userIdFromSession.fold(NotSignedIn)(userId =>
+        entryF.bindFromRequest.fold(
+          err => BadRequest(views.html.errors(err.errors)),
+          entry => {
+            Entry.save(entry.copy(userId = userId))
+            Redirect(routes.EntryController.entries)
+          }
+        )
+      )
+    }
+  }
+
   def remoteSaveGet = Action { implicit req =>
     req.headers.get("Authorization").map { basicAuth =>
       (User.auth _).tupled(decodeBasicAuth(basicAuth)) match {
