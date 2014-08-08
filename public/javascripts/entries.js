@@ -61,6 +61,22 @@ $(function () {
         return true;
     });
 
+    $(".parseHeadword").click(function () {
+        var ctx = $("#entryContextHtml");
+        if(ctx.find(":header").length) {
+            var h = ctx.find(":header").first();
+            $("input[name='headword']").val(h.text());
+            h.remove();
+        } else if(ctx.find("p").length) {
+            var p = ctx.find("p").first();
+            $("input[name='headword']").val(p.text());
+            p.remove();
+        } else {
+
+        }
+
+    });
+
     $(document).on("click", ".entryDel", function (e) {
         var entry = $(this).closest("entry-data");
         $.ajax({
