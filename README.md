@@ -26,7 +26,7 @@ vocabulary fun!
   - ~~session dynamic menus~~
   - ~~user specific listing pages~~
   - ~~modal edit~~
-  - pagination
+  - ~~pagination~~
   - entry tags
   - entry sources
 9. entry RPC service

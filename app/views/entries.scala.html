@@ -1,4 +1,4 @@
-@(entries : Iterable[models.Entry])(implicit flash:Flash, token: play.filters.csrf.CSRF.Token, session: play.api.mvc.Session)
+@(entries : Iterable[models.Entry], total:Long, page:Int = 0)(implicit flash:Flash, token: play.filters.csrf.CSRF.Token, session: play.api.mvc.Session)
 @import helper._
 @main("All Entries") {
 @flash.get("success").map { msg =>
@@ -53,6 +53,16 @@
                 </div>
             </div>
             }
+
+            <ul class="pagination">
+                @if(page > 1) {
+                    <li class="arrow"><a href="./?p=@{page - 1}"><i class="fa fa-arrow-left"></i> Pre</a></li>
+                }
+                <li class="current">Page @page of @total</li>
+                @if(page < total) {
+                    <li class="arrow"><a href="./?p=@{page + 1}">Next <i class="fa fa-arrow-right"></i></a></li>
+                }
+            </ul>
         </section>
     </section>
     }

@@ -39,11 +39,37 @@ object Entry {
             Entry(id , headword , None ,  context , added , updated , None, rating, userId) }
   }
 
+  /**
+   * returns entries and total page
+   * @param userId
+   * @param offset
+   * @param rows
+   * @return
+   */
+  def listPage(userId: Long, offset: Int = 0, rows: Int = 5):(List[Entry], Long) = {
+    DB.withConnection { implicit connection =>
+     val r = SQL("SELECT * FROM ENTRIES WHERE USER_ID = {userId} ORDER BY ADDED DESC LIMIT {offset},{rows}")
+        .on('userId -> userId)
+        .on('offset-> offset)
+        .on('rows -> rows)
+        .as(entryParser *)
+      val t = SQL("SELECT COUNT(*) FROM ENTRIES WHERE USER_ID = {userId}").on('userId -> userId).as(scalar[Long].single)
+      (r, t / rows)
+    }
+  }
+
+  def count(userId: Long):Int = {
+    DB.withConnection { implicit connection =>
+      SQL("SELECT COUNT(*) FROM ENTRIES WHERE USER_ID").on('userId -> userId).as(scalar[Int].single)
+    }
+  }
+
   def listAll(userId: Long):List[Entry] = {
     DB.withConnection { implicit connection =>
       SQL("SELECT * FROM ENTRIES WHERE USER_ID = {userId} ORDER BY ADDED DESC").on('userId -> userId).as(entryParser *)
     }
   }
+
 
   /**
    *

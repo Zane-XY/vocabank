@@ -12,6 +12,8 @@ import play.filters.csrf.CSRF.Token._
 import play.filters.csrf._
 import security.Secured
 
+import scala.util.Try
+
 object EntryController extends Controller with Secured {
 
   val entryF = Form(
@@ -25,9 +27,11 @@ object EntryController extends Controller with Secured {
     )(Entry.assemble)(Entry.disassemble))
 
   def entries = Action { implicit req =>
-    userIdFromSession.fold(NotSignedInPage)(userId =>
-      Ok(views.html.entries(Entry.listAll(userId)))
-    )
+    userIdFromSession.fold(NotSignedInPage)(userId => {
+      val page = req.getQueryString("p").flatMap(p => Try(p.toInt).toOption).getOrElse(1)
+      val (entries, total) = Entry.listPage(userId, if (page >= 1) page - 1 else 0)
+      Ok(views.html.entries(entries, total, page))
+    })
   }
 
   def delete = CSRFCheck {
