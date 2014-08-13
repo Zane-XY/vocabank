@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/vocabank -Dhttp.port=${PORT} -Dconfig.resource=application.prod.conf -Ddb.default.url=$CLEARDB_DATABASE_URL
+web: target/universal/stage/bin/vocabank -Dhttp.port=${PORT} -Dconfig.resource=application.prod.conf -Ddb.default.url=$DATABASE_URL

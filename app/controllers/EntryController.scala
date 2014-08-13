@@ -20,9 +20,9 @@ object EntryController extends Controller with Secured {
     mapping(
       "id" -> optional(longNumber),
       "headword" -> nonEmptyText,
-      "source" -> optional(list(text)),
+      "source" -> optional(text),
       "context" -> text,
-      "tags" -> optional(list(text)),
+      "tags" -> optional(text),
       "rating" -> optional(number(min = 1, max = 5))
     )(Entry.assemble)(Entry.disassemble))
 
@@ -54,7 +54,7 @@ object EntryController extends Controller with Secured {
       import controllers.JsonValidators.ratingReads
       userIdFromSession.fold(NotSignedIn)(userId =>
         req.body.validate[(Long, Int)].map {
-          case (id, value) => Ok(Json.obj( "status" -> "OK", "updated" -> Entry.setRating(id, value, userId)))
+          case (id, value) => Ok(Json.obj( "status" -> "OK", "updated" -> Entry.updateRating(id, value, userId)))
         }.recoverTotal(BadRequestJSON))
    }
   }
@@ -152,9 +152,9 @@ object JsonValidators {
   implicit  val entryReads:Reads[Entry] = (
       (__ \ "id").read[Option[Long]] and
       (__ \ "headword").read[String] and
-      (__ \ "source").read[Option[List[String]]] and
+      (__ \ "source").read[Option[String]] and
       (__ \ "context").read[String] and
-      (__ \ "tags").read[Option[List[String]]] and
+      (__ \ "tags").read[Option[String]] and
       (__ \ "rating").read[Option[Int]]
     )(Entry.assemble _)
 

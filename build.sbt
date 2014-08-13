@@ -9,7 +9,7 @@ scalaVersion := "2.11.1"
 resolvers += "sbt Snapshots" at "http://repo.scala-sbt.org/scalasbt/sbt-plugin-snapshots"
 
 libraryDependencies ++= Seq(
-  "mysql" % "mysql-connector-java" % "5.1.31",
+  "org.postgresql" % "postgresql" % "9.3-1102-jdbc41",
   "org.mindrot" % "jbcrypt" % "0.3m",
   "net.tanesha.recaptcha4j" % "recaptcha4j" % "0.0.7",
   "org.jsoup" % "jsoup" % "1.7.3",
