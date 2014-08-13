@@ -54,7 +54,7 @@ object Entry {
    * @param rows
    * @return
    */
-  def listPage(userId: Long, offset: Int = 0, rows: Int = 10):(List[Entry], Long) = {
+  def listPage(userId: Long, offset: Int = 0, rows: Int = 10):(List[Entry], Int) = {
     DB.withConnection { implicit connection =>
      val r = SQL("SELECT * FROM entries WHERE user_id = {userId} ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
         .on('userId -> userId)
@@ -62,7 +62,7 @@ object Entry {
         .on('rows -> rows)
         .as(entryParser *)
       val t = SQL("SELECT COUNT(*) FROM entries WHERE user_id = {userId}").on('userId -> userId).as(scalar[Long].single)
-      (r, t / rows)
+      (r, (t.toFloat / rows).ceil.toInt)
     }
   }
 
