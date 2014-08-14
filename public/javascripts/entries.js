@@ -77,6 +77,27 @@ $(function () {
 
     });
 
+    $(".playSound").click(function () {
+        var entry = $(this).closest("entry-data");
+        var headword = entry.find(".entry-headword").text();
+        if(!$(this).attr('data')) {
+            $.ajax({
+                url: "/entry/setSound",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({id: parseInt(entry.attr("entryId")), word: headword}),
+                contentType: "application/json",
+                dataType: "json",
+                context: this,
+                success: function (d) {
+                    $(this).attr('data', d.sound);
+                    $(this).removeClass('fa-volume-off').addClass('fa-volume-up');
+                }
+            });
+        }
+        new Audio($(this).attr('data')).play();
+    })
+
     $(document).on("click", ".entryDel", function (e) {
         var entry = $(this).closest("entry-data");
         $.ajax({

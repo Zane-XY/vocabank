@@ -1,5 +1,8 @@
 @font-face { font-family: 'Kingsoft Phonetic Plain'; src: url('/assets/fonts/kingsoft_phonetic_ue.ttf'); }
 
+.playSound {
+cursor: pointer;
+}
 .entry-headword{
    font-family: Arial;
    font-style: normal;

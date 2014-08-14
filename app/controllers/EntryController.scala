@@ -11,7 +11,10 @@ import play.api.mvc._
 import play.filters.csrf.CSRF.Token._
 import play.filters.csrf._
 import security.Secured
+import utils.SoundScraper
 
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Try
 
 object EntryController extends Controller with Secured {
@@ -58,6 +61,23 @@ object EntryController extends Controller with Secured {
         }.recoverTotal(BadRequestJSON))
    }
   }
+
+  def setSound =  CSRFCheck {
+    Action(parse.json) { implicit req =>
+      import controllers.JsonValidators.soundReads
+      userIdFromSession.fold(NotSignedIn)(userId =>
+        req.body.validate[(Long, String)].map {
+          case (id, word) => {
+            val sound = SoundScraper.scrape(word)
+            Future {
+              Entry.updateSound(id, sound, userId)
+            }
+            Ok(Json.obj("status" -> "OK", "sound" -> sound))
+          }
+        }.recoverTotal(BadRequestJSON))
+   }
+  }
+
 
   /**
    * form post is filtered by CSRF
@@ -148,6 +168,11 @@ object JsonValidators {
     (__ \ "id").read[Long] and
     (__ \ "value").read[Int](min(1) keepAnd max(5))
   ) tupled
+
+  implicit val soundReads : Reads[(Long, String)] = (
+    (__ \ "id").read[Long] and
+    (__ \ "word").read[String]
+    ) tupled
 
   implicit  val entryReads:Reads[Entry] = (
       (__ \ "id").read[Option[Long]] and
