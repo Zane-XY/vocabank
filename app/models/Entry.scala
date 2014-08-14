@@ -105,10 +105,12 @@ object Entry {
     val keepR = """((?<!-)color|font-weight):.+?;""".r
     val styleR = """(?<=\sstyle=")(.+?)(?=")""".r
     styleR.replaceAllIn(s, m => keepR.findAllIn(m.group(0)).mkString)
+          .replaceAll("<span>&nbsp;</span>","")
   }
 
   def sanitize(e: Entry): Entry = {
     val whiteList = Whitelist.basic()
+      .addTags("div", "style")
       .addTags("span", "font")
       .addAttributes("span", "style")
       .addAttributes("p", "style")
