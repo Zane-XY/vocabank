@@ -78,7 +78,6 @@ object EntryController extends Controller with Secured {
    }
   }
 
-
   /**
    * form post is filtered by CSRF
     * @return

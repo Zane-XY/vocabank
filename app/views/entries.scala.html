@@ -26,18 +26,18 @@
                     <div class="panel entry">
                         <entry-data entryId="@e.id">
                         <div class="row">
-                            <div class="small-6 columns"><div class="entry-headword editable" contenteditable="false">@e.headword</div></div>
-                            <div class="small-6 columns ">
+                            <div class="small-6 columns">
+                                <div class="entry-headword editable" contenteditable="false">@e.headword</div>
+                            </div>
+                            <div class="small-6 columns">
                                 <div class="row">
-                                    <div class="small-12 columns ">
-                                        <div class="small-1 columns small-offset-5 text-right"><i class="fa @if(e.sound.isEmpty){fa-volume-off}else{fa-volume-up} playSound" data=@e.sound.getOrElse("")></i></div>
-                                        <div class="small-3 columns text-right">
-                                            <div class="rating" data-score="@e.rating" data-id="@e.id"></div>
-                                        </div>
-                                        <div class="small-1 columns text-right entryEditIcon"><a href="#"><i class="fa fa-edit entryEdit fa-dark"></i></a></div>
-                                        <div class="small-1 columns text-right"><a href="#"><i class="fa fa-trash-o entryDel fa-dark"></i></a></div>
-                                        <div class="small-1 columns text-right hide entrySaveIcon"><a href="#"><i class="fa fa-save entrySave fa-dark"></i></a></div>
-                                    </div>
+                                    <ul class="inline-list">
+                                        <li><span><i class="fa @if(e.sound.isEmpty){fa-volume-off}else{fa-volume-up} playSound actionIcon" data=@e.sound.getOrElse("")></i></span></li>
+                                        <li><span class="rating" data-score="@e.rating" data-id="@e.id"></span> </li>
+                                        <li><span><i class="fa fa-edit entryEdit fa-dark actionIcon"></i></span></li>
+                                        <li><span><i class="fa fa-trash-o entryDel fa-dark actionIcon"></i></span></li>
+                                        <li><span class="entrySaveIcon hide"><i class="fa fa-save entrySave fa-dark actionIcon"></i></span></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

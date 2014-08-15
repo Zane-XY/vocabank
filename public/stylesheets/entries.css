@@ -1,13 +1,30 @@
 @font-face { font-family: 'Kingsoft Phonetic Plain'; src: url('/assets/fonts/kingsoft_phonetic_ue.ttf'); }
 
-.playSound {
+.actionIcon {
 cursor: pointer;
 }
+
+span.hide{
+  display: none;
+}
+
 .entry-headword{
    font-family: Arial;
    font-style: normal;
    font-size: 112.5%;
    font-weight:bold;
+}
+
+.inline-list{
+  float:right;
+  margin-right: 10px;
+}
+
+.entry-context {
+   padding-top: 5px;
+   font-family: Tahoma, Verdana;
+   font-style: normal;
+   font-size: 	93.8%;
 }
 
 entry-data [contenteditable="true"] { padding: 10px; outline: 1px dashed #CCC; }

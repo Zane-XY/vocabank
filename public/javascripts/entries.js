@@ -1,6 +1,6 @@
 $(function () {
     function initRaty() {
-        $('div.rating').raty({
+        $('.rating').raty({
                 path: 'assets/libs/raty/images',
                 starType: 'i',
                 score: function () {
