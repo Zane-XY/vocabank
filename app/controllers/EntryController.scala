@@ -30,11 +30,9 @@ object EntryController extends Controller with Secured {
     )(Entry.assemble)(Entry.disassemble))
 
   def entries = Action { implicit req =>
-    userIdFromSession.fold(NotSignedInPage)(userId => {
-      val page = req.getQueryString("p").flatMap(p => Try(p.toInt).toOption).getOrElse(1)
-      val (entries, total) = Entry.listPage(userId, if (page >= 1) page - 1 else 0)
-      Ok(views.html.entries(entries, total, page))
-    })
+    val page = req.getQueryString("p").flatMap(p => Try(p.toInt).toOption).getOrElse(1)
+    val (entries, total) = Entry.listPage(userIdFromSession, if (page >= 1) page - 1 else 0)
+    Ok(views.html.entries(entries, total, page))
   }
 
   def delete = CSRFCheck {
@@ -62,21 +60,18 @@ object EntryController extends Controller with Secured {
    }
   }
 
-  def setSound =  CSRFCheck {
-    Action(parse.json) { implicit req =>
+  def setSound = Action(parse.json) { implicit req =>
       import controllers.JsonValidators.soundReads
-      userIdFromSession.fold(NotSignedIn)(userId =>
         req.body.validate[(Long, String)].map {
           case (id, word) => {
             val sound = SoundScraper.scrape(word)
             Future {
-              Entry.updateSound(id, sound, userId)
+              Entry.updateSound(id, sound)
             }
             Ok(Json.obj("status" -> "OK", "sound" -> sound))
           }
-        }.recoverTotal(BadRequestJSON))
+        }.recoverTotal(BadRequestJSON)
    }
-  }
 
   /**
    * form post is filtered by CSRF

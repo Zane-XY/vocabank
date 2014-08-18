@@ -54,14 +54,27 @@ object Entry {
    * @param rows
    * @return
    */
-  def listPage(userId: Long, offset: Int = 0, rows: Int = 10):(List[Entry], Int) = {
+  def listPage(userId: Option[Long], offset: Int = 0, rows: Int = 10):(List[Entry], Int) = {
     DB.withConnection { implicit connection =>
-     val r = SQL("SELECT * FROM entries WHERE user_id = {userId} ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
-        .on('userId -> userId)
+      val r = userId.fold(
+        SQL("SELECT * FROM entries ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
+          .on('offset-> offset * rows)
+          .on('rows -> rows)
+          .as(entryParser *)
+      ){ id =>
+       SQL("SELECT * FROM entries WHERE user_id = {userId} ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
+        .on('userId -> id)
         .on('offset-> offset * rows)
         .on('rows -> rows)
         .as(entryParser *)
-      val t = SQL("SELECT COUNT(*) FROM entries WHERE user_id = {userId}").on('userId -> userId).as(scalar[Long].single)
+      }
+
+      val t = userId.fold(
+        SQL("SELECT COUNT(*) FROM entries").as(scalar[Long].single)
+      ) { id =>
+        SQL("SELECT COUNT(*) FROM entries WHERE user_id = {userId}").on('userId -> id).as(scalar[Long].single)
+      }
+
       (r, (t.toFloat / rows).ceil.toInt)
     }
   }
@@ -85,9 +98,16 @@ object Entry {
     }
   }
 
+  def updateColumnWithoutId(id: Long, column:String, value:ParameterValue):Int = {
+    DB.withConnection { implicit connection =>
+      SQL(" UPDATE entries SET " +  column +  "  = {value} WHERE id = {id}")
+        .on('value -> value, 'id -> id).executeUpdate
+    }
+  }
+
   def updateRating(id: Long, value: Int, userId:Long):Int = updateColumn(id, "rating", value, userId)
 
-  def updateSound(id: Long, value: String, userId:Long):Int = updateColumn(id, "sound", value, userId)
+  def updateSound(id: Long, value: String):Int = updateColumnWithoutId(id, "sound", value)
 
   def delete(id:Long, userId:Long) = {
    DB.withConnection { implicit conn =>
