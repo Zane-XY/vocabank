@@ -8,11 +8,11 @@ import org.jsoup.Jsoup
 object SoundScraper {
   val src = "http://www.oxforddictionaries.com/us/definition/american_english/"
 
-  def scrape(word : String) : (String) = {
+  def scrape(word : String) : Option[String] = {
     val res = Jsoup.connect(src + word).timeout(60 * 1000).ignoreHttpErrors(true).execute
     res.statusCode match {
-      case 200 => res.parse().select("div.sound").attr("data-src-mp3")
-      case _ => ""
+      case 200 => Some(res.parse().select("div.sound").attr("data-src-mp3"))
+      case _ => None
     }
   }
 }

@@ -90,8 +90,10 @@ $(function () {
                 dataType: "json",
                 context: this,
                 success: function (d) {
-                    $(this).attr('data', d.sound);
-                    $(this).removeClass('fa-volume-off').addClass('fa-volume-up');
+                    if(d.status == 'OK') {
+                        $(this).attr('data', d.sound);
+                        $(this).removeClass('fa-volume-off').addClass('fa-volume-up');
+                    }
                 }
             });
         }

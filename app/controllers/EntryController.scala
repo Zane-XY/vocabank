@@ -64,11 +64,14 @@ object EntryController extends Controller with Secured {
       import controllers.JsonValidators.soundReads
         req.body.validate[(Long, String)].map {
           case (id, word) => {
-            val sound = SoundScraper.scrape(word)
-            Future {
-              Entry.updateSound(id, sound)
-            }
-            Ok(Json.obj("status" -> "OK", "sound" -> sound))
+            SoundScraper.scrape(word).fold(
+              Ok(Json.obj("status" -> "KO"))
+              ){ sound =>
+                Future {
+                  Entry.updateSound(id, sound)
+                }
+                Ok(Json.obj("status" -> "OK", "sound" -> sound))
+               }
           }
         }.recoverTotal(BadRequestJSON)
    }
