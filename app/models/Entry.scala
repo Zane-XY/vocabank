@@ -37,13 +37,14 @@ object Entry {
         get[String]("context") ~
         get[DateTime]("added") ~
         get[DateTime]("updated") ~
+        get[Option[String]]("tags") ~
         get[Int]("rating") ~
         get[Option[String]]("sound") ~
         get[Option[String]]("pronunciation") ~
         get[Option[String]]("word_class") ~
         get[Long]("user_id") map {
-          case id ~ headword ~ context ~ added ~ updated ~ rating ~ sound ~ pronunciation ~ wordClass ~ userId =>
-            Entry(id , headword , None ,  context , added , updated , None, rating, sound, pronunciation, wordClass, userId)
+          case id ~ headword ~ context ~ added ~ updated ~ tags ~rating ~ sound ~ pronunciation ~ wordClass ~ userId =>
+            Entry(id , headword , None ,  context , added , updated , tags, rating, sound, pronunciation, wordClass, userId)
         }
   }
 

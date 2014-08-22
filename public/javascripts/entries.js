@@ -130,7 +130,31 @@ $(function () {
         });
     });
 
+    $(document).on("click", ".entryTag", function (e) {
+        var entry = $(this).closest("entry-data");
+        var tagContainer = entry.find(".tagContainer");
+
+        if(tagContainer.find("textarea")[0]) {
+            tagContainer.empty();
+            $(this).removeClass("actionIconPressed").addClass("actionIcon");
+        } else {
+            $(this).removeClass("actionIcon").addClass("actionIconPressed");
+            $("<textarea></textarea>").addClass("tag").attr("row", 1).appendTo(tagContainer);
+
+            var textExt = tagContainer.find(".tag").textext({
+                plugins : 'autocomplete tags ajax',
+                tagsItems: "apple , pear".split(/\s*,\s*/),
+                ajax : {
+                    url : '/manual/examples/data.json',
+                    dataType : 'json',
+                    cacheResults : true
+                }
+            });
+        }
+    });
+
     $(document).on("click", ".entrySave", function (e) {
+       console.log($.fn.textext.TextExt.prototype.input());
         var entry = $(this).closest("entry-data");
         var entryData = {
             id: parseInt($(entry).attr("entryId")),

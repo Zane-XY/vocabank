@@ -1,11 +1,24 @@
 @font-face { font-family: 'Kingsoft Phonetic Plain'; src: url('/assets/fonts/kingsoft_phonetic_ue.ttf'); }
 
 .actionIcon {
-cursor: pointer;
+    cursor: pointer;
 }
 
-span.hide{
+.actionIconPressed {
+    color: red;
+    cursor: pointer;
+}
+
+span.hide,textarea.hide{
   display: none;
+}
+
+/*div.row {
+    margin-bottom: 10px;
+}*/
+.panelRow {
+    padding-top:2.5px;
+    padding-bottom:2.5px;
 }
 
 .entry-headword{
@@ -30,8 +43,15 @@ span.hide{
 entry-data [contenteditable="true"] { padding: 10px; outline: 1px dashed #CCC; }
 entry-data [contenteditable="true"]:hover { outline: 1px dashed #0090D2; }
 
+div.text-core{
+margin-top: 15px;
+}
 
-textarea { height: auto; }
+textarea.tag {
+    height: 10px;
+    #min-height: 1.2em;
+    width: 400px;
+}
 
 #entryContextHtml {
     background-color: #FFF;

@@ -38,6 +38,7 @@
                                         @if(session.get("signedIn")){
                                             <li><span class="rating" data-score="@e.rating" data-id="@e.id"></span> </li>
                                             <li><span><i class="fa fa-edit entryEdit fa-dark actionIcon"></i></span></li>
+                                            <li><span><i class="fa fa-tags entryTag fa-dark actionIcon"></i></span></li>
                                             <li><span><i class="fa fa-trash-o entryDel fa-dark actionIcon"></i></span></li>
                                             <li><span class="entrySaveIcon hide"><i class="fa fa-save entrySave fa-dark actionIcon"></i></span></li>
                                         }
@@ -46,12 +47,22 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="small-12 columns"><div class="entry-context editable" contenteditable="false">@Html(e.context)</div></div>
+                            <div class="small-12 columns panelRow"><div class="entry-context editable" contenteditable="false">@Html(e.context)</div></div>
                         </div>
                         <div class="row">
-                            <div class="small-8 columns"></div>
-                            <div class="small-2 columns">@e.source</div>
-                            <div class="small-2 columns">@e.tags</div>
+                            <div class="small-12 columns panelRow tagRow">
+                                <span class="label">Regular Label 1</span>
+                                <span class="label">Regular Label 2</span>
+                                @e.tags.map{s =>
+                                    @s.split("\\s*,\\s*").foreach{t =>
+                                        <span class="label">@t</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-12 columns panelRow tagContainer" data="@e.tags">
+                            </div>
                         </div>
                         </entry-data>
                     </div>
@@ -118,9 +129,18 @@
 
     }{
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/raty/jquery.raty.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/textext/css/textext.core.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/textext/css/textext.plugin.tags.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/textext/css/textext.plugin.clear.css")">
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("libs/textext/css/textext.plugin.autocomplete.css")">
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/entries.css")">
 
 <script src="@routes.Assets.at("libs/raty/jquery.raty.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("libs/textext/js/textext.core.js")" type="text/javascript"></script>
+
+<script src="@routes.Assets.at("libs/textext/js/textext.plugin.ajax.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("libs/textext/js/textext.plugin.tags.js")" type="text/javascript"></script>
+
 <script src="@routes.Assets.at("javascripts/entries.js")" type="text/javascript"></script>
 <script src="@routes.Assets.at("libs/foundation/js/foundation/foundation.reveal.js")" type="text/javascript"></script>
 
