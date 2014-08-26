@@ -80,6 +80,12 @@ object Entry {
     }
   }
 
+  def loadTags():List[String] = {
+    DB.withConnection{ implicit conn =>
+      SQL("SELECT distinct regexp_split_to_table(entries.tags, E',') FROM entries").as(get[String](0) *)
+    }
+  }
+
   def count(userId: Long):Int = {
     DB.withConnection { implicit connection =>
       SQL("SELECT COUNT(*) FROM entries WHERE user_id").on('userId -> userId).as(scalar[Int].single)
