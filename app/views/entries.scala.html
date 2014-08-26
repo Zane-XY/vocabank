@@ -33,7 +33,7 @@
                             </div>
                             <div class="small-6 columns">
                                 <div class="row">
-                                    <ul class="inline-list">
+                                    <ul class="inline-list toolbar">
                                         <li><span><i class="fa @if(e.sound.isEmpty){fa-volume-off}else{fa-volume-up} playSound actionIcon" data=@e.sound.getOrElse("")></i></span></li>
                                         @if(session.get("signedIn")){
                                             <li><span class="rating" data-score="@e.rating" data-id="@e.id"></span> </li>
@@ -41,6 +41,7 @@
                                             <li><span><i class="fa fa-tags entryTag fa-dark actionIcon"></i></span></li>
                                             <li><span><i class="fa fa-trash-o entryDel fa-dark actionIcon"></i></span></li>
                                             <li><span class="entrySaveIcon hide"><i class="fa fa-save entrySave fa-dark actionIcon"></i></span></li>
+                                            <li><span class="entryLoadingIcon hide"><i class="fa fa-circle-o-notch fa-spin fa-dark"></i></span></li>
                                         }
                                     </ul>
                                 </div>
@@ -51,10 +52,8 @@
                         </div>
                         <div class="row">
                             <div class="small-12 columns panelRow tagRow">
-                                <span class="label">Regular Label 1</span>
-                                <span class="label">Regular Label 2</span>
-                                @e.tags.map{s =>
-                                    @s.split("\\s*,\\s*").foreach{t =>
+                                @for(s <- e.tags){
+                                    @for(t <- s.split("\\s*,\\s*")){
                                         <span class="label">@t</span>
                                     }
                                 }

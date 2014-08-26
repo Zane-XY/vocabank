@@ -17,7 +17,7 @@ span.hide,textarea.hide{
     margin-bottom: 10px;
 }*/
 .panelRow {
-    padding-top:2.5px;
+    padding-top:5px;
     padding-bottom:2.5px;
 }
 
@@ -46,11 +46,8 @@ entry-data [contenteditable="true"]:hover { outline: 1px dashed #0090D2; }
 div.text-core{
 margin-top: 15px;
 }
-
-textarea.tag {
-    height: 10px;
-    #min-height: 1.2em;
-    width: 400px;
+input.tag {
+    width:200px;
 }
 
 #entryContextHtml {

@@ -49,7 +49,6 @@ $(function () {
         ef[0].reset();
     }
 
-
     $("#newEntry").click(function () {
         resetEntryForm();
         $("#entryContextHtml").html("");
@@ -118,32 +117,37 @@ $(function () {
         e.preventDefault();
     });
 
-    $(document).on("click", ".entryEdit", function (e) {
+    $(document).on("click", ".entryEdit", function () {
         var entry = $(this).closest("entry-data");
+        var that = $(this);
         entry.find(".editable").attr("contenteditable", function (i, v) {
             if(v == "true") {
                 entry.find(".entrySaveIcon").addClass("hide");
+                $(that).removeClass("actionIconPressed").addClass("actionIcon");
             } else {
                 entry.find(".entrySaveIcon").removeClass("hide");
+                $(that).removeClass("actionIcon").addClass("actionIconPressed");
             }
-            return v == "true" ? false : true;
+            return !(v == "true");
         });
     });
 
     $(document).on("click", ".entryTag", function (e) {
         var entry = $(this).closest("entry-data");
-        var tagContainer = entry.find(".tagContainer");
+        var tagContainer = $(".tagContainer", entry);
 
-        if(tagContainer.find("textarea")[0]) {
+        if(tagContainer.find("input.tag")[0]) {
             tagContainer.empty();
             $(this).removeClass("actionIconPressed").addClass("actionIcon");
+            $(".entrySaveIcon", entry).addClass("hide");
         } else {
             $(this).removeClass("actionIcon").addClass("actionIconPressed");
-            $("<textarea></textarea>").addClass("tag").attr("row", 1).appendTo(tagContainer);
+            $(".entrySaveIcon", entry).removeClass("hide");
+            $("<input type='text'/>").addClass("tag").appendTo(tagContainer);
 
             var textExt = tagContainer.find(".tag").textext({
                 plugins : 'autocomplete tags ajax',
-                tagsItems: "apple , pear".split(/\s*,\s*/),
+                tagsItems: $("span.label", entry).toArray().map(function(d) {return $(d).text();}),
                 ajax : {
                     url : '/manual/examples/data.json',
                     dataType : 'json',
@@ -153,28 +157,64 @@ $(function () {
         }
     });
 
+    /**
+        save context or tags
+    **/
     $(document).on("click", ".entrySave", function (e) {
-       console.log($.fn.textext.TextExt.prototype.input());
         var entry = $(this).closest("entry-data");
-        var entryData = {
-            id: parseInt($(entry).attr("entryId")),
-            headword: entry.find(".entry-headword").text(),
-            context: entry.find(".entry-context").html()
-        };
-        $.ajax({
-                contentType: 'application/json',
-                type: "POST",
-                url: "/entry/save",
-                dataType: 'json',
-                data: JSON.stringify(entryData),
-                success: function () {
-                    entry.find(".editable").prop("contenteditable", "false");
-                    entry.find(".entrySaveIcon").addClass("hide");
-                },
-                error: function (jqXHR) {
-                    $("#infoModalContent").text(JSON.stringify(jqXHR.responseJSON));
-                    $('#infoModal').foundation('reveal', 'open');
-                }
+        $(".entrySaveIcon", entry).addClass("hide");
+        $(".editable", entry).prop("contenteditable", "false");
+        $(".entryLoadingIcon", entry).removeClass("hide");
+
+        $("i.actionIconPressed", entry).each(function(e) {
+            $(this).removeClass("actionIconPressed").addClass("actionIcon");
+            if($(this).hasClass("entryEdit")) {
+                $.ajax({
+                        contentType: 'application/json',
+                        type: "POST",
+                        url: "/entry/save",
+                        dataType: 'json',
+                        data: JSON.stringify({
+                            id: parseInt($(entry).attr("entryId")),
+                            headword: entry.find(".entry-headword").text(),
+                            context: entry.find(".entry-context").html()
+                        }),
+                        success: function () {
+                            entry.find(".entryLoadingIcon").addClass("hide");
+                        },
+                        error: function (jqXHR) {
+                            $("#infoModalContent").text(JSON.stringify(jqXHR.responseJSON));
+                            $('#infoModal').foundation('reveal', 'open');
+                        }
+                });
+            }
+            if($(this).hasClass("entryTag")) {
+                var tags = eval($("div.text-wrap input:hidden", entry).val());
+                $.ajax({
+                        contentType: 'application/json',
+                        type: "POST",
+                        url: "/entry/setTags",
+                        dataType: 'json',
+                        data: JSON.stringify({
+                            id: parseInt($(entry).attr("entryId")),
+                            value: tags.join()
+                        }),
+                        success: function () {
+                            $(".entryLoadingIcon", entry).addClass("hide");
+                            $(".tagContainer", entry).empty();
+                            //update tags at client side
+                            var tagRow = $("div.tagRow", entry).empty();
+                            tags.map(function (d){
+                                    tagRow.append($("<span/>").text(d).addClass("label")).append(" ");
+                                }
+                            );
+                        },
+                        error: function (jqXHR) {
+                            $("#infoModalContent").text(JSON.stringify(jqXHR.responseJSON));
+                            $('#infoModal').foundation('reveal', 'open');
+                        }
+                });
+            }
         });
 
         e.preventDefault();
