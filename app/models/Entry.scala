@@ -108,6 +108,8 @@ object Entry {
 
   def updateRating(id: Long, value: Int, userId:Long):Int = updateColumn(id, "rating", value, userId)
 
+  def updateTags(id: Long, value: String, userId:Long):Int = updateColumn(id, "tags", value, userId)
+
   def updateSound(id: Long, value: String):Int = updateColumnWithoutId(id, "sound", value)
 
   def delete(id:Long, userId:Long) = {

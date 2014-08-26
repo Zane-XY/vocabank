@@ -60,6 +60,16 @@ object EntryController extends Controller with Secured {
    }
   }
 
+  def setTags = CSRFCheck {
+    Action(parse.json) { implicit req =>
+      import controllers.JsonValidators.tagsReads
+      userIdFromSession.fold(NotSignedIn)(userId =>
+        req.body.validate[(Long, String)].map {
+          case (id, value) => Ok(Json.obj( "status" -> "OK", "updated" -> Entry.updateTags(id, value, userId)))
+        }.recoverTotal(BadRequestJSON))
+    }
+  }
+
   def setSound = Action(parse.json) { implicit req =>
       import controllers.JsonValidators.soundReads
         req.body.validate[(Long, String)].map {
@@ -165,6 +175,11 @@ object JsonValidators {
     (__ \ "id").read[Long] and
     (__ \ "value").read[Int](min(1) keepAnd max(5))
   ) tupled
+
+  implicit val tagsReads : Reads[(Long, String)] = (
+    (__ \ "id").read[Long] and
+    (__ \ "value").read[String]
+    ) tupled
 
   implicit val soundReads : Reads[(Long, String)] = (
     (__ \ "id").read[Long] and

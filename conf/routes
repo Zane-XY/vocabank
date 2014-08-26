@@ -10,6 +10,8 @@ POST     /entry/delete                  controllers.EntryController.delete
 
 POST     /entry/setRating               controllers.EntryController.setRating
 
+POST     /entry/setTags                 controllers.EntryController.setTags
+
 POST     /entry/setSound                controllers.EntryController.setSound
 
 POST     /entry/save                    controllers.EntryController.save
