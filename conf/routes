@@ -24,7 +24,7 @@ POST     /entry/remoteSave              controllers.EntryController.remoteSave
 
 GET      /lookup/:dictid/:word          controllers.DictController.lookupDef(dictid:String, word:String)
 
-GET      /entry/lookupTags              controllers.EntryController.lookupTags
+GET      /entry/tags                    controllers.EntryController.lookupTags
 
 GET      /autocomplete                  controllers.DictController.autocomplete
 
