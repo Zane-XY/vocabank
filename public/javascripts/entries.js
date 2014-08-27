@@ -100,19 +100,28 @@ $(function () {
     })
 
     $(document).on("click", ".entryDel", function (e) {
+        var alertModal = $("#alertModal");
+        $("h2", alertModal).text("Delete!");
+        $("#alertModalContent", alertModal).text("Sure?");
+        $(".confirmed", alertModal).text("Delete");
+        alertModal.foundation('reveal', 'open');
+
         var entry = $(this).closest("entry-data");
-        $.ajax({
-                url: "/entry/delete",
-                type: "POST",
-                data: JSON.stringify({
-                        id: parseInt($(entry).attr("entryId"))
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                context: this,
-                success: function () {
-                    $(this).closest("div.entry").remove();
-                }
+        $(".confirmed", alertModal).on("click", function(e) {
+            alertModal.foundation('reveal', 'close');
+            $.ajax({
+                    url: "/entry/delete",
+                    type: "POST",
+                    data: JSON.stringify({
+                            id: parseInt($(entry).attr("entryId"))
+                    }),
+                    contentType: "application/json",
+                    dataType: "json",
+                    context: this,
+                    success: function () {
+                        entry.closest("div.entry").remove();
+                    }
+            });
         });
         e.preventDefault();
     });
@@ -147,11 +156,12 @@ $(function () {
 
             var textExt = tagContainer.find(".tag").textext({
                 plugins : 'autocomplete tags ajax',
-                tagsItems: $("span.label", entry).toArray().map(function(d) {return $(d).text();}),
+                tagsItems : $("span.label", entry).toArray().map(function(d) {
+                    return $(d).text();
+                }),
                 ajax : {
-                    url : '/manual/examples/data.json',
-                    dataType : 'json',
-                    cacheResults : true
+                    url : '/entry/lookupTags',
+                    dataType : 'json'
                 }
             });
         }
