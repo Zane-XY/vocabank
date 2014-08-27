@@ -145,7 +145,7 @@ $(function () {
         var entry = $(this).closest("entry-data");
         var tagContainer = $(".tagContainer", entry);
 
-        if(tagContainer.find("input.tag")[0]) {
+        if($("input.tag", tagContainer)[0]) {
             tagContainer.empty();
             $(this).removeClass("actionIconPressed").addClass("actionIcon");
             $(".entrySaveIcon", entry).addClass("hide");
@@ -153,17 +153,18 @@ $(function () {
             $(this).removeClass("actionIcon").addClass("actionIconPressed");
             $(".entrySaveIcon", entry).removeClass("hide");
             $("<input type='text'/>").addClass("tag").appendTo(tagContainer);
-
-            var textExt = tagContainer.find(".tag").textext({
+            
+            tagContainer.find(".tag").textext({
                 plugins : 'autocomplete tags ajax',
                 tagsItems : $("span.label", entry).toArray().map(function(d) {
                     return $(d).text();
                 }),
                 ajax : {
-                    url : '/entry/lookupTags',
+                    url : '/entry/tags',
                     dataType : 'json'
                 }
             });
+            $("input.tag", tagContainer).focus();
         }
     });
 
