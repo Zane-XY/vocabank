@@ -2,7 +2,8 @@ package controllers
 
 import controllers.Common._
 import models._
-import play.api._
+import play.api.Play.current
+import play.api.cache.Cache
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages
@@ -13,8 +14,9 @@ import play.filters.csrf._
 import security.Secured
 import utils.SoundScraper
 
-import scala.concurrent.Future
+import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.util.Try
 
 object EntryController extends Controller with Secured {
@@ -60,12 +62,25 @@ object EntryController extends Controller with Secured {
    }
   }
 
+  def lookupTags = Action { implicit req =>
+    Cache.getAs[mutable.HashSet[String]]("tags").fold(Ok("empty tags")){ tags =>
+      req.getQueryString("q").fold(Ok(Json.toJson(tags))){ term =>
+        Ok(Json.toJson(tags.filter(_.startsWith(term))))
+      }
+    }
+  }
+
   def setTags = CSRFCheck {
     Action(parse.json) { implicit req =>
       import controllers.JsonValidators.tagsReads
       userIdFromSession.fold(NotSignedIn)(userId =>
         req.body.validate[(Long, String)].map {
-          case (id, value) => Ok(Json.obj( "status" -> "OK", "updated" -> Entry.updateTags(id, value, userId)))
+          case (id, value) => {
+            Cache.getAs[mutable.HashSet[String]]("tags").map { tags =>
+              Cache.set("tags", tags ++ value.split("\\s*,\\s*"))
+            }
+            Ok(Json.obj("status" -> "OK", "updated" -> Entry.updateTags(id, value, userId)))
+          }
         }.recoverTotal(BadRequestJSON))
     }
   }
@@ -146,24 +161,6 @@ object EntryController extends Controller with Secured {
     }.getOrElse(Unauthorized)
   }
 
-
-  def lookupDefAsync(word:String) = Action {
-
-/*    val a = Enumerator(Future {
-      LongmanContemporaryScraper.scrape(word)}
-    )
-
-    val b = Enumerator(Future {
-      OxfordLearnerScraper.scrape(word)}
-    )
-
-    val c = Enumerator(Future {
-      CambridgeLearnerScraper.scrape(word)}
-    )
-
-    Ok.chunked(a >- b >- c &> Comet(callback = "console.log"))*/
-    Ok
-  }
 }
 
 object JsonValidators {

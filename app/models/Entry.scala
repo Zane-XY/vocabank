@@ -10,6 +10,9 @@ import play.api.Play.current
 
 import org.joda.time.{LocalDateTime, DateTime}
 
+import scala.collection
+import scala.collection.parallel.mutable
+
 case class Entry(
   id: Option[Long],
   headword: String,
@@ -80,9 +83,11 @@ object Entry {
     }
   }
 
-  def loadTags():List[String] = {
+  def loadTags:collection.mutable.HashSet[String] = {
     DB.withConnection{ implicit conn =>
-      SQL("SELECT distinct regexp_split_to_table(entries.tags, E',') FROM entries").as(get[String](0) *)
+      collection.mutable.HashSet(
+        SQL("SELECT distinct regexp_split_to_table(entries.tags, E',') FROM entries").as(get[String](1) *): _*
+      )
     }
   }
 
