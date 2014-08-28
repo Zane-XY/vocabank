@@ -119,6 +119,13 @@ object Entry {
 
   def updateRating(id: Long, value: Int, userId:Long):Int = updateColumn(id, "rating", value, userId)
 
+  /**
+   * take tags in ,tag, format
+   * @param id
+   * @param value
+   * @param userId
+   * @return
+   */
   def updateTags(id: Long, value: String, userId:Long):Int = updateColumn(id, "tags", value, userId)
 
   def updateSound(id: Long, value: String):Int = updateColumnWithoutId(id, "sound", value)

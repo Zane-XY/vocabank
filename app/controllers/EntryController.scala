@@ -76,10 +76,11 @@ object EntryController extends Controller with Secured {
       userIdFromSession.fold(NotSignedIn)(userId =>
         req.body.validate[(Long, String)].map {
           case (id, value) => {
+            val tagsArr = value.split("\\s*,\\s*")
             Cache.getAs[mutable.HashSet[String]]("tags").map { tags =>
-              Cache.set("tags", tags ++ value.split("\\s*,\\s*"))
+              Cache.set("tags", tags ++ tagsArr)
             }
-            Ok(Json.obj("status" -> "OK", "updated" -> Entry.updateTags(id, value, userId)))
+            Ok(Json.obj("status" -> "OK", "updated" -> Entry.updateTags(id, tagsArr.mkString(",",",",","), userId)))
           }
         }.recoverTotal(BadRequestJSON))
     }
