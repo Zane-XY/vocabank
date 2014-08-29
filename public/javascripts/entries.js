@@ -165,6 +165,9 @@ $(function () {
                 }
             });
             $("input.tag", tagContainer).focus();
+            $("input.tag", tagContainer).focusout(function() {
+                $(".entrySave", entry).trigger('click');
+            });
         }
     });
 
