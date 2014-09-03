@@ -149,6 +149,16 @@ object Entry {
           .replaceAll("<span>&nbsp;</span>","")
   }
 
+  def cleanDOM(s:String): String = {
+    val doc = Jsoup.parseBodyFragment(s);
+    //val nested = doc.select("span.dsl_ex div")
+    val nested = doc.select("div span div")
+    if(nested.isEmpty) s else {
+      nested.unwrap()
+      doc.body().children().toString
+    }
+  }
+
   def sanitize(e: Entry): Entry = {
     val whiteList = Whitelist.basic()
       .addTags("div", "style")
@@ -157,7 +167,7 @@ object Entry {
       .addAttributes("p", "style")
       .addAttributes("font", "face", "color")
 
-    val ctx = Jsoup.clean(e.context, whiteList)
+    val ctx = Jsoup.clean(cleanDOM(e.context), whiteList)
     e.copy(context = cleanStyle(ctx))
   }
 
