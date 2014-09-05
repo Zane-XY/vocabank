@@ -151,8 +151,7 @@ object Entry {
 
   def cleanDOM(s:String): String = {
     val doc = Jsoup.parseBodyFragment(s);
-    //val nested = doc.select("span.dsl_ex div")
-    val nested = doc.select("div > span > div")
+    val nested = doc.select("span.dsl_ex > div")
     if(nested.isEmpty) s else {
       nested.unwrap()
       doc.body().children().toString
