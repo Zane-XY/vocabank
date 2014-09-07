@@ -1,8 +1,11 @@
 package models
 
+import java.sql.PreparedStatement
+
 import anorm._
 import anorm.jodatime.Extension._
 import anorm.SqlParser._
+import anorm.Column.columnToArray
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 import play.api.db.DB
@@ -20,7 +23,7 @@ case class Entry(
   context: String,
   added: DateTime,
   updated: DateTime,
-  tags: Option[String],
+  tags: Option[Array[String]],
   rating: Int,
   sound: Option[String],
   pronunciation: Option[String],
@@ -29,10 +32,10 @@ case class Entry(
 
 object Entry {
 
-  def assemble(id: Option[Long], headword: String, source: Option[String], context: String, tags: Option[String], rating: Option[Int]):Entry =
-    Entry(id, headword, source, context, new DateTime(), new DateTime(), tags, rating.getOrElse(1), None, None, None,0L)
+  def assemble(id: Option[Long], headword: String, source: Option[String], context: String, rating: Option[Int]):Entry =
+    Entry(id, headword, source, context, new DateTime(), new DateTime(), None , rating.getOrElse(1), None, None, None,0L)
 
-  def disassemble(e: Entry) = Some(e.id, e.headword, e.source, e.context, e.tags, Some(e.rating))
+  def disassemble(e: Entry) = Some(e.id, e.headword, e.source, e.context, Some(e.rating))
 
   private val entryParser:RowParser[Entry] = {
         get[Option[Long]]("id") ~
@@ -40,7 +43,7 @@ object Entry {
         get[String]("context") ~
         get[DateTime]("added") ~
         get[DateTime]("updated") ~
-        get[Option[String]]("tags") ~
+        get[Option[Array[String]]]("tags") ~
         get[Int]("rating") ~
         get[Option[String]]("sound") ~
         get[Option[String]]("pronunciation") ~
@@ -119,6 +122,10 @@ object Entry {
 
   def updateRating(id: Long, value: Int, userId:Long):Int = updateColumn(id, "rating", value, userId)
 
+  implicit object sqlArrayToStatement extends ToStatement[java.sql.Array] {
+    def set(s: PreparedStatement, i: Int, n: java.sql.Array) = s.setArray(i, n)
+  }
+
   /**
    * take tags in ,tag, format
    * @param id
@@ -126,7 +133,13 @@ object Entry {
    * @param userId
    * @return
    */
-  def updateTags(id: Long, value: String, userId:Long):Int = updateColumn(id, "tags", value, userId)
+
+  def updateTags(id: Long, value: Array[String], userId:Long):Int = {
+    DB.withConnection { implicit conn =>
+      SQL("UPDATE entries SET tags = {value} WHERE id = {id} AND user_id = {userId}")
+        .on('value -> conn.createArrayOf("varchar", value.asInstanceOf[Array[AnyRef]]) , 'id -> id, 'userId -> userId).executeUpdate
+    }
+  }
 
   def updateSound(id: Long, value: String):Int = updateColumnWithoutId(id, "sound", value)
 

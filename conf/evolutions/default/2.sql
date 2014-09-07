@@ -8,7 +8,7 @@ CREATE TABLE entries (
   context text,
   added timestamp NOT NULL,
   updated timestamp DEFAULT CURRENT_TIMESTAMP,
-  tags varchar(128),
+  tags varchar(128) ARRAY,
   rating integer DEFAULT 1,
   sound varchar(128),
   pronunciation varchar(128),

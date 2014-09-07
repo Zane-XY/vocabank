@@ -27,7 +27,6 @@ object EntryController extends Controller with Secured {
       "headword" -> nonEmptyText,
       "source" -> optional(text),
       "context" -> text,
-      "tags" -> optional(text),
       "rating" -> optional(number(min = 1, max = 5))
     )(Entry.assemble)(Entry.disassemble))
 
@@ -80,7 +79,7 @@ object EntryController extends Controller with Secured {
             Cache.getAs[mutable.HashSet[String]]("tags").map { tags =>
               Cache.set("tags", tags ++ tagsArr)
             }
-            Ok(Json.obj("status" -> "OK", "updated" -> Entry.updateTags(id, tagsArr.mkString(",",",",","), userId)))
+            Ok(Json.obj("status" -> "OK", "updated" -> Entry.updateTags(id, tagsArr, userId)))
           }
         }.recoverTotal(BadRequestJSON))
     }
@@ -189,7 +188,6 @@ object JsonValidators {
       (__ \ "headword").read[String] and
       (__ \ "source").read[Option[String]] and
       (__ \ "context").read[String] and
-      (__ \ "tags").read[Option[String]] and
       (__ \ "rating").read[Option[Int]]
     )(Entry.assemble _)
 

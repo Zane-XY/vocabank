@@ -53,7 +53,7 @@
                         <div class="row">
                             <div class="small-12 columns panelRow tagRow">
                                 @for(s <- e.tags){
-                                    @for(t <- s.split("\\s*,\\s*")){
+                                    @for(t <- s){
                                         @if(!t.isEmpty){
                                             <span class="label">@t</span>
                                         }
