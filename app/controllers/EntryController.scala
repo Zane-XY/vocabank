@@ -2,6 +2,7 @@ package controllers
 
 import controllers.Common._
 import models._
+import play.api.Logger
 import play.api.Play.current
 import play.api.cache.Cache
 import play.api.data.Form
@@ -31,8 +32,10 @@ object EntryController extends Controller with Secured {
     )(Entry.assemble)(Entry.disassemble))
 
   def entries = Action { implicit req =>
-    val page = req.getQueryString("p").flatMap(p => Try(p.toInt).toOption).getOrElse(1)
-    val (entries, total) = Entry.listPage(userIdFromSession, if (page >= 1) page - 1 else 0)
+    val (entries, total, page) = Entry.listPage(
+      Map("page" -> req.getQueryString("p"),
+          "tags" -> req.getQueryString("t"),
+          "userId" -> userIdFromSession.map(_.toString)))
     Ok(views.html.entries(entries, total, page))
   }
 
@@ -62,6 +65,7 @@ object EntryController extends Controller with Secured {
   }
 
   def lookupTags = Action { implicit req =>
+    Logger.debug(Cache.get("tags").toString)
     Cache.getAs[mutable.HashSet[String]]("tags").fold(Ok("empty tags")){ tags =>
       req.getQueryString("q").fold(Ok(Json.toJson(tags))){ term =>
         Ok(Json.toJson(tags.filter(_.startsWith(term))))
@@ -72,12 +76,13 @@ object EntryController extends Controller with Secured {
   def setTags = CSRFCheck {
     Action(parse.json) { implicit req =>
       import controllers.JsonValidators.tagsReads
+      import scala.concurrent.duration._
       userIdFromSession.fold(NotSignedIn)(userId =>
         req.body.validate[(Long, String)].map {
           case (id, value) => {
             val tagsArr = value.split("\\s*,\\s*")
             Cache.getAs[mutable.HashSet[String]]("tags").map { tags =>
-              Cache.set("tags", tags ++ tagsArr)
+              Cache.set("tags", tags ++ tagsArr, expiration = 365.days)
             }
             Ok(Json.obj("status" -> "OK", "updated" -> Entry.updateTags(id, tagsArr, userId)))
           }
@@ -175,7 +180,7 @@ object JsonValidators {
 
   implicit val tagsReads : Reads[(Long, String)] = (
     (__ \ "id").read[Long] and
-    (__ \ "value").read[String]
+    (__ \ "value").read[String](minLength[String](2))
     ) tupled
 
   implicit val soundReads : Reads[(Long, String)] = (

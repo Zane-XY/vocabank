@@ -14,7 +14,9 @@ import play.api.Play.current
 import org.joda.time.{LocalDateTime, DateTime}
 
 import scala.collection
+import scala.collection.immutable.SortedMap
 import scala.collection.parallel.mutable
+import scala.util.Try
 
 case class Entry(
   id: Option[Long],
@@ -37,6 +39,10 @@ object Entry {
 
   def disassemble(e: Entry) = Some(e.id, e.headword, e.source, e.context, Some(e.rating))
 
+  implicit object sqlArrayToStatement extends ToStatement[java.sql.Array] {
+    def set(s: PreparedStatement, i: Int, n: java.sql.Array) = s.setArray(i, n)
+  }
+
   private val entryParser:RowParser[Entry] = {
         get[Option[Long]]("id") ~
         get[String]("headword") ~
@@ -54,27 +60,26 @@ object Entry {
         }
   }
 
-  /**
-   * returns entries and total page
-   * @param userId
-   * @param offset
-   * @param rows
-   * @return
-   */
-  def listPage(userId: Option[Long], offset: Int = 0, rows: Int = 10):(List[Entry], Int) = {
+  def mkWhere(conds:Traversable[String]) = if(conds.isEmpty) "" else conds.mkString(" WHERE ", " AND ", " ")
+
+  def listPage(params:Map[String, Option[String]], rows: Int = 10):(List[Entry], Int, Int) = {
+
+    val page = params("page").flatMap(p => Try(p.toInt).toOption).getOrElse(1)
+    val tags = params("tags").map(_.split(","))
+    val userId = params("userId").map(_.toLong)
+
     DB.withConnection { implicit connection =>
-      val r = userId.fold(
-        SQL("SELECT * FROM entries ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
-          .on('offset-> offset * rows)
-          .on('rows -> rows)
-          .as(entryParser *)
-      ){ id =>
-       SQL("SELECT * FROM entries WHERE user_id = {userId} ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
-        .on('userId -> id)
-        .on('offset-> offset * rows)
+      val wheres = Map("tags @> ({tags}::varchar[])" -> tags,
+                       "user_id = {userId}" -> userId)
+
+      val r = SQL("SELECT * FROM entries " + mkWhere(wheres.filter(!_._2.isEmpty).keys) +
+                  " ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
         .on('rows -> rows)
+        .on('userId -> userId)
+        .on('offset -> (if (page >= 1) page - 1 else 0) * rows)
+        .on('rows -> rows)
+        .on('tags -> tags.map(arr => connection.createArrayOf("varchar", arr.asInstanceOf[Array[AnyRef]])))
         .as(entryParser *)
-      }
 
       val t = userId.fold(
         SQL("SELECT COUNT(*) FROM entries").as(scalar[Long].single)
@@ -82,14 +87,14 @@ object Entry {
         SQL("SELECT COUNT(*) FROM entries WHERE user_id = {userId}").on('userId -> id).as(scalar[Long].single)
       }
 
-      (r, (t.toFloat / rows).ceil.toInt)
+      (r, (t.toFloat / rows).ceil.toInt, page)
     }
   }
 
   def loadTags:collection.mutable.HashSet[String] = {
     DB.withConnection{ implicit conn =>
       collection.mutable.HashSet(
-        SQL("SELECT distinct regexp_split_to_table(entries.tags, E',') FROM entries").as(get[String](1) *): _*
+        SQL("SELECT distinct unnest(tags) as all_tags FROM entries").as(get[String]("all_tags") *): _*
       )
     }
   }
@@ -122,9 +127,6 @@ object Entry {
 
   def updateRating(id: Long, value: Int, userId:Long):Int = updateColumn(id, "rating", value, userId)
 
-  implicit object sqlArrayToStatement extends ToStatement[java.sql.Array] {
-    def set(s: PreparedStatement, i: Int, n: java.sql.Array) = s.setArray(i, n)
-  }
 
   /**
    * take tags in ,tag, format
