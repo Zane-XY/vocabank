@@ -2,20 +2,17 @@ package models
 
 import java.sql.PreparedStatement
 
+import anorm.Column.columnToArray
+import anorm.SqlParser._
 import anorm._
 import anorm.jodatime.Extension._
-import anorm.SqlParser._
-import anorm.Column.columnToArray
+import org.joda.time.DateTime
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
-import play.api.db.DB
 import play.api.Play.current
+import play.api.db.DB
 
-import org.joda.time.{LocalDateTime, DateTime}
-
-import scala.collection
-import scala.collection.immutable.SortedMap
-import scala.collection.parallel.mutable
+import scala.reflect.runtime.universe._
 import scala.util.Try
 
 case class Entry(
@@ -41,6 +38,12 @@ object Entry {
 
   implicit object sqlArrayToStatement extends ToStatement[java.sql.Array] {
     def set(s: PreparedStatement, i: Int, n: java.sql.Array) = s.setArray(i, n)
+  }
+
+  implicit def scalaArrToSqlArr[T](arr: Array[T])(implicit tag: TypeTag[T], conn: java.sql.Connection):java.sql.Array = {
+    arr match {
+      case _ if typeOf[T] <:< typeOf[String] => conn.createArrayOf("varchar", arr.asInstanceOf[Array[AnyRef]])
+    }
   }
 
   private val entryParser:RowParser[Entry] = {
@@ -72,30 +75,34 @@ object Entry {
       val wheres = Map("tags @> ({tags}::varchar[])" -> tags,
                        "user_id = {userId}" -> userId)
 
-      val r = SQL("SELECT * FROM entries " + mkWhere(wheres.filter(!_._2.isEmpty).keys) +
-                  " ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
+      val whereClause = mkWhere(wheres.filter(!_._2.isEmpty).keys)
+      //val tagParamValue = tags.map(arr => connection.createArrayOf("varchar", arr.asInstanceOf[Array[AnyRef]]))
+      val tagParamValue = tags.map(arr => scalaArrToSqlArr(arr))
+
+      val r = SQL("SELECT * FROM entries " + whereClause + " ORDER BY added DESC LIMIT {rows} OFFSET {offset}")
         .on('rows -> rows)
         .on('userId -> userId)
         .on('offset -> (if (page >= 1) page - 1 else 0) * rows)
         .on('rows -> rows)
-        .on('tags -> tags.map(arr => connection.createArrayOf("varchar", arr.asInstanceOf[Array[AnyRef]])))
+        .on('tags -> tagParamValue)
         .as(entryParser *)
 
-      val t = userId.fold(
-        SQL("SELECT COUNT(*) FROM entries").as(scalar[Long].single)
-      ) { id =>
-        SQL("SELECT COUNT(*) FROM entries WHERE user_id = {userId}").on('userId -> id).as(scalar[Long].single)
-      }
+
+      val t = SQL("SELECT COUNT(*) FROM entries" + whereClause)
+        .on('tags -> tagParamValue)
+        .on('userId -> userId)
+        .as(scalar[Long].single)
+
 
       (r, (t.toFloat / rows).ceil.toInt, page)
     }
   }
 
-  def loadTags:collection.mutable.HashSet[String] = {
+  def loadTags:collection.mutable.Set[String] = {
     DB.withConnection{ implicit conn =>
-      collection.mutable.HashSet(
-        SQL("SELECT distinct unnest(tags) as all_tags FROM entries").as(get[String]("all_tags") *): _*
-      )
+      val r = SQL("SELECT distinct unnest(tags) as all_tags FROM entries").as(get[String]("all_tags") *)
+
+      collection.mutable.HashSet(r:_*)
     }
   }
 
