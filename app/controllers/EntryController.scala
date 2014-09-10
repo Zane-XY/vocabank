@@ -2,9 +2,6 @@ package controllers
 
 import controllers.Common._
 import models._
-import play.api.Logger
-import play.api.Play.current
-import play.api.cache.Cache
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages
@@ -13,12 +10,11 @@ import play.api.mvc._
 import play.filters.csrf.CSRF.Token._
 import play.filters.csrf._
 import security.Secured
+import universal.Global.tagsCache
 import utils.SoundScraper
 
-import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.util.Try
 
 object EntryController extends Controller with Secured {
 
@@ -65,25 +61,19 @@ object EntryController extends Controller with Secured {
   }
 
   def lookupTags = Action { implicit req =>
-    Logger.debug(Cache.get("tags").toString)
-    Cache.getAs[mutable.HashSet[String]]("tags").fold(Ok("empty tags")){ tags =>
-      req.getQueryString("q").fold(Ok(Json.toJson(tags))){ term =>
-        Ok(Json.toJson(tags.filter(_.startsWith(term))))
-      }
+    req.getQueryString("q").fold(Ok(Json.toJson(tagsCache))){ term =>
+      Ok(Json.toJson(tagsCache.filter(_.startsWith(term))))
     }
   }
 
   def setTags = CSRFCheck {
     Action(parse.json) { implicit req =>
       import controllers.JsonValidators.tagsReads
-      import scala.concurrent.duration._
       userIdFromSession.fold(NotSignedIn)(userId =>
         req.body.validate[(Long, String)].map {
           case (id, value) => {
             val tagsArr = value.split("\\s*,\\s*")
-            Cache.getAs[mutable.HashSet[String]]("tags").map { tags =>
-              Cache.set("tags", tags ++ tagsArr, expiration = 365.days)
-            }
+            tagsCache ++= tagsArr
             Ok(Json.obj("status" -> "OK", "updated" -> Entry.updateTags(id, tagsArr, userId)))
           }
         }.recoverTotal(BadRequestJSON))
