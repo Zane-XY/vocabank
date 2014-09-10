@@ -60,6 +60,15 @@ $(function () {
         return true;
     });
 
+    $(".tagLabel").click(function(e) {
+        var url = window.location.href.replace(/[?&]p=(\d)*/g, "");
+        if(url.match(/t=/)) {
+            window.location.replace(url.replace(/(t=[a-zA-Z, ]*)/, "$1," + $(this).text()));
+        } else {
+            window.location.replace(url + (url.match(/\?/) ? "&"  : "?" ) +  "t=" + $(this).text());
+        }
+    });
+
     $(".parseHeadword").click(function () {
         var ctx = $("#entryContextHtml");
         if(ctx.find(":header").length) {

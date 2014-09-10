@@ -9,6 +9,10 @@
     cursor: pointer;
 }
 
+.tagLabel {
+    cursor: pointer;
+}
+
 span.hide,textarea.hide{
   display: none;
 }
