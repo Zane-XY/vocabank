@@ -61,11 +61,16 @@ $(function () {
     });
 
     $(".tagLabel").click(function(e) {
-        var url = window.location.href.replace(/[?&]p=(\d)*/g, "");
-        if(url.match(/t=/)) {
-            window.location.replace(url.replace(/(t=[a-zA-Z, ]*)/, "$1," + $(this).text()));
+        var url = decodeURI(window.location.href.replace(/[?&]p=(\d)*/g, ""));
+        var tagP = url.match(/t=([^=&]+)/);
+        var selectedTag = $(this).text();
+        if(tagP) {
+           var tags = tagP[1].split(/\s*,\s*/);
+           if($.inArray(selectedTag, tags) === -1) {
+             window.location.replace(encodeURI(url.replace(/(t=[a-zA-Z,\s]+)/, "$1," + selectedTag)));
+           }
         } else {
-            window.location.replace(url + (url.match(/\?/) ? "&"  : "?" ) +  "t=" + $(this).text());
+            window.location.replace(encodeURI(url + (url.match(/\?/) ? "&"  : "?" ) +  "t=" + selectedTag));
         }
     });
 
