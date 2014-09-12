@@ -24,7 +24,7 @@
 }
 
 <div class="spacer"/>
-<div class="row">
+<div class="large-8 columns">
 <form action="@routes.UserController.signInSubmit" data-abide method="post">
 
     <div class="row">
@@ -45,11 +45,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="large-4 large-centered columns">
-            @Html(ReCaptchaUtils.render())
-        </div>
-    </div>
 
     <div class="row">
         <div class="large-4 large-centered columns">
