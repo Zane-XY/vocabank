@@ -7,3 +7,4 @@ info.user.register.success=Your account has been created successfully, now pleas
 error.user.exists=the email has already been used.
 error.user.not.signed.in=You are not signed in.
 info.user.auth.success=You've passed authentication!
+info.user.signup.disable=Sorry, sign up has been disabled.
