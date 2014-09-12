@@ -170,6 +170,7 @@ object Entry {
     styleR.replaceAllIn(s, m => keepR.findAllIn(m.group(0)).mkString)
           .replaceAll("<span>&nbsp;</span>","")
           .replaceAll("BrE|AmE|NAmE","")
+          .replaceAll("""<img src="qrcx:.+?>""","")
   }
 
   def cleanDOM(s:String): String = {
@@ -183,9 +184,9 @@ object Entry {
 
   def sanitize(e: Entry): Entry = {
     val whiteList = Whitelist.basic()
-      .addTags("div", "style")
-      .addTags("span", "font")
+      .addTags("div", "span", "font", "img")
       .addAttributes("span", "style")
+      .addAttributes("img", "src")
       .addAttributes("p", "style")
       .addAttributes("font", "face", "color")
 
