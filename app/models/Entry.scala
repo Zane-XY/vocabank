@@ -169,6 +169,7 @@ object Entry {
     val styleR = """(?<=\sstyle=")(.+?)(?=")""".r
     styleR.replaceAllIn(s, m => keepR.findAllIn(m.group(0)).mkString)
           .replaceAll("<span>&nbsp;</span>","")
+          .replaceAll("BrE|AmE|NAmE","")
   }
 
   def cleanDOM(s:String): String = {

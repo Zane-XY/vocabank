@@ -37,19 +37,19 @@ object User {
    * @param email
    * @return
    */
-  def auth(email: String, pStr: String):(Option[User], String) = {
+  def auth(email: String, pStr: String): (Option[User], String) = {
     DB.withConnection { implicit connection =>
-        SQL("SELECT * FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(userRowParser.singleOpt)
-    }.fold((None:Option[User]) -> "error.user.not.found")(
-      u => if (BCrypt.checkpw(pStr, u.password))
-             Some(u) -> "info.user.signedIn"
-           else
-             None -> "error.user.password.incorrect"
-    )
+      SQL("SELECT * FROM USERS WHERE EMAIL = {email} LIMIT 1").on('email -> email).as(userRowParser.singleOpt)
+    }.fold((None: Option[User]) -> "error.user.not.found")(
+        u => if (BCrypt.checkpw(pStr, u.password))
+          Some(u) -> "info.user.signedIn"
+        else
+          None -> "error.user.password.incorrect"
+      )
   }
 
-  def getUserByName(username:String):Option[User] = {
-    DB.withConnection{ implicit conn =>
+  def getUserByName(username: String): Option[User] = {
+    DB.withConnection { implicit conn =>
       SQL(
         """
          SELECT * FROM USERS WHERE USERNAME = {username} LIMIT 1
@@ -57,7 +57,7 @@ object User {
     }
   }
 
-  def save(r: User):(Option[Long], String) = {
+  def save(r: User): (Option[Long], String) = {
     DB.withConnection { implicit connection =>
       val u = SQL(
         """
@@ -71,13 +71,13 @@ object User {
                     PASSWORD,
                     REGISTERDATE
                 ) VALUES ({name}, {email}, {password},{registerDate})
-             """).on(
+              """).on(
             'name -> r.name,
             'email -> r.email,
             'password -> BCrypt.hashpw(r.password, BCrypt.gensalt()),
             'registerDate -> r.registerDate
           ).executeInsert(scalar[Long].singleOpt), "info.user.register.success")
-     } else (None, "error.user.exists")
+      } else (None, "error.user.exists")
     }
 
   }
