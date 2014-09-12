@@ -60,7 +60,7 @@ $(function () {
         return true;
     });
 
-    $(".tagLabel").click(function(e) {
+    $(".tagRow").on("click", ".tagLabel",function(e) {
         var url = decodeURI(window.location.href.replace(/[?&]p=(\d)*/g, ""));
         var tagP = url.match(/t=([^=&]+)/);
         var selectedTag = $(this).text();
@@ -177,11 +177,10 @@ $(function () {
                     url : '/entry/tags',
                     dataType : 'json'
                 }
-            });
-            $("input.tag", tagContainer).focus();
-            $("input.tag", tagContainer).focusout(function() {
+            }).bind("escapeKeyDown", function() {
                 $(".entrySave", entry).trigger('click');
             });
+            $("input.tag", tagContainer).focus();
         }
     });
 
@@ -233,13 +232,15 @@ $(function () {
                             //update tags at client side
                             var tagRow = $("div.tagRow", entry).empty();
                             tags.map(function (d){
-                                    tagRow.append($("<span/>").text(d).addClass("label")).append(" ");
+                                    tagRow.append($("<span/>").text(d).addClass("label tagLabel")).append(" ");
                                 }
                             );
                         },
                         error: function (jqXHR) {
                             $("#infoModalContent").text(JSON.stringify(jqXHR.responseJSON));
                             $('#infoModal').foundation('reveal', 'open');
+                            $(".entryLoadingIcon", entry).addClass("hide");
+                            $(".tagContainer", entry).empty();
                         }
                 });
             }
